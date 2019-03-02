@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="nlp相关,">
+  <meta name="keywords" content="深度学习相关,">
 
 
 
@@ -79,20 +79,21 @@
 
 
 
-<meta name="description" content="解决nlp问题的一般思路这个问题人类可以做好吗？  可以 -&amp;gt; 记录自己的思路 -&amp;gt; 设计流程让机器完成你的思路 很难 -&amp;gt; 尝试从计算机的角度来思考问题nlp的历史进程1.正则表达式/自动机2.规则是固定的搜索引擎xx 用英语怎么说？ -&amp;gt; translate(XX,english);我饿死了 -&amp;gt; recommend(饭店，地址);  可以用概率系统一般的工作方式">
-<meta name="keywords" content="nlp相关">
+<meta name="description" content="RNN与LSTM中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNNRNN的网络结构：比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词">
+<meta name="keywords" content="深度学习相关">
 <meta property="og:type" content="article">
-<meta property="og:title" content="nlp基础描述">
-<meta property="og:url" content="http://yoursite.com/2019/02/27/nlp基础描述/index.html">
+<meta property="og:title" content="RNN基础">
+<meta property="og:url" content="http://yoursite.com/2019/03/02/RNN基础/index.html">
 <meta property="og:site_name" content="KevinSwift">
-<meta property="og:description" content="解决nlp问题的一般思路这个问题人类可以做好吗？  可以 -&amp;gt; 记录自己的思路 -&amp;gt; 设计流程让机器完成你的思路 很难 -&amp;gt; 尝试从计算机的角度来思考问题nlp的历史进程1.正则表达式/自动机2.规则是固定的搜索引擎xx 用英语怎么说？ -&amp;gt; translate(XX,english);我饿死了 -&amp;gt; recommend(饭店，地址);  可以用概率系统一般的工作方式">
+<meta property="og:description" content="RNN与LSTM中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNNRNN的网络结构：比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/nlp/nlp1.png">
-<meta property="og:updated_time" content="2019-02-27T06:44:49.729Z">
+<meta property="og:image" content="http://yoursite.com/nlp/RNN.jpg">
+<meta property="og:image" content="http://yoursite.com/nlp/LSTM.png">
+<meta property="og:updated_time" content="2019-03-02T06:47:46.469Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nlp基础描述">
-<meta name="twitter:description" content="解决nlp问题的一般思路这个问题人类可以做好吗？  可以 -&amp;gt; 记录自己的思路 -&amp;gt; 设计流程让机器完成你的思路 很难 -&amp;gt; 尝试从计算机的角度来思考问题nlp的历史进程1.正则表达式/自动机2.规则是固定的搜索引擎xx 用英语怎么说？ -&amp;gt; translate(XX,english);我饿死了 -&amp;gt; recommend(饭店，地址);  可以用概率系统一般的工作方式">
-<meta name="twitter:image" content="http://yoursite.com/nlp/nlp1.png">
+<meta name="twitter:title" content="RNN基础">
+<meta name="twitter:description" content="RNN与LSTM中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNNRNN的网络结构：比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词">
+<meta name="twitter:image" content="http://yoursite.com/nlp/RNN.jpg">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/27/nlp基础描述/">
+  <link rel="canonical" href="http://yoursite.com/2019/03/02/RNN基础/">
 
 
 
 
 
-  <title>nlp基础描述 | KevinSwift</title>
+  <title>RNN基础 | KevinSwift</title>
   
 
 
@@ -247,7 +248,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/nlp基础描述/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/RNN基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="KevinSwift">
@@ -264,7 +265,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">nlp基础描述</h1>
+          <h1 class="post-title" itemprop="name headline">RNN基础</h1>
         
 
         <div class="post-meta">
@@ -276,8 +277,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T10:43:35+08:00">
-                2019-02-27
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T10:56:12+08:00">
+                2019-03-02
               </time>
             
 
@@ -299,8 +300,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/nlp相关/" itemprop="url" rel="index">
-                    <span itemprop="name">nlp相关</span>
+                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习相关</span>
                   </a>
                 </span>
 
@@ -336,25 +337,16 @@
       
 
       
-        <h3 id="解决nlp问题的一般思路"><a href="#解决nlp问题的一般思路" class="headerlink" title="解决nlp问题的一般思路"></a>解决nlp问题的一般思路</h3><p>这个问题人类可以做好吗？</p>
-<ul>
-<li>可以 -&gt; 记录自己的思路 -&gt; 设计流程让机器完成你的思路</li>
-<li>很难 -&gt; 尝试从计算机的角度来思考问题<h3 id="nlp的历史进程"><a href="#nlp的历史进程" class="headerlink" title="nlp的历史进程"></a>nlp的历史进程</h3>1.正则表达式/自动机<br>2.规则是固定的<br>搜索引擎<br>xx 用英语怎么说？ -&gt; translate(XX,english);<br>我饿死了 -&gt; recommend(饭店，地址);</li>
-</ul>
-<p>可以用概率系统<br>一般的工作方式<br><strong>预处理 -&gt; 特征工程 -&gt; 分类器(机器学习的算法) -&gt; 预测</strong><br><strong>最重要的部分:数据收集，预处理和特征工程</strong><br>任务：<br>“豆瓣酱用英语怎么说” =&gt; translate(豆瓣酱，Eng)</p>
-<p>流程设计（序列标注）：<br>子任务1： 找出目标语言 “豆瓣酱用 <strong>英语</strong> 怎么说”<br>子任务2： 找出翻译目标 “ <strong>豆瓣酱</strong> 用英语怎么说”</p>
-<p>收集训练数据：<br>（子任务1）<br>“豆瓣酱用英语怎么说”<br>“茄子用英语怎么说”<br>“黄瓜怎么翻译成英语”</p>
-<p>预处理：<br>分词：“豆瓣酱 用 英语 怎么说”</p>
-<p>抽取特征：<br>（前后各一个词）<br>0 茄子：    &lt; _ 用<br>0 用：      豆瓣酱 _ 英语<br>1 英语：    用 _ 怎么说<br>0 怎么说：  英语 _ &gt;</p>
-<p>分类器：<br>SVM/CRF/HMM/RNN</p>
-<p>预测：<br>0.1 茄子：    &lt; _ 用<br>0.1 用：      豆瓣酱 _ 英语<br>0.7 英语：    用 _ 怎么说<br>0.1 怎么说：  英语 _ &gt;</p>
-<p>评价：<br>准确率<br>大部分自然语言问题都可以使用seq2seq模型来解决<br><img src="/nlp/nlp1.png" width="50%" height="50%"><br>seq2seq的模型将在后面进行介绍</p>
-<h3 id="评价机制"><a href="#评价机制" class="headerlink" title="评价机制"></a>评价机制</h3><p>在信息论中，perplexity用于度量一个概率分布或概率模型预测样本的好坏程度<br>各种数学公式 在这里不做展开<br>机器翻译的评价指标-BLEU</p>
-<p>语言模型<br>如果能使用某个方法对XX打分(Score),那么就可以把这个方法称之为XX模型。<br>例如篮球明星模型:Score(库里),Score(詹姆斯)<br>话题模型-对一段话是否在谈论某一个话题打分<br>Score(NLP | “什么是语言模型？”) –&gt; 0.8<br>Score(ACM | “什么是语言模型？”) –&gt; 0.05</p>
-<p>可用的概率语言模型<br>统计语言模型实际上是一个概率模型，所以常见的概率模型通常用于求这些参数<br>常见的概率模型有：N-gram模型，决策时，最大熵模型，隐马尔科夫模型，条件随机场，神经网络<br>目前常用于语言模型的是 N-gram 模型和神经语言模型（下面介绍）</p>
-<h3 id="专题-句嵌入"><a href="#专题-句嵌入" class="headerlink" title="专题-句嵌入"></a>专题-句嵌入</h3><p>基于统计的词袋模型(Bow)<br>单个词的One-Hot表示<br>基于频数的词袋模型<br>基于TF-IDF的词袋模型</p>
-<h3 id="词向量"><a href="#词向量" class="headerlink" title="词向量"></a>词向量</h3><p>词向量：是一个固定长度的实值向量<br>词向量是神经语言模型的副产品<br>词向量是针对”词”提出的，事实上，也可以针对更细或者更广的粗度来进行推广——比如字向量、句向量、文档向量等<br>nlp任务中，机器无法直接理解自然语言问题，所以首先要做的就是将语言数学化，词向量就是一种将自然语言数学化的方法。**将词转化成稠密向量，并且对于相似的词，其对应的词向量也相对接近。<br>word2vec提供了2套模型 CBOW和skip-gram模型<br>CBOW:在已知context(w)的情况下，预测w<br>SKIP_GRAM模型：在已知w的情况下预测context(w)</p>
-<h3 id="词的表示"><a href="#词的表示" class="headerlink" title="词的表示"></a>词的表示</h3><p>词的表示通常有2种表示方法 one-hot representation和distribution representation。<br>1.1离散表示(one-hot representation)<br>传统的基于规则或基于统计的自然语义处理方法将单词看作一个原子符号<br>one-hot representation把每个词表示成一个长向量，这个向量的维度是词表的大小，向量中只有一个维度为1，其余的维度为0，这个维度就代表了当前的词。<br>例如：苹果：苹果 [0，0，0，1，0，0，0，0，0，……]<br>one-hot representation相当于给每个词分配一个id，这就导致这种表示方式不能展示词与词之间的关系。另外，one-hot representation将会导致特征空间非常大，但也带来一个好处，就是在高维空间中，很多应用任务线性可分。<br>1.2 分布式表示(distribution representation)<br>词转化成一种分布式表示，又称词向量。分布式表示将词表示成一个定长的连续的稠密向量。<br>分布式表示优点:<br>(1)词之间存在相似关系：<br>是词之间存在“距离”概念，这对很多自然语言处理的任务非常有帮助。<br>(2)包含更多信息：<br>词向量能够包含更多信息，并且每一维都有特定的含义。在采用one-hot特征时，可以对特征向量进行删减，词向量则不能。<br>生成词向量：任何一个词的含义都可以用它的周边词来进行表示。方式有基于统计的方法和基于语言模型的方法。<br>CBOW模型是预测上下文已知的情况下，当前词出现的概率。上下文的选取采用窗口方式，即只将当前词窗口范围内的词作为上下文。中心词概率公式如下：<br>P(wt|wt-k,wt-(k-1)…,wt-1,wt+1,wt+2…,wt+k)= P(wt|context)<br>CBOW采用了一种层次化softmax技术，利用哈夫曼树对词表进行分类，用一连串的二分类来表示多分类。<br>参考链接<br><a href="https://blog.csdn.net/mawenqi0729/article/details/80698350" target="_blank" rel="noopener">词向量使用</a></p>
+        <h3 id="RNN与LSTM"><a href="#RNN与LSTM" class="headerlink" title="RNN与LSTM"></a>RNN与LSTM</h3><p>中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出<strong>不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNN</strong><br>RNN的网络结构：<br><img src="/nlp/RNN.jpg" width="50%" height="50%"><br>比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词性，<br>xt是第t层的输入，它可以是一个词的one-hot向量，也可以是分布表示(distributed repressentation)向量。<br>st是第t层的隐藏状态，负责整个神经网络的记忆功能，st是由上一层的隐藏状态和这一层的输入来共同决定的。<br>st = f(Uxt + Wst-1) f通常是个非线性的激活函数，比如tanh或者relu<br>由于每层的st都会向后一直传递，所以理论上st能够捕获到前面每一层发生的事情。<br>ot是第t层的输出，比如我们预测下一个词是什么的时候，ot就是一个长度为V的向量，V是所有词的总数，ot[i]表示下一个词是wi的概率，我们用softmax函数对这些概率进行归一化，ot = softmax(Vst)<br>每一层的U,W,V是共享的，这样极大的缩小了参数空间。<br>值得注意的是**每一层并不一定都有输入和输出，隐藏单元是RNN的必备武器，比如句子进行情感分析的时候，只需要最后一层给一个输出即可。<br>LSTM结构：<br><img src="/nlp/LSTM.png" width="50%" height="50%"> </p>
+<ol>
+<li>忘记阶段。这个阶段主要是对上一个节点传进来的输入进行选择性忘记。简单来说就是会 “忘记不重要的，记住重要的”。</li>
+</ol>
+<p>具体来说是通过计算得到的 z^f （f表示forget）来作为忘记门控，来控制上一个状态的 c^{t-1} 哪些需要留哪些需要忘。</p>
+<ol start="2">
+<li>选择记忆阶段，这个阶段将这个阶段的输入有选择性地进行’记忆’,主要是会对输入xt进行选择性的记忆，哪些重要的就记录下来，哪些不重要的，就不要记录下来，当前的输入内容由前面计算得到的z表示。而选择的门控信号则是由 z^i （i代表information）来进行控制。</li>
+<li>输出阶段。这个阶段将决定哪些将会被当成当前状态的输出。主要是通过  z^o 来进行控制的。并且还对上一阶段得到的 c^o 进行了放缩（通过一个tanh激活函数进行变化）。</li>
+</ol>
+<p>与普通RNN类似，输出 y^t 往往最终也是通过 h^t 变化得到。<br>主要就是忘记阶段，将前面的哪些部分进行遗忘，记忆阶段，将现阶段的哪些部分进行记录，输出部分，这个阶段决定哪些将会被当成当前状态进行输出。<br><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">知乎上链接为</a><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32085405</a></p>
 
       
     </div>
@@ -372,7 +364,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/nlp相关/" rel="tag"># nlp相关</a>
+            <a href="/tags/深度学习相关/" rel="tag"># 深度学习相关</a>
           
         </div>
       
@@ -385,8 +377,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/23/react-redux学习-1/" rel="next" title="react-redux学习(1)">
-                <i class="fa fa-chevron-left"></i> react-redux学习(1)
+              <a href="/2019/02/28/CNN基础/" rel="next" title="CNN基础">
+                <i class="fa fa-chevron-left"></i> CNN基础
               </a>
             
           </div>
@@ -394,10 +386,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/02/28/深度学习学习-1/" rel="prev" title="深度学习学习(1)">
-                深度学习学习(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -531,7 +519,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决nlp问题的一般思路"><span class="nav-number">1.</span> <span class="nav-text">解决nlp问题的一般思路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nlp的历史进程"><span class="nav-number">2.</span> <span class="nav-text">nlp的历史进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评价机制"><span class="nav-number">3.</span> <span class="nav-text">评价机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#专题-句嵌入"><span class="nav-number">4.</span> <span class="nav-text">专题-句嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词向量"><span class="nav-number">5.</span> <span class="nav-text">词向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词的表示"><span class="nav-number">6.</span> <span class="nav-text">词的表示</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RNN与LSTM"><span class="nav-number">1.</span> <span class="nav-text">RNN与LSTM</span></a></li></ol></div>
             
 
           </div>
