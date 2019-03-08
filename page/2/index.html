@@ -241,6 +241,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/27/docker学习-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/27/docker学习-1/" itemprop="url">docker学习(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-27T10:47:35+08:00">
+                2019-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/docker容器/" itemprop="url" rel="index">
+                    <span itemprop="name">docker容器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="docker介绍"><a href="#docker介绍" class="headerlink" title="docker介绍"></a>docker介绍</h3><p>docker是一个开源的引擎，可以为任何应用创建一个轻量级的，可移植的，自给自足的容器。<br>可以让开发者打包他们的应用以及他们的依赖包到一个轻量级，可移植的容器当中。然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。<br>容器是完全使用沙盒机制的，相互之间不会有任何的接口。类似iphone中的app,更重要的是容器性能开销极低。</p>
+<h3 id="docker应用场景"><a href="#docker应用场景" class="headerlink" title="docker应用场景"></a>docker应用场景</h3><p>1.Web 应用的自动化打包和发布。<br>2.自动化测试和持续集成、发布。<br>3.在服务型环境中部署和调整数据库或其他的后台应用。<br>4.从头编译或者扩展现有的OpenShift或Cloud Foundry平台来搭建自己的PaaS环境。</p>
+<h3 id="docker架构"><a href="#docker架构" class="headerlink" title="docker架构"></a>docker架构</h3><p>docker使用客户端-服务器(C/S)架构模式，使用远程api来管理和创建docker容器。<br>docker容器通过docker镜像来创建。<br>镜像相当于类，容器相当于类、<br>类似于如下图:<br><img src="/docker/docker01.jpg" width="50%" height="50%"><br>docker镜像(images):用于创建docker容器的模板<br>docker容器(containers):容器是独立运行的一个或一组应用<br>docker客户端(clients):通过命令行或者其他工具使用docker的API<br>docker主机(hosts):一个物理或者虚拟的机器用于执行docker守护进程和容器<br>docker仓库(regisity):仓库用来保存镜像。可以理解为代码控制中的代码仓库。</p>
+<h3 id="mac端安装"><a href="#mac端安装" class="headerlink" title="mac端安装"></a>mac端安装</h3><p>可以使用docker客户端或者使用brew install docker进行安装即可。</p>
+<h3 id="创建hello-world"><a href="#创建hello-world" class="headerlink" title="创建hello world"></a>创建hello world</h3><p>docker允许在容器内允许应用程序，使用docker run命令来在容器中运行一个应用程序.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run ubuntu:16.04 /bin/echo &quot;hello world&quot;</span><br></pre></td></tr></table></figure></p>
+<p>参数解析:<br>docker:docker的二进制执行文件<br>run:与前面的docker组合运行一个容器<br>ubuntu16.04:表示指定要运行的容器。首先从本地主机上查找镜像是否存在，如果不存在,docker便会从镜像库中下载<br>/bin/echo “hello world” 在启动的容器里执行命令<br>运行交互式的容器<br>-i -t 让docker运行的容器实现”对话”的能力。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -i -t ubuntu:16.04 /bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>-t:在新容器中指定一个伪终端或者终端<br>-i:允许对容器内的标准输入进行交互<br>启动容器(后台模式)<br>使用以下命令创建一个以进程方式运行的容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d ubuntu:16.04 /bin/sh -c &quot;while true; do echo hello world; sleep 1; done&quot;</span><br></pre></td></tr></table></figure></p>
+<p>输出为efc7e4901d5997dbd419aeb3086a0edf741b51f0a6dcf291ffa535d3e74bd172<br>这个长字符叫做容器的ID，对每个容器来说是唯一的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
+<p>来查看容器的运行状态<br>container ID表示容器ID,names表示自动分配的容器的名称。</p>
+<h3 id="docker容器的使用"><a href="#docker容器的使用" class="headerlink" title="docker容器的使用"></a>docker容器的使用</h3><p>可以直接输入docker命令来查看docker客户端的所有命令。<br>运行一个web应用程序<br>以python为例<br>1.载入镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull training/webapp  # 载入镜像</span><br></pre></td></tr></table></figure></p>
+<p>开始运行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -P training/webapp python app.py</span><br></pre></td></tr></table></figure></p>
+<p>-d表示容器在后台运行 -P表示容器内部使用的网络端口映射到我们使用的主机上面</p>
+<h3 id="查看web应用程序"><a href="#查看web应用程序" class="headerlink" title="查看web应用程序"></a>查看web应用程序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<p>来查看正在运行的容器<br>可以表明flask的5000端口映射到了本机的32768端口<br>访问localhost:32768便可以访问docker容器中的5000端口<br>使用 docker port 可以查看指定 （ID 或者名字）容器的某个确定端口映射到宿主机的端口号。<br>docker port bf08b7f2cd89 也是根据容器的id来进行指定即可。<br>重启web容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start wizardly_chandrasekhar</span><br></pre></td></tr></table></figure></p>
+<p>移除web应用程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm wizardly_chandrasekhar</span><br></pre></td></tr></table></figure></p>
+<p>注意 删除容器的时候，容器必须是停止状态，否则会报错。</p>
+<h3 id="docker指定端口"><a href="#docker指定端口" class="headerlink" title="docker指定端口"></a>docker指定端口</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name = &quot;ckq&quot; -p 127.0.0.1:5001:5000 training/webapp python app.py</span><br></pre></td></tr></table></figure>
+<p>指定本机127.0.0.1:50001端口映射到容器内的5000端口,–name表示指定名字 -d表示后台运行。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/26/es6学习-2/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1380,7 +1539,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1402,7 +1561,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
