@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="KevinSwift">
 <meta property="og:description" content="1.问题：js加载html代码中的哪一部分，会导致页面在加载的时候自身被执行。答案：body标签部分解析：head标签是设计用于一些静态资源的预加载，与解析没有关系，浏览器会先加载head标签内的静态元素(css与js),这时候的js并没有被执行，而是被UI线程阻塞了，然后浏览器就开始构建DOM树，然后开始构建css dom树，(即题目中的加载页面),最后才会执行head中的js部分。浏览器在解析">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-08T01:23:13.009Z">
+<meta property="og:updated_time" content="2019-03-08T12:34:13.289Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网错题笔记">
 <meta name="twitter:description" content="1.问题：js加载html代码中的哪一部分，会导致页面在加载的时候自身被执行。答案：body标签部分解析：head标签是设计用于一些静态资源的预加载，与解析没有关系，浏览器会先加载head标签内的静态元素(css与js),这时候的js并没有被执行，而是被UI线程阻塞了，然后浏览器就开始构建DOM树，然后开始构建css dom树，(即题目中的加载页面),最后才会执行head中的js部分。浏览器在解析">
@@ -377,7 +377,8 @@
 </tbody>
 </table>
 <p>16.问题：下列哪个操作是W3C标准定义的阻止事件向父容器传递：<br>a e.preventDefault(); b e.cancelBubble = true; c c.stopPropagation(); d e.stopImmediatePropagation()<br>答案：c<br>解析：dom中的事件对象：<br>preventDefault(),取消事件默认行为，<br>stopImmediatePropagation,防止对事件流中当前节点中和后续节点中的事件侦听器处理，此方法会立即生效，<strong>并且会影响当前节点中的事件侦听器。</strong> 取消事件冒泡同时阻止当前节点上的事件处理程序被调用。</p>
-<p>stopPropagation 防止对事件流中当前节点的后续节点中的所有事件侦听器进行处理，<strong>此方法不会影响当前节点的任何侦听事件</strong><br>取消事件冒泡，对当前节点无影响。cancelBubble 取消事件冒泡。<br>returnValue() 取消事件默认行为。<br>17.问题：取得id为rapper中的全部项的集合：<br>答案：$(“#wrapper”).contents()<br>解析：$(“#wrapper”).children()//只沿着DOM树向下遍历单一层级),查询直接的子元素，而不管子元素的子元素。$(“#wrapper”).html()//返回的是dom结构，而不是集合。$(“#wrapper”).content()//返回集合。<br>$(“#wrapper”).find(“all”),并没有all这个元素。contents()方法获得匹配元素集合中每个元素的子节点，包括文本和注释，<br>find()方法获得当前元素集合中每个元素的后代，通过选择器，jquery对象或元素来筛选，html返回或设置元素内容，children()方法返回匹配元素集合中每个元素的子元素。添加可选参数可通过选择器进行过滤。</p>
+<p>stopPropagation 防止对事件流中当前节点的后续节点中的所有事件侦听器进行处理，<strong>此方法不会影响当前节点的任何侦听事件</strong><br>取消事件冒泡，对当前节点无影响。cancelBubble 取消事件冒泡。<br>returnValue() 取消事件默认行为。<br>17.问题：取得id为rapper中的全部项的集合：<br>答案：$(“#wrapper”).contents()<br>解析：$(“#wrapper”).children()//只沿着DOM树向下遍历单一层级),查询直接的子元素，而不管子元素的子元素。$(“#wrapper”).html()//返回的是dom结构，而不是集合。$(“#wrapper”).content()//返回集合。<br>$(“#wrapper”).find(“all”),并没有all这个元素。contents()方法获得匹配元素集合中每个元素的子节点，包括文本和注释，<br>find()方法获得当前元素集合中每个元素的后代，通过选择器，jquery对象或元素来筛选，html返回或设置元素内容，children()方法返回匹配元素集合中每个元素的子元素。添加可选参数可通过选择器进行过滤。<br>18.问题：运行以下程序：<br><code>`</code></p>
+<p><script><br>var m = 1,j =k = 0;<br>function add(n){<br>    return n = n + 1;<br>}<br>y = add(m);<br>function add(n){<br>    return n = n + 3;<br>}<br>z = add(m);<br></script><br>y和z的最终结果是:<br>答案：4.4<br>解析：js里面没有函数重载的概念，在其他语言中，可以存在同名函数，只要传入的参数不同，java中可以重载。<br>在js中，定义了2个同名函数后，后面的函数会覆盖前面定义的函数，结合这道题，由于函数的声明会提升，所以函数的声明会提前，由于存在同名函数，所以后面的add会覆盖前面的add函数，所以两次调用add返回的值时相同的。y和z都是4<br>19.问题：浏览器中go(),back(),forward(),都代表什么<br>答案：length 返回浏览器历史记录列表中url的数量，back表示加载history列表中前一个url,forward表示加载history中下一个url,go表示加载History中的某个具体页面。<br>20.问题：css中的overflow属性定义：<br>答案：参数式scroll时，必会出现滚动条，参数式auto时，子元素内容大于父元素时出现滚动条，参数是visible时，溢出的内容出现在父元素之外，参数式hidden时，溢出隐藏。<br>21.问题：当margin-top,padding-top的值时百分比时，分别是如何计算的。<br>答案：相对最近父级块级元素的width,相对最近父级块级元素的width.<br>css百分比的参照问题：参照父元素宽度的元素:padding,margin,width,text-indent<br>参照父元素高度的元素：height 参照父元素属性：font-size,line-height,<br>特殊：相对定位的时候，top(bottom)，left(right)参照的是父元素的内容区域的高度与宽度，而绝对定位的时候参照的是最近的定位元素包括padding的高度和宽度。<br>22.问题.br hr分别代表什么<br>解析：hr定义水平线，br定义换行，还有自闭和标签有br,hr,img,input,link</p>
 
       
     </div>
