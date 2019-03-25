@@ -241,6 +241,298 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/js事件冒泡和委托机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/25/js事件冒泡和委托机制/" itemprop="url">js事件冒泡和委托机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T09:58:10+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js事件冒泡"><a href="#js事件冒泡" class="headerlink" title="js事件冒泡"></a>js事件冒泡</h3><p>js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。<br>有如下html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;ul data-type=&quot;cityPick&quot;&gt;</span><br><span class="line">&lt;li data-id = &quot;0&quot;&gt;全部&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;1&quot;&gt;纽约&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;2&quot;&gt;洛杉矶&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;script src = &quot;event.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>js代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,function () &#123;</span><br><span class="line">  alert(&quot;父元素被点击&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function () &#123;</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>当点击子元素时，父元素的alert事件也会被触发。<br>而在某些时候，我们不希望他冒泡，<br>可以用stopPropagation()方法阻止对父元素的冒泡传递。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function (e) &#123;</span><br><span class="line">    e.stopPropagation();//阻止事件冒泡</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="js事件委托"><a href="#js事件委托" class="headerlink" title="js事件委托"></a>js事件委托</h3><p>事件委托实际上利用了冒泡的原理，从点击的元素开始，递归方式的向父元素传播事件，好处是不用为每一个子元素设置click事件，而只需为父元素上绑定一次即可。<br>如下代码html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = &quot;btnGroup&quot;&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮1&lt;/div&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮2&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>js代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnGroup&quot;).on(&apos;click&apos;,&apos;.btn&apos;,function () &#123;</span><br><span class="line">    alert($(this).html());</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>由于事件委托是通过事件冒泡实现的，所以如果子级的元素阻止了事件冒泡，那么事件委托也将失效！</strong><br>(参考链接)[<a href="https://www.cnblogs.com/alsy/p/4915912.html]" target="_blank" rel="noopener">https://www.cnblogs.com/alsy/p/4915912.html]</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/js数据结构实现/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/21/js数据结构实现/" itemprop="url">js数据结构实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-21T20:52:07+08:00">
+                2019-03-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="js字符串的常用操作"><a href="#js字符串的常用操作" class="headerlink" title="js字符串的常用操作"></a>js字符串的常用操作</h2><p>js字符串反转<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">js.split(&quot;&quot;).reverse().join(&quot;&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>先进行分割成数组，随后再反转，再进行拼接。</p>
+<h2 id="js实现栈"><a href="#js实现栈" class="headerlink" title="js实现栈"></a>js实现栈</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">//使用js来构造栈</span><br><span class="line">function Stack() &#123;</span><br><span class="line">    //items 不用 this的原因，因为new操作符会将构造函数中的this指向生成的对象，</span><br><span class="line">    //挂载在this上的方法或者属性将来会成为对象的方法或者属性，所以可以直接调用，而</span><br><span class="line">    //items是函数内部的一个局部变量，在函数外部是不可访问的。所以需要通过作用域链的方法来访问item</span><br><span class="line">    var items = [];</span><br><span class="line">    //类方法</span><br><span class="line">    this.push = function (element) &#123;</span><br><span class="line">         items.push(element);</span><br><span class="line">    &#125;</span><br><span class="line">    //pop方法</span><br><span class="line">    this.pop = function () &#123;</span><br><span class="line">        return items.pop();</span><br><span class="line">    &#125;</span><br><span class="line">    //数组转化成字符串</span><br><span class="line">    this.toString = function () &#123;</span><br><span class="line">        return items.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    //peek方法 返回最后一项</span><br><span class="line">    this.peek = function () &#123;</span><br><span class="line">        return items[items.length - 1];</span><br><span class="line">    &#125;</span><br><span class="line">    //长度方法</span><br><span class="line">    this.size = function () &#123;</span><br><span class="line">        return items.length;</span><br><span class="line">    &#125;</span><br><span class="line">    //期望item 不为空</span><br><span class="line">    this.isEmpty = function () &#123;</span><br><span class="line">        return items.length == 0 ? true : false;</span><br><span class="line">    &#125;</span><br><span class="line">    //清空数组</span><br><span class="line">    this.clear = function () &#123;</span><br><span class="line">        while (items.length &gt; 0)</span><br><span class="line">        items.pop();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重点：items不用this的原因：<br><strong>items 不用 this的原因，因为new操作符会将构造函数中的this指向生成的对象，挂载在this上的方法或者属性将来会成为对象的方法或者属性，所以可以直接调用，而items是函数内部的一个局部变量，在函数外部是不可访问的。所以需要通过作用域链的方法来访问item</strong><br><a href="http://www.liuyiqi.cn/2017/02/15/stack/" target="_blank" rel="noopener">参考链接</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/css实现水平垂直居中方法/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1565,326 +1857,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/nlp基础描述/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/nlp基础描述/" itemprop="url">nlp基础描述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T10:43:35+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/nlp相关/" itemprop="url" rel="index">
-                    <span itemprop="name">nlp相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="解决nlp问题的一般思路"><a href="#解决nlp问题的一般思路" class="headerlink" title="解决nlp问题的一般思路"></a>解决nlp问题的一般思路</h3><p>这个问题人类可以做好吗？</p>
-<ul>
-<li>可以 -&gt; 记录自己的思路 -&gt; 设计流程让机器完成你的思路</li>
-<li>很难 -&gt; 尝试从计算机的角度来思考问题<h3 id="nlp的历史进程"><a href="#nlp的历史进程" class="headerlink" title="nlp的历史进程"></a>nlp的历史进程</h3>1.正则表达式/自动机<br>2.规则是固定的<br>搜索引擎<br>xx 用英语怎么说？ -&gt; translate(XX,english);<br>我饿死了 -&gt; recommend(饭店，地址);</li>
-</ul>
-<p>可以用概率系统<br>一般的工作方式<br><strong>预处理 -&gt; 特征工程 -&gt; 分类器(机器学习的算法) -&gt; 预测</strong><br><strong>最重要的部分:数据收集，预处理和特征工程</strong><br>任务：<br>“豆瓣酱用英语怎么说” =&gt; translate(豆瓣酱，Eng)</p>
-<p>流程设计（序列标注）：<br>子任务1： 找出目标语言 “豆瓣酱用 <strong>英语</strong> 怎么说”<br>子任务2： 找出翻译目标 “ <strong>豆瓣酱</strong> 用英语怎么说”</p>
-<p>收集训练数据：<br>（子任务1）<br>“豆瓣酱用英语怎么说”<br>“茄子用英语怎么说”<br>“黄瓜怎么翻译成英语”</p>
-<p>预处理：<br>分词：“豆瓣酱 用 英语 怎么说”</p>
-<p>抽取特征：<br>（前后各一个词）<br>0 茄子：    &lt; _ 用<br>0 用：      豆瓣酱 _ 英语<br>1 英语：    用 _ 怎么说<br>0 怎么说：  英语 _ &gt;</p>
-<p>分类器：<br>SVM/CRF/HMM/RNN</p>
-<p>预测：<br>0.1 茄子：    &lt; _ 用<br>0.1 用：      豆瓣酱 _ 英语<br>0.7 英语：    用 _ 怎么说<br>0.1 怎么说：  英语 _ &gt;</p>
-<p>评价：<br>准确率<br>大部分自然语言问题都可以使用seq2seq模型来解决<br><img src="/nlp/nlp1.png" width="50%" height="50%"><br>seq2seq的模型将在后面进行介绍</p>
-<h3 id="评价机制"><a href="#评价机制" class="headerlink" title="评价机制"></a>评价机制</h3><p>在信息论中，perplexity用于度量一个概率分布或概率模型预测样本的好坏程度<br>各种数学公式 在这里不做展开<br>机器翻译的评价指标-BLEU</p>
-<p>语言模型<br>如果能使用某个方法对XX打分(Score),那么就可以把这个方法称之为XX模型。<br>例如篮球明星模型:Score(库里),Score(詹姆斯)<br>话题模型-对一段话是否在谈论某一个话题打分<br>Score(NLP | “什么是语言模型？”) –&gt; 0.8<br>Score(ACM | “什么是语言模型？”) –&gt; 0.05</p>
-<p>可用的概率语言模型<br>统计语言模型实际上是一个概率模型，所以常见的概率模型通常用于求这些参数<br>常见的概率模型有：N-gram模型，决策时，最大熵模型，隐马尔科夫模型，条件随机场，神经网络<br>目前常用于语言模型的是 N-gram 模型和神经语言模型（下面介绍）</p>
-<h3 id="专题-句嵌入"><a href="#专题-句嵌入" class="headerlink" title="专题-句嵌入"></a>专题-句嵌入</h3><p>基于统计的词袋模型(Bow)<br>单个词的One-Hot表示<br>基于频数的词袋模型<br>基于TF-IDF的词袋模型</p>
-<h3 id="词向量"><a href="#词向量" class="headerlink" title="词向量"></a>词向量</h3><p>词向量：是一个固定长度的实值向量<br>词向量是神经语言模型的副产品<br>词向量是针对”词”提出的，事实上，也可以针对更细或者更广的粗度来进行推广——比如字向量、句向量、文档向量等<br>nlp任务中，机器无法直接理解自然语言问题，所以首先要做的就是将语言数学化，词向量就是一种将自然语言数学化的方法。**将词转化成稠密向量，并且对于相似的词，其对应的词向量也相对接近。<br>word2vec提供了2套模型 CBOW和skip-gram模型<br>CBOW:在已知context(w)的情况下，预测w<br>SKIP_GRAM模型：在已知w的情况下预测context(w)</p>
-<h3 id="词的表示"><a href="#词的表示" class="headerlink" title="词的表示"></a>词的表示</h3><p>词的表示通常有2种表示方法 one-hot representation和distribution representation。<br>1.1离散表示(one-hot representation)<br>传统的基于规则或基于统计的自然语义处理方法将单词看作一个原子符号<br>one-hot representation把每个词表示成一个长向量，这个向量的维度是词表的大小，向量中只有一个维度为1，其余的维度为0，这个维度就代表了当前的词。<br>例如：苹果：苹果 [0，0，0，1，0，0，0，0，0，……]<br>one-hot representation相当于给每个词分配一个id，这就导致这种表示方式不能展示词与词之间的关系。另外，one-hot representation将会导致特征空间非常大，但也带来一个好处，就是在高维空间中，很多应用任务线性可分。<br>1.2 分布式表示(distribution representation)<br>词转化成一种分布式表示，又称词向量。分布式表示将词表示成一个定长的连续的稠密向量。<br>分布式表示优点:<br>(1)词之间存在相似关系：<br>是词之间存在“距离”概念，这对很多自然语言处理的任务非常有帮助。<br>(2)包含更多信息：<br>词向量能够包含更多信息，并且每一维都有特定的含义。在采用one-hot特征时，可以对特征向量进行删减，词向量则不能。<br>生成词向量：任何一个词的含义都可以用它的周边词来进行表示。方式有基于统计的方法和基于语言模型的方法。<br>CBOW模型是预测上下文已知的情况下，当前词出现的概率。上下文的选取采用窗口方式，即只将当前词窗口范围内的词作为上下文。中心词概率公式如下：<br>P(wt|wt-k,wt-(k-1)…,wt-1,wt+1,wt+2…,wt+k)= P(wt|context)<br>CBOW采用了一种层次化softmax技术，利用哈夫曼树对词表进行分类，用一连串的二分类来表示多分类。<br>参考链接<br><a href="https://blog.csdn.net/mawenqi0729/article/details/80698350" target="_blank" rel="noopener">词向量使用</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/23/react-redux学习-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/23/react-redux学习-1/" itemprop="url">react-redux学习(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-23T10:39:56+08:00">
-                2019-02-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="redux简介"><a href="#redux简介" class="headerlink" title="redux简介"></a>redux简介</h3><p>react组件间的通信往往只能是子组件和父组件之间的通信，如果一个子组件要与和父组件同级的其他组件的子组件通信。通俗意义上说是子组件与自己的堂兄弟通信，那么就要通过父组件通信等，较麻烦，而redux的出现就是为了解决这个，将数据全部放在redux中，react只负责渲染，这样，组件只需要改变redux中的数据，其余组件便能够得到响应。如下图所示<br><img src="/react/react5.jpeg" width="30%" height="30%"><br>以前facebook也出过一个数据层框架名为flux，实际上redux = reducer + flux 来进行辅助编程和扩展<br><img src="/react/react6.jpeg" width="30%" height="30%"></p>
-<h3 id="redux工作流程"><a href="#redux工作流程" class="headerlink" title="redux工作流程"></a>redux工作流程</h3><p>redux的整体工作流程如下<br><img src="/react/react7.jpeg" width="30%" height="30%"><br>我们可以进行这样的想象，把整个流程看做一个借书的管理过程<br>react component是借书的用户，当他要借书的时候，通过action creatures来说一句话，来创建动作，随后store便是一个图书馆，他接收到action说以后，自己不能执行，便通过reducer,reducer相当于一个图书管理员，通过他进行图书的登记借阅和归还等操作。</p>
-<h3 id="redux的实现"><a href="#redux的实现" class="headerlink" title="redux的实现"></a>redux的实现</h3><p>通过npm install redux –save-dev来加载redux库，随后创建store文件夹，在下面创建index.js函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createStore,applyMiddleware,compose &#125; from &apos;redux&apos;;</span><br><span class="line">//applyMiddleware表示可以使用中间件</span><br><span class="line">import thunk from &apos;redux-thunk&apos;;</span><br><span class="line">//引入reducer</span><br><span class="line">import reducer from &apos;./reducer&apos;;</span><br><span class="line">//创建公共存储仓库 使用redux-dev-tools</span><br><span class="line">const composeEnhancers =</span><br><span class="line">    typeof window === &apos;object&apos; &amp;&amp;</span><br><span class="line">    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?</span><br><span class="line">        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(&#123;</span><br><span class="line">            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...</span><br><span class="line">        &#125;) : compose;</span><br><span class="line">//使用thunk中间件</span><br><span class="line">const enhancer = composeEnhancers(</span><br><span class="line">    applyMiddleware(thunk),</span><br><span class="line">    // other store enhancers if any</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">const store = createStore(reducer,</span><br><span class="line">   enhancer</span><br><span class="line">    );</span><br><span class="line"></span><br><span class="line">export default store;</span><br></pre></td></tr></table></figure></p>
-<p>这里我们使用了redux的调试工具和redux-thunk的中间件，实际上thunk这个中间件工作在action和store之间。<br>随后再component组件文件中导入<br>通过reducer.js文件引入默认的state<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//state指的是我整个图书馆书籍信息，仓库数据</span><br><span class="line">import &#123;CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DELETE_TODO_ITEM,INIT_LIST_DATA&#125; from &apos;./actionTypes&apos;;</span><br><span class="line">const defaultState = &#123;</span><br><span class="line">    inputValue:&apos;&apos;,</span><br><span class="line">    list:[]</span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import store from &apos;./store/index&apos;;</span><br></pre></td></tr></table></figure>
-<p>比如input输入框中，当input内容发生改变，自动更新state，就需要创建action,这里已经进行了封装<br>actionCreators.js函数是用来创建动作的<br>actionTypes.js函数是用来定义每个动作的类型的，如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//actionTypes.js文件</span><br><span class="line">export const CHANGE_INPUT_VALUE = &apos;change_input_value&apos;;</span><br><span class="line">export const ADD_TODO_ITEM = &apos;add_todo_item&apos;;</span><br><span class="line">export const DELETE_TODO_ITEM = &apos;delete_todo_item&apos;;</span><br><span class="line">export const INIT_LIST_DATA = &apos;init_list_data&apos;;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//actionCreators.js文件</span><br><span class="line">import &#123;CHANGE_INPUT_VALUE,ADD_TODO_ITEM,DELETE_TODO_ITEM,INIT_LIST_DATA&#125; from &quot;./actionTypes&quot;;</span><br><span class="line">import axios from &apos;axios&apos;;</span><br><span class="line">export const getInputChangeAction = (value) =&gt; (&#123;</span><br><span class="line">    type:CHANGE_INPUT_VALUE,</span><br><span class="line">    value</span><br><span class="line">&#125;);</span><br><span class="line">export const getAddItemAction = () =&gt; (&#123;</span><br><span class="line">    type:ADD_TODO_ITEM</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line">export const getDeleteTodoItem = (index) =&gt; (&#123;</span><br><span class="line">    type:DELETE_TODO_ITEM,</span><br><span class="line">    index</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const action = getAddItemAction();</span><br><span class="line"> store.dispatch(action);</span><br></pre></td></tr></table></figure>
-<p>随后通过store的dispatch方法来通知store<br>随后在reducer文件中便可以进行修改。通过传递过来的先前的state和最新的action，要注意不能修改state，只能通过拷贝state产生的拷贝对象后，通过修改拷贝对象的值，再返回拷贝对象，便可以反馈给store，store自动进行修改。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">//reducer必须返回函数 负责数据的存储 reducer必须是纯函数 纯函数指的是</span><br><span class="line">//给定固定的输入 就一定会有固定的输出 而且不会有任何的副作用 例如new Date等就根据时间来了 不能改变state</span><br><span class="line">export default (state = defaultState,action) =&gt; &#123;</span><br><span class="line">    //将上一次的state和action都传递过来</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    if(action.type === CHANGE_INPUT_VALUE)&#123;</span><br><span class="line">        //reducer的原则 可以接受state 但是不能改变state</span><br><span class="line">        //将之前的state进行深拷贝 然后将newState改变</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.inputValue = action.value;</span><br><span class="line">        return newState; //替换数据</span><br><span class="line">    &#125;</span><br><span class="line">    if(action.type === ADD_TODO_ITEM)&#123;</span><br><span class="line">        //reducer的原则 可以接受state 但是不能改变state</span><br><span class="line">        //将之前的state进行深拷贝 然后将newState改变 将inputValue拿来</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.list.push(newState.inputValue);</span><br><span class="line">        newState.inputValue = &apos;&apos;;</span><br><span class="line">        return newState; //替换数据</span><br><span class="line">    &#125;</span><br><span class="line">    if(action.type === DELETE_TODO_ITEM)&#123;</span><br><span class="line"></span><br><span class="line">        //reducer的原则 可以接受state 但是不能改变state</span><br><span class="line">        //将之前的state进行深拷贝 然后将newState改变 将inputValue拿来</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.list.splice(action.index,1);</span><br><span class="line">        return newState; //替换数据</span><br><span class="line">    &#125;</span><br><span class="line">    if(action.type === INIT_LIST_DATA)&#123;</span><br><span class="line"></span><br><span class="line">        //reducer的原则 可以接受state 但是不能改变state</span><br><span class="line">        //将之前的state进行深拷贝 然后将newState改变 将inputValue拿来</span><br><span class="line">        const newState = JSON.parse(JSON.stringify(state));</span><br><span class="line">        newState.list = action.data;</span><br><span class="line">        return newState; //替换数据</span><br><span class="line">    &#125;</span><br><span class="line">    return state;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样store便可以自动进行更新和修改。<br>在component中，通过store.getState()方法可以获取store内的值，赋值给每个component的自身state<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.state = store.getState();</span><br></pre></td></tr></table></figure></p>
-<p>通过store.subscribe订阅store,在函数体中实现方法，当store更新后，自动更新state的值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">store.subscribe(this.handleStoreChange);</span><br></pre></td></tr></table></figure></p>
-<p> handlStoreChange的实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(&quot;store change&quot;);</span><br><span class="line">            //进行替换state</span><br><span class="line">            this.setState(store.getState());</span><br></pre></td></tr></table></figure></p>
-<p>通过setState的方法来更新state。<br>整体的流程大致如上。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1932,7 +1909,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1954,7 +1931,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
