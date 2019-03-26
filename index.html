@@ -241,6 +241,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/js事件运行机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/26/js事件运行机制/" itemprop="url">js事件运行机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T18:40:16+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js是单线程的"><a href="#js是单线程的" class="headerlink" title="js是单线程的"></a>js是单线程的</h3><p>js是单线程的，也就是说，同一个时间只能做一件事情。<br>原因：作为浏览器的脚本语言，js的主要用途是与用户进行交互，以及操作dom,所以如果有多线程的话，一个线程在某个节点上操作dom,另外一个节点在删除dom,就不知道以哪个线程为准。<br>单线程意味着<strong>所有任务都需要排队</strong>,前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。例如ajax请求，需要等到网络有响应了才返回数据(IO操作)。<br>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面<br>的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。<br>同步任务进入主线程，而异步任务进入<strong>任务队列</strong>,不进入主线程，只有任务队列通知了主线程，某个异步任务执行完成了，该任务才会进入主线程。<br>执行流程如下：<br>1.所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>,<br>2.主线程之外，还存在一个<strong>任务队列</strong>，只要异步任务有了结果，就在任务队列中放置一个事件。<br>3一旦执行栈中所有同步任务都执行完毕后，系统就会读取”任务队列“，看看里面有些什么事件，那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>4.主线程不断重复上面的第三步。<br>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。</p>
+<h3 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h3><p>任务队列是一个事件的队列，IO设备(用户产生事件，例如鼠标点击等)，只要指定了回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。<br>回调函数的含义：(被主线程挂起来的代码),异步任务必须指定回调函数，当主线程执行异步任务，就会执行对应的回调函数。<br>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
+<p>###event loop<br>主线程运行的时候，产生堆和栈。栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>setTimeOut的含义：指定某个任务在主线程得到的最早空闲时间执行，也就是说，尽可能早的执行，任务队列的尾部添加一个事件，因此等到同步任务和任务队列所有事件处理完，才会得到执行。<br>node的后续再说<br>(参考链接)[<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html]" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/10/event-loop.html]</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/js事件冒泡和委托机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1709,154 +1853,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/深度学习学习-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/深度学习学习-1/" itemprop="url">深度学习学习(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T11:22:51+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>欠拟合指的是模型不能在训练集上获得足够低的训练误差。<br>过拟合值得是训练误差和测试误差(泛化误差)的差距比较大。<br>在评价指标上，就是模型在训练集上表现比较好，但是在测试集或者新数据上则表现比较差。</p>
-<p>减少测试误差(泛化误差，过拟合)的方法统称为正则化，这些方法以增大训练误差为代价。<br>降低模型复杂度：<br>1.神经网络：减少网络层，神经元个数<br>决策树：降低树的深度，剪枝。<br>权重约束：<br>L1,L2正则化。<br>集成学习：<br>神经网络：Dropout<br>决策树：随机森林，GBDT。</p>
-<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p>概述：梯度下降法需要利用损失函数对所有参数的梯度来寻找局部最小值。<br>反向传播算法就是用于计算该梯度的具体方法，其本质是利用链式法则对每个参数求偏导。</p>
-<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><p>使用激活函数的目的是为了向网络中加入非线性因素，加强网络的表示能力，解决线性模型无法解决的问题。<br>整流线性单元 ReLU<br>RELU 通常是激活函数较好的默认选择<br><img src="/deeplearning/deeplearning1.jpg" width="50%" height="50%"><br>sigmoid与tanh激活函数<br><img src="/deeplearning/deeplearning2.jpg" width="50%" height="50%"><br>relu的优势<br>1.避免梯度消失 2.减缓过拟合 3.加速计算</p>
-<h3 id="正则化-Batch-Normalization-批标准化"><a href="#正则化-Batch-Normalization-批标准化" class="headerlink" title="正则化(Batch Normalization 批标准化)"></a>正则化(Batch Normalization 批标准化)</h3><p>BN是一种正则化方法(减少泛化误差)，<br>加速网络的训练，防止过拟合，降低了参数初始化的要求。<br>动机<br>训练的本质是学习数据分布，如果训练数据和测试数据的分布不同会降低模型的泛化能力，因此，在开始训练前要对所有输入数据做归一化处理，其实质是让他们分布在同一个区间上，例如(-1,1)内<br>基本原理：<br>BN 方法会针对每一批数据，在网络的每一层输入之前增加归一化处理，使输入的均值为 0，标准差为 1。目的是将数据限制在统一的分布下。</p>
-<p><strong>BN也可以看做在各层之间加入了一个新的计算层，对数据分布进行额外的约束，从而增强模型的泛化能力。</strong><br>L1/L2范数正则化<br>作用：限制模型的学习能力-通过限制参数的规模，使模型偏好于<strong>权重</strong>比较小的目标函数，防止<strong>过拟合</strong><br>不同点</p>
-<p>L1 正则化可以产生更稀疏的权值矩阵，可以用于特征选择，同时一定程度上防止过拟合；L2 正则化主要用于防止模型过拟合<br>L1 正则化适用于特征之间有关联的情况；L2 正则化适用于特征之间没有关联的情况。<br>L1/L2正则化优点<br>L1 &amp; L2 正则化会使模型偏好于更小的权值。<br>更小的权值意味着更低的模型复杂度；添加 L1 &amp; L2 正则化相当于为模型添加了某种先验，限制了参数的分布，从而降低了模型的复杂度。<br>模型的复杂度降低，意味着模型对于噪声与异常点的抗干扰性的能力增强，从而提高模型的泛化能力。——直观来说，就是对训练数据的拟合刚刚好，不会过分拟合训练数据（比如异常点，噪声）——奥卡姆剃刀原理</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1909,7 +1905,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
