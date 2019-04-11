@@ -241,6 +241,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/CNN基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/02/28/CNN基础/" itemprop="url">CNN基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T14:03:25+08:00">
+                2019-02-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。<br>输入层：<br>CNN的输入一般是二维向量，可以有高度，比如RGB图像。<br>卷积层：<br>卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，<br>每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层是用来对输入层进行卷积，提取更高层次的特征。<br>池化层：<br>又称为采样层，它的作用是减小数据处理量同时保留有用信息，<br>通常池化层是每邻域四个像素中的最大值变为一个像素（这就是下一讲要降的max_pooling），为什么可以这么做呢？这是因为卷积已经提取出特征，相邻区域的特征是类似，近乎不变，这是池化只是选出最能表征特征的像素，缩减了数据量，同时保留了特征，何乐而不为呢？池化层的作用可以描述为模糊图像，丢掉了一些不是那么重要的特征.<br><img src="/deeplearning/deeplearning3.jpg" width="50%" height="50%"><br>RELU层<br>这个RELU我们之前讲过，全名将修正线性单元，是神经元的激活函数，对输入值x的作用是max(0,x)，当然RELU只是一种选择，还有选Leak-Relu等等，一般都是用Relu！<br>全连接层<br>这个层就是一个常规的神经网络，它的作用是对经过多次卷积层和多次池化层所得出来的高级特征进行全连接（全连接就是常规神经网络的性质），算出最后的预测值。<br>2.6 输出层<br>输出层就不用介绍了，就是对结果的预测值，一般会加一个softmax层。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/深度学习学习-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1661,251 +1803,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/21/计算机网络复习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/21/计算机网络复习/" itemprop="url">计算机网络复习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-21T09:42:04+08:00">
-                2019-01-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/计算机基础课/" itemprop="url" rel="index">
-                    <span itemprop="name">计算机基础课</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="计算机网络概述"><a href="#计算机网络概述" class="headerlink" title="计算机网络概述"></a>计算机网络概述</h2><p><strong>计算机网络就是一些互联的，自治的计算机系统的集合。</strong>将一个分散的，具有独立功能的计算机系统，通过通信设备和线路连接起来，由功能完善的软件实现资源共享和传递的系统。<br>计算机网络按照分布范围可分为<br>广域网(WAN),覆盖范围：几十千米到更大范围<br>城域网(MAN),覆盖范围：50~100km,<br>局域网(LAN),覆盖范围：一个实验室或者一幢大楼。<br>个人局域网(PAN) 覆盖范围：10m左右。<br>按网络拓扑结构分为：星形网络，总线型网络，环形网络，网状型网络。网状型没有中线点。<br>计算机网络的性能标准有下面几种：<br>1.时延带宽积 = 传播时延 &times; 信道时延<br>2.时延：是指数据从网络或链路一端到另外一端所需要的时间有以下几种，<br>发送时延(传输时延):主机或者路由器发送数据帧所需要的时间<br>传播时延：电磁波在信道中传播一定距离所需要的时间<br>处理时延：主机或路由器在接收到分组时进行处理所需要的时间<br>排队时延：分组在进入网络传输时，需经过很多路由器，在进入路由器后要先在输入队列中排队等待处理。<br>3.吞吐量：单位时间内通过某个网络的数据量<br>4.信道效率：一个发送周期内，有效地址发送数据所需要的时间占整个发送时间的比率。<br>5.信道吞吐率 = 信道利用率 &times; 发送方的发送速率。</p>
-<h2 id="计算机网络结构"><a href="#计算机网络结构" class="headerlink" title="计算机网络结构"></a>计算机网络结构</h2><p>协议：对等层通信的规则，<strong>控制两个对等实体通信</strong> 包括3个部分<br>语义：对构成协议元素的含义的解释，即讲什么。<br>语法：数据与控制信息的结构或格式，即怎么讲。<br>同步：规定了事件的执行顺序。</p>
-<p>接口：<strong>相邻两层交换信息的连接点。</strong>从物理层开始，每一层向上一层提供服务访问点，既没有接口就不能提供服务。<br>服务：下层为紧邻的上层提供的功能调用。<br>协议是水平的，服务室水平的。<br>第n层的实体不仅要使用n-1层提供的服务，实现自己这层的功能，也需要向n+1层提供服务。<br>分层结构的优点：各层之间相对独立，灵活性好，易于抽象和标准化，</p>
-<h2 id="OSI参考模型和TCP-IP参考模型"><a href="#OSI参考模型和TCP-IP参考模型" class="headerlink" title="OSI参考模型和TCP/IP参考模型"></a>OSI参考模型和TCP/IP参考模型</h2><p>OSI模型由下至上包括<strong>物理层，数据链路层，网络层，传输层，应用层，表示层，会话层。</strong> 各层传输的基本单元：<br>物理层：比特 数据链路层：帧 网络层：分组 传输层：报文<br>物理层位第一层 数据链路层位第二层，由此往上推。<br>TCP/IP模型由下至上包括<strong>网络接口层，网际层，传输层，应用层</strong>，网络接口层对应OSI的物理层和数据链路层，网际层对应网络层，传输层对应传输层，应用层对应会话层，表示层，应用层。<br>两种体系的比较。<br>相同点：都采用分层的体系结构，都是基于独立的协议栈的概念。都可以解决异构网络的互联。<br>不同点：</p>
-<ol>
-<li>OSI精确定义了服务、协议和接口，而TCP/IP则没有 </li>
-<li>OSI不偏向任何协议，通用性好，而TCP/IP只适用于TCP/IP的协议栈 </li>
-<li>TCP/IP考虑到了多种易购网互联问题，并将网际IP作为一个单独的重要层次，而OSI只考虑用一种标准的公用数据将不同的系统互联 </li>
-<li>OSI在网络层支持无连接和面向连接，在传输层仅支持面向连接，而TCP/IP在网际层仅支持无连接，在传输层支持无连接和面向连接<br>OSI定义的非常全面，就是实现难，所以大家都采用TCP/IP.</li>
-</ol>
-<h2 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h2><p>IP协议：是一种无连接的，不可靠的分组传送服务的协议。提供的是一种<strong>尽力而为</strong>的服务。<br>无连接：意味着IP协议并不维护IP分组发送后的任何状态信息，每个分组的传输过程都是相互独立的。<br>不可靠：意味着IP协议不能保证每个IP分组能够正确的，不丢失的和顺序的达到目的主机。</p>
-<h3 id="IPV4协议概述"><a href="#IPV4协议概述" class="headerlink" title="IPV4协议概述"></a>IPV4协议概述</h3><p>数据报首部包含了如下字段：版本，首部长度，总长度，标识，标志，片移位，首部校验和，生存时间(TTL),协议，源地址，目的地址。<br>首部大小是60B，其中21~60B是可选字段和填充。<br>此部分要注意片偏移的计算。<br>1.首部长度单位是4B，总长度单位是1B，片偏移长度是8B<br>2.标识代表该分片属于哪个分组，标志有3位，最低位MF = 1表示后面还有分片，MF = 0表示最后一个分片，中间位DF = 0 时才允许分片。<br>3.片偏移指该分片相对于原分组的相对位置。</p>
-<h3 id="IPV4地址分类"><a href="#IPV4地址分类" class="headerlink" title="IPV4地址分类"></a>IPV4地址分类</h3><p>IPV4分配在一个全世界范围内唯一的32位的标识符，一般将IPV4地址分为A,B,C,D,E,5类。<br>A类：网络号为前面8位，并且第一位规定为0.网络地址为全0是一个保留地址。为本网络的意思，例如0.0.0.1表示在网络上主机号为1的主机。A类可以指派的网络号为2<sup>7</sup> - 2<br>B类：网络号为前面16位，并且前面2位规定为10。<br>C类：网络号为前面24位，并且前面3位规定为110。</p>
-<p>注意地方：<br>1.主机号全0表示网络地址。<br>2.主机号全1表示本网络的广播地址。可当做直接广播地址。将一个分组发送到一个特定网络上的所有主机。<br>保留地址：<br>A类为10.X.X.X 10.0.0.0 ~ 10.255.255.255 私有地址在互联网上不使用，只被用在局域网络中的地址。127.X.X.X是保留地址，用作循环测试用的。<br>B类为172.17.0.0 ~ 172.31.255.255是私有地址。<br>C类为192.168.0.0 ~ 192.168.255.255是私有地址。<br>地址范围：<br>A类：1.0.0.0 ~ 127.0.0.0<br>B类：128.0.0.0 ~ 191.255.255.255<br>C类：192.0.0.0 ~ 223.255.255.255<br>子网划分：<br>划分子网的基本思路：从主机号借用若干个比特位作为子网号，而主机号也就相应减少了几个比特位，网络号不变。<br>IP地址 = &lt;网络号&gt;,&lt;子网号&gt;,&lt;主机号&gt;<br>此时便有子网掩码这一概念。A类的子网掩码位255.0.0.0 将子网掩码和IP地址进行与运算便能求出网络号。<br>CIDR(无类别域间路由)<br>消除了传统的A类，B类，C类地址以及划分子网的概念<br>IP地址 = 网络前缀：主机号 例如128.14.32.0/20 表示前面20位为网络前缀。地址主机号是12位。</p>
-<p>ARP协议：将IP地址转化为物理地址，即MAC地址的协议。<br>DHCP协议：动态主机配置协议，提供了即插即用的原则。允许一台计算机加入新的网络和获取IP地址而不用手动配置。<br>ICMP协议：主机在发送数据报时，经常会由于各种原因而发送错误，如路由拥塞丢弃等，检测出错误的路由器或者主机将一些控制信息告诉发送数据的主机。<br>发送数据的主机可以根据ICMP报文确定发生错误的类型。分为2种，<br>ICMP差错报告报文和ICMP查询报文。<br>差错报告报文有：1.终点不可达 2.源站抑制，3.时间超时，4.参数问题 5.改变路由(重定向)<br>ICMP询问报文的分类：1.有回送请求和回答报文 2.时间戳请求和回答报文。3.掩码地址请求和回答报文 4.路由器询问和通告报文。<br>NAT协议：网络地址转换(NAT)是将私有地址转换为公有地址，从而对外部隐藏了内部管理的IP地址。可大大节省IP地址的消耗。</p>
-<h3 id="IPV6协议"><a href="#IPV6协议" class="headerlink" title="IPV6协议"></a>IPV6协议</h3><p>地址有24个16进制数组成，共128位，常将一个域中连续的0缩写为一个0，当有相继的0值域时，可使用::，来进行进一步的缩写。但这种缩写只能出现一次。例如如下一个典型的IPV6地址：21DA:0000:0000:0000:02AA:000F:FE08:9C5A</p>
-<h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p>因特网有两大类路由选择协议：内部网关协议(IGP)和外部网关协议(EGP)<br>路由信息协议(RIP)是IGP中最先得到应用的，采用距离-向量路由算法，它的主要思想如下：<br>1.每一个路由器维护他自己到其他每一个网络的距离记录<br>2.直接相连的网络跳数为1，每经过一个路由器距离加1<br>3.RIP认为好的路由就是跳数最少的路由，故优先选择跳数少的路由<br>4.每条路径最多有15个路由器，距离等于16时即代表不可达<br>5.每三十秒，相邻两个路由器就会把自身所有信息交换一次，以此更新路由信息。显然，当有两个相邻路由器能达到同一目的网络时，本地路由器会选择跳数较小的那一个。这也就导致了RIP中网络故障消息传得慢（快消息传得慢）。<br>RIP总结如下：<br>(1)只发给邻居 (2)发自己全部的路由表 (3)定时发送。<br><strong>好消息传得快，坏消息传的慢</strong><br>开放最短路径优先协议(OSPF)，采用链路状态路由算法，它的主要思想如下：<br>1.OSPF向本系统中所有路由器发送信息，这里使用洪范法。<br>2.发送的信息就是本路由器相邻的所有路由器的链路状态，但这只是路由器知道的部分信息。“链路状态”是指本路由器都和哪些路由器相邻，以及该链路的代价<br>3.现在每个路由器都知道了其他路由器的相邻路由器，建图<br>4.采用Dijkstra算法。<br>5.只有链路状态发生变化时，路由器才使用洪范法向所有路由器发送信息，因此不会出现坏消息传得慢的问题。而在RIP中，不管网络拓扑是否变化，路由器之间都会定期交换信息<br>OSPF总结如下：<br>(1)发送给全网络的路由器 (2)发自己和邻居的信息 (3)只有链路状态更新了才发送<br>边界网关协议(BGP)是不同自制系统之间交换路由信息的协议，属于外部网关协议，主要思想如下：<br>1.每一个自治系统都要选择至少一个路由器作为该自制系统的BGP发言人。<br>2.两个BGP发言人之间要交换路由信息就必须建立TCP连接，在此基础之上，建立BGP会话。<br>3.所有BGP发言人都互相交换网络可达性的信息后，各BGP发言人就找到到达各个自制系统较好的路由。</p>
-<h3 id="3种路由协议的比较"><a href="#3种路由协议的比较" class="headerlink" title="3种路由协议的比较"></a>3种路由协议的比较</h3><table>
-<thead>
-<tr>
-<th>协议</th>
-<th>RIP</th>
-<th>OSPF</th>
-<th>BGP</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>类型</td>
-<td>内部</td>
-<td>内部</td>
-<td>外部</td>
-</tr>
-<tr>
-<td>路由算法</td>
-<td>距离-向量</td>
-<td>链路状态</td>
-<td>路径-向量</td>
-</tr>
-<tr>
-<td>传递协议</td>
-<td>UDP</td>
-<td>IP</td>
-<td>TCP</td>
-</tr>
-<tr>
-<td>路径选择</td>
-<td>条数最少</td>
-<td>代价最低</td>
-<td>较好，非最佳</td>
-</tr>
-<tr>
-<td>交换节点</td>
-<td>与本节点相邻的路由器</td>
-<td>网络中所有的路由器</td>
-<td>与本节点相邻的路由器</td>
-</tr>
-<tr>
-<td>交换内容</td>
-<td>本路由器知道的所有信息</td>
-<td>与本路由器相邻的所有路由器链路状态</td>
-<td>首次是整个路由表，之后是变化的部分</td>
-</tr>
-</tbody>
-</table>
-<h2 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h2><h3 id="传输层功能"><a href="#传输层功能" class="headerlink" title="传输层功能"></a>传输层功能</h3><p>为两台主机提供了应用进程之间的通信，又称为端到端通信，由于网络层协议是不可靠的，会使分组丢失，失序和重复等，所以派出传输层为数据传输提供可靠的服务。<br>主要功能如下：<br>1.提供应用进程间的逻辑通信，(网络层提供主机之间的逻辑通信)<br>2.差错检测。<br>3.提供无连接或面向连接的服务。<br>4.复用和分用。<br>主要有两种协议 TCP协议和UDP协议。<br>端口是传输层服务访问点，端口是用来表示应用层的进程。<br>端口号中0~1023称为熟知端口号，1024~49151称为登记端口号，49152~65535称为临时端口号，通信结束后，这些端口号将不复存在。<br>常用的端口号有：</p>
-<table>
-<thead>
-<tr>
-<th>应用程序</th>
-<th>FTP数据连接</th>
-<th>FTP控制连接</th>
-<th>TELNET</th>
-<th>SMTP</th>
-<th>DNS</th>
-<th>HTTP</th>
-<th>TFTP</th>
-<th>SNMP</th>
-<th>POP3</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>熟知端口号</td>
-<td>20</td>
-<td>21</td>
-<td>23</td>
-<td>25</td>
-<td>53</td>
-<td>80</td>
-<td>69</td>
-<td>161</td>
-<td>110</td>
-</tr>
-</tbody>
-</table>
-<p>套接字 = (主机IP地址，端口号),用于表示和区分一台主机中的不同应用进程。</p>
-<h3 id="UDP协议"><a href="#UDP协议" class="headerlink" title="UDP协议"></a>UDP协议</h3><p>只在IP的数据报服务上增加端口的功能(为了找到进程)和差错检测的功能。UDP是面向报文的。<br>UDP首部只有8个字节，包括四个字段：源端口、目的端口、长度、校验和。源端口用于对方回复用，不需要时可以为0。当源主机不需要计算校验和时，令校验和字段为0。<br>接收方UDP发现收到的目的端口号不正确时，丢弃该报文并由ICMP发送“端口不可达”差错报文给发送方。<br>UDP校验时要在数据报之前加上12B的伪首部，这个伪首部不向下传送也不向上提交，仅用于计算校验和。UDP校验时把首部和数据部分一起校验<br>主要特点：<br>1.传送数据前无需建立连接，数据到达后也无需确认。<br>2.不可靠交付。<br>3.报文头部短，传输开销小，时延较短。</p>
-<h3 id="TCP协议"><a href="#TCP协议" class="headerlink" title="TCP协议"></a>TCP协议</h3><p>TCP是面向字节流的。尽管TCP的交互式一次一个的数据块，但TCP将其仅仅看做一连串无结构的字节流。<br>TCP报文段首部由20B的固定长度，包括如下字段：源端口号和目的端口号、序号字段、确认号字段、数据偏移、保留字段、确认位ACK、同步位SYN、终止位FIN、窗口字段、校验和。其他还有一些选项、填充字段（目的是使长度为4B的整数倍）。值得注意的地方如下：<br>1.序号字段表示本报文段发送的数据的第一个字节的序号<br>2.确认号代表希望下次收到的报文段数据的第一个字节的序号<br>3.数据偏移指TCP报文段的数据起始处距离TCP报文段的起始处有多远（就是头部的长度）<br>建立连接需要进行三次握手 如下：<br><img src="/network/TCP01.jpg" width="50%" height="50%"><br>释放连接需要进行四次握手 如下：<br><img src="/network/TCP02.jpg" width="50%" height="50%"><br>需掌握TCP状态机的各种转换<br>TCP的流量控制<br>通过滑动窗口机制来实现发送方和接收方的收发平衡，避免发送方发的太快，接收方来不及接收。<br>TCP拥塞控制：<br>在某段时间内，若对网络中某种资源的需求超过了该资源所能提供的可用部分，网络的性能将会变坏-产生拥塞。出现资源拥塞的条件是对资源需求的总和 &gt; 可用资源。<br>有以下几种算法。<br>慢开始算法：初始拥塞窗口(cwad)=1，每次收到一个新的报文段确认后，将cwad加1。注意每次收到一个确认后，cwad只会增加1，但是宏观来说，经过一个RTT后，cwad就会变为2倍，也就是2，4，8的增长。<br>拥塞避免算法：当cwnd达到慢开始门限ssthresh后就开始使用拥塞避免算法。此时每经过一个RTT就让cwad加1。注意当cwad * 2&gt;ssthresh时，下一个cwad应等于ssthresh<br>网络拥塞处理：每出现一次超时，就让ssthresh等于当前的cwad的一半，然后把cwad置为1，然后执行慢开始算法<br>快重传：首先要求接收方每收到一个失序的报文段后就立即发出重复确认，这样做可以让发送方及早知道有报文段没有到达接收方，发送方只要连续收到3个重复确认就应当立即重传对方尚未收到的报文段。<br>快恢复：发送发连续收到三个重复的冗余ACK报文时，就让ssthresh等于当前的cwad的一半，然后把cwad设置为ssthresh改变后的值，然后执行拥塞避免算法 。<br>**发送窗口实际大小 = min(接收窗口(rwad),拥塞窗口(cwad))<br>运行过程如下所示：<br><img src="/network/TCP03.jpg" width="50%" height="50%"></p>
-<h3 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h3><p>为何建立连接需要3次握手：为了防止失效的连接请求报文段突然又传送到主机B ，因而产生错误。<br>失效的连接请求报文指的是：主机A发送的连接请求没有收到主机B的确认，于是经过一段时间后，主机A又重新想主机B发送连接请求，且建立成功，顺序完成数据传输。考虑一种特殊的情况，主机A第一次发送的连接请求没有丢失，而是因为网络节点导致延迟到达主机B，主机B以为是主机A又发起的新连接，于是主机B同意连接，并向主机A发回确认，但是此时主机A根本不会理会，主机B就一直在等待主机A发送数据，导致主机B的资源浪费。</p>
-<h2 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h2><h3 id="域名系统-DNS"><a href="#域名系统-DNS" class="headerlink" title="域名系统(DNS)"></a>域名系统(DNS)</h3><p>DNS系统将域名转化为IP地址或把IP地址转换为域名，采用客户/服务器模型，运行于UDP之上，使用53号端口<br>域名服务器包括根域名服务器、顶级域名服务器、授权域名服务器和本地域名服务器<br>域名解析过程包括递归式和非递归式。但不管怎么样，查询顺序总是：本地域名服务器-&gt;根域名服务器-&gt;顶级域名服务器-&gt;权限域名服务器，且总由本地域名服务器将结果返还给主机<br>迭代查询：根域名服务器收到请求后，要么给出所要查询的IP地址，要么告诉本地域名服务器<strong>下一步应当向哪一个域名服务器进行查询，</strong>然后让本地域名服务器进行后续的查询。 如下：<br><img src="/network/TCP05.jpg" width="50%" height="50%/"><br>递归查询：指本地域名服务器只向根域名服务器查询一次，后面的几次查询都是在其他几个域名服务器之间进行的。<br><img src="/network/TCP04.jpg" width="50%" height="50%/"><br>域名分为顶级域名 国家顶级域名.uk 通用顶级域名.com .net 基础域名服务器<br>四级域名.三级域名.二级域名.顶级域名</p>
-<h3 id="文件传输协议-FTP"><a href="#文件传输协议-FTP" class="headerlink" title="文件传输协议(FTP)"></a>文件传输协议(FTP)</h3><p>FTP用于文件传送，采用客户/服务器模型，通过两个并行的TCP连接<br>控制连接：端口21，用于传送FTP控制命令，如连接请求、传送请求、终止请求。他在整个会话期间保持打开状态，在传输文件时也可以使用控制连接。FTP的控制信息也可以称是“带外传送”<br>数据连接：端口20，用于数据传输</p>
-<h3 id="电子邮件-E-mail"><a href="#电子邮件-E-mail" class="headerlink" title="电子邮件(E-mail)"></a>电子邮件(E-mail)</h3><p>SMTP采用C/S模型，建立在TCP连接上，负责把邮件从用户代理推到服务器，或把邮件从一个服务器推到另一个服务器<br>POP3采用C/S模型，建立在TCP连接上，负责把邮件从邮件服务器拉到用户代理 接收方使用POP3将邮件从邮件服务器中取出。<br>由于SMTP只能传送一定长度的ASCII码，故需要使用MIME将非ASCII码和ASCII码之间进行翻译 </p>
-<h3 id="万维网-www"><a href="#万维网-www" class="headerlink" title="万维网(www)"></a>万维网(www)</h3><p>WWW是一个资料空间，在这个空间中所有资源都通过唯一的“统一资源定位符(URL)”进行标识<br>超文本传输协议(HTTP)定义了浏览器怎样向万维网请求万维网文档，以及服务器怎样把文档传送给浏览器。<br>HTTP是无状态的，同一个客户第二次访问同一个服务器上的页面时，服务器并不会记得这个客户。因此可以使用Cookie加数据库的方式来跟踪用户活动<br>HTTP本身是无连接的，虽然他使用TCP连接保证可靠性，但通信双方在交换HTTP报文之前不用建立HTTP连接<br>HTTP可使用非持久连接和持久连接。使用非持久连接时，每个网页元素的传输都要单独建立一个TCP连接。使用持久连接时，万维网服务器在发送响应后仍然保持这条连接，使同一个客户和服务器可以继续在这条连接上传送后续的HTTP请求和响应报文<br>持久连接又分为非流水线和流水线两种方式。对于非流水线，客户在收到前一个响应后才能发出下一个请求。而在流水线方式下，客户每遇到一个对象引用就立即发出一个请求，那么假如请求和相应都是连续发出的，那么所有引用到的对象共计1个RTT延时<br>HTTP报文是面向文本的，分为请求报文和响应报文<br><a href="https://canjuly.github.io/2018/12/10/CN/" target="_blank" rel="noopener">点击查看参考博客</a><br><a href="https://www.bilibili.com/video/av33595294/?p=1" target="_blank" rel="noopener">点击查看b站课程</a><br><a href="https://blog.csdn.net/xy010902100449/article/details/48274635" target="_blank" rel="noopener">tcp状态机</a><br><a href="https://www.cnblogs.com/buxiangxin/p/8336022.html" target="_blank" rel="noopener">tcp协议解析</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1960,7 +1857,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
