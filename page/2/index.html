@@ -241,6 +241,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/RNN基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/02/RNN基础/" itemprop="url">RNN基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T10:56:12+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="RNN与LSTM"><a href="#RNN与LSTM" class="headerlink" title="RNN与LSTM"></a>RNN与LSTM</h3><p>中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出<strong>不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNN</strong><br>RNN的网络结构：<br><img src="/nlp/RNN.jpg" width="50%" height="50%"><br>比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词性，<br>xt是第t层的输入，它可以是一个词的one-hot向量，也可以是分布表示(distributed repressentation)向量。<br>st是第t层的隐藏状态，负责整个神经网络的记忆功能，st是由上一层的隐藏状态和这一层的输入来共同决定的。<br>st = f(Uxt + Wst-1) f通常是个非线性的激活函数，比如tanh或者relu<br>由于每层的st都会向后一直传递，所以理论上st能够捕获到前面每一层发生的事情。<br>ot是第t层的输出，比如我们预测下一个词是什么的时候，ot就是一个长度为V的向量，V是所有词的总数，ot[i]表示下一个词是wi的概率，我们用softmax函数对这些概率进行归一化，ot = softmax(Vst)<br>每一层的U,W,V是共享的，这样极大的缩小了参数空间。<br>值得注意的是**每一层并不一定都有输入和输出，隐藏单元是RNN的必备武器，比如句子进行情感分析的时候，只需要最后一层给一个输出即可。<br>LSTM结构：<br><img src="/nlp/LSTM.png" width="50%" height="50%"> </p>
+<ol>
+<li>忘记阶段。这个阶段主要是对上一个节点传进来的输入进行选择性忘记。简单来说就是会 “忘记不重要的，记住重要的”。</li>
+</ol>
+<p>具体来说是通过计算得到的 z^f （f表示forget）来作为忘记门控，来控制上一个状态的 c^{t-1} 哪些需要留哪些需要忘。</p>
+<ol start="2">
+<li>选择记忆阶段，这个阶段将这个阶段的输入有选择性地进行’记忆’,主要是会对输入xt进行选择性的记忆，哪些重要的就记录下来，哪些不重要的，就不要记录下来，当前的输入内容由前面计算得到的z表示。而选择的门控信号则是由 z^i （i代表information）来进行控制。</li>
+<li>输出阶段。这个阶段将决定哪些将会被当成当前状态的输出。主要是通过  z^o 来进行控制的。并且还对上一阶段得到的 c^o 进行了放缩（通过一个tanh激活函数进行变化）。</li>
+</ol>
+<p>与普通RNN类似，输出 y^t 往往最终也是通过 h^t 变化得到。<br>主要就是忘记阶段，将前面的哪些部分进行遗忘，记忆阶段，将现阶段的哪些部分进行记录，输出部分，这个阶段决定哪些将会被当成当前状态进行输出。<br><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">知乎上链接为</a><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32085405</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/CNN基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1654,155 +1805,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/22/react语法-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/22/react语法-2/" itemprop="url">react语法(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-22T09:42:03+08:00">
-                2019-01-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="获取真实的DOM节点"><a href="#获取真实的DOM节点" class="headerlink" title="获取真实的DOM节点"></a>获取真实的DOM节点</h3><p>组件并不是真实的DOM,而是存在于内存之中的一种数据结构，是一种虚拟的DOM，只有当插入DOM的时候，才会变成真正的DOM,根据react设计的规则，所有DOM的变动，都先体现在虚拟DOM上，然后再将实际变化的部分，反映到真实的DOM上。可以极大的提高网页的性能。<br>有时，为了获取真实的DOM节点，这时就要用到ref属性。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">class MyComponet extends React.Component&#123;</span><br><span class="line">    //构造方法</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.myText = React.createRef();</span><br><span class="line">        this.handleClick = this.handleClick.bind(this)</span><br><span class="line">    &#125;</span><br><span class="line">    handleClick()&#123;</span><br><span class="line">       this.refs.myText.focus();</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return(</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot; ref=&quot;myText&quot;/&gt;</span><br><span class="line">                &lt;input type=&quot;button&quot; value=&quot;关注&quot; onClick=&#123;this.handleClick&#125;/&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;MyComponet/&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>在以上的代码中，组件myComponet的子组件中有一个文本输入框，用户获取用户的输入，这时就必须获取真实的DOM节点，虚拟的DOM节点是拿不到用户的输入的。所以，文本输入框有一个ref属性，this.refs.[refName]便可以返回这个真实的DOM。<br>属性获取真实的DOM值，必须等到虚拟DOM插入后，才能使用这个属性，否则就会报错。通过为组件指定click事件的回调函数，确保了只有等到真实的DOM发生click事件之后，才会读取this.refs.[refName]属性。</p>
-<h3 id="this-state"><a href="#this-state" class="headerlink" title="this.state"></a>this.state</h3><p>组件要与用户发生互动，react的一大创新，就是将组件看成是一个状态机，一开始的话有一个初始状态，随后与用户进行互动，导致状态变化，从而触发重新渲染UI.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class LikeButton extends React.Component&#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            like: false</span><br><span class="line">        &#125;;</span><br><span class="line">        this.handleClick = this.handleClick.bind(this);</span><br><span class="line">    &#125;;</span><br><span class="line">    handleClick(event)&#123;</span><br><span class="line">        this.setState(&#123;like:!this.state.like&#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    render()&#123;</span><br><span class="line">        var text = this.state.like ? &quot;ckq&quot; : &quot;cpp&quot;;</span><br><span class="line">        return (</span><br><span class="line">            &lt;p onClick=&#123;this.handleClick&#125;&gt;</span><br><span class="line">                &#123;text&#125;</span><br><span class="line"></span><br><span class="line">            &lt;/p&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;LikeButton/&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>上面的组件LikeButton中，在构造方法中定义了初始的属性like并设置为false,随后为文本p绑定点击事件handleClick，在handleClick中修改state的值，随后text的值会随着like的变化而变化。最后再重新渲染到页面上。<br>this.props和this.state都用于描述组件的特性，可能会产生混淆。一个简单的区分方法是，this.props表示一旦定义，就无法修改的值，而this.state会随着用户的互动而发生变化的属性。</p>
-<h3 id="获取表单的值"><a href="#获取表单的值" class="headerlink" title="获取表单的值"></a>获取表单的值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class Input extends React.Component&#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            value:&quot;hello&quot;</span><br><span class="line">        &#125;;</span><br><span class="line">        this.handleChange = this.handleChange.bind(this);</span><br><span class="line">    &#125;;</span><br><span class="line">    handleChange(event)&#123;</span><br><span class="line">        this.setState(&#123;value:event.target.value&#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">    render()&#123;</span><br><span class="line">        var value = this.state.value;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot;  onChange=&#123;this.handleChange&#125;/&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot; value=&#123;value&#125;/&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Input/&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>在Input组件中，有两个子组件input,为第一个子组件绑定时间handleChange，可以获取它的值，随后将value设置为当前的值，并且可以在第二个input中动态发生绑定和变化。也就是说第二个input的值会随着第一个input的值的变化而变化。</p>
-<h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3><p>组件的生命周期可以分为3个状态<br>Mounting:已插入真实DOM。<br>Updating:正在被重新渲染。<br>Unmounting:已移出真实DOM。<br>react为每个状态提供了2中处理函数.will在进入状态之前调用，did在进入状态之后调用。<br>共计5种处理函数。<br><img src="/react/react3.jpg" width="50%" height="50%"><br>此外,react还提供了2种特殊状态的处理函数。<br><img src="/react/react4.jpg" witdht="50%" height="50%"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">class Hello extends React.Component&#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;</span><br><span class="line">            opacity:1.0</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    componentWillMount()&#123;</span><br><span class="line">    console.log(111);</span><br><span class="line">        &#125;</span><br><span class="line">    componentDidMount() &#123;</span><br><span class="line">       console.log(222);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;hello&lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ReactDOM.render(</span><br><span class="line">    &lt;Hello/&gt;,</span><br><span class="line">    document.getElementById(&apos;example&apos;)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>在组件渲染出来的过程中，先打印出111，随后再打印出222.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1857,7 +1859,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
