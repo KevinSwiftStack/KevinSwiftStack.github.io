@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="KevinSwift">
 <meta property="og:description" content="es6箭头函数1.如果只有一个参数,()可以省略2.如果只有一个return {}可以省略1let show = a =&amp;gt; a * 2; 剩余参数 args是剩余参数参数扩展：收集剩余参数 …args 这个必须是最后一个。不仅用于收集参数，也可以用于展开数组。123function(a,b,...args)&amp;#123;    console.log(args);&amp;#125; 展开运算符123">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-21T07:16:14.830Z">
+<meta property="og:updated_time" content="2019-04-26T10:16:05.550Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="es6学习-3">
 <meta name="twitter:description" content="es6箭头函数1.如果只有一个参数,()可以省略2.如果只有一个return {}可以省略1let show = a =&amp;gt; a * 2; 剩余参数 args是剩余参数参数扩展：收集剩余参数 …args 这个必须是最后一个。不仅用于收集参数，也可以用于展开数组。123function(a,b,...args)&amp;#123;    console.log(args);&amp;#125; 展开运算符123">
@@ -348,6 +348,15 @@
 <p>这是js对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;a&quot;:12,&quot;b&quot;:5&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这才是json对象。 而且不能用单引号。<br>json的简写：<strong>注意 以下说的都是对象的简写。而不是json</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let a = 12;</span><br><span class="line">let b = 5;</span><br><span class="line">let json = &#123;a,b,c:55&#125;;</span><br><span class="line">console.log(json);</span><br></pre></td></tr></table></figure></p>
 <p>函数的简写 function可以去掉，直接加括号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    show()&#123;</span><br><span class="line">        console.log(223);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>promise的使用 all必须全部成功<br>promise中的all方法，当全部promise执行完毕，并且成功返回的时候，才执行then方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.all([</span><br><span class="line">    p1,p2</span><br><span class="line">]).then(function(object)&#123;</span><br><span class="line">let [res1,res2] = object; //解析构值</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>promise中的race主要其中有一个返回就可以，不用管其中所有成功。<br>yield 可以让函数暂时停止在某个地方 等到next再进行下面的调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//generator函数</span><br><span class="line">function *show()&#123;</span><br><span class="line">//代码1</span><br><span class="line">yield ajax(xxx)； //中间能够停</span><br><span class="line">//代码2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同generator函数生成了许多小函数。 next进行下一步。yield是停止暂停。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj = show();</span><br><span class="line">obj.next();</span><br><span class="line">obj.next();</span><br></pre></td></tr></table></figure></p>
+<p>generator可以向内部传参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function *show() &#123;</span><br><span class="line">    alert(&quot;a&quot;);</span><br><span class="line">  let a =  yield ; //yield还能返回东西</span><br><span class="line">    alert(a);</span><br><span class="line">    return a;</span><br><span class="line">&#125;;</span><br><span class="line">let gen = show();</span><br><span class="line">gen.next(12); //对于传参来说是费的 这里的next执行的是从show到第一个yield之间的代码</span><br><span class="line">gen.next(5);</span><br></pre></td></tr></table></figure></p>
+<p>如上所示 gen.next(12)这个可以说是无用的，因为第一步的参数是要用过show()方法的直接调用传入的。<br>后续gen.next(5)表示向yield的第二个代码块传入了参数5 所以可以通过let a = yield 获取到5 并进行接下来的操作</p>
+<p>generator也可返回值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> function *show() &#123;</span><br><span class="line">      alert(&quot;a&quot;);</span><br><span class="line">      //半路返回</span><br><span class="line">      yield 12;</span><br><span class="line">      alert(&quot;b&quot;);</span><br><span class="line">      //最后一道靠return完成</span><br><span class="line">      return 16;</span><br><span class="line">  &#125;</span><br><span class="line">  let gen = show();</span><br><span class="line">  let res1 = gen.next(); //返回的是一个json对象&#123;value:12,done:false&#125; 表示没有做完</span><br><span class="line">  let res2 = gen.next(); //返回的是undefined done是true</span><br><span class="line">console.log(res2);</span><br></pre></td></tr></table></figure></p>
+<p>yield 12 表示从函数开始到第一个代码块返回的是12，通过打印res1可以知道，还没有做完，当前取得的值时12<br>第二个res2拿到的是undefined,done为true,表示已经完成。最后的返回只能通过return返回，此时表示已经完成。<br>promise涉及到逻辑操作的时候，与普通回调的嵌套并没有什么差别。<br>所以用generator更适合。当第一个完成后，再执行逻辑，执行第二个。<br>js由ecmscript,dom,和bom组成。<br>string,number,undefined,boolean,null.<br>基本数据类型放在栈区，复杂数据类型放在堆区。堆区存储量大。<br>es6汇总<br>1.变量<br> var 重复声明，函数级别。<br> let 不能重复声明。块级变量。<br> const 不能重复声明，块级常量。<br>2.箭头函数<br> 1.方便 如果只有一个参数，()可以省略。<br> 2.如果只有一个return,{}也可以省。<br> 3.修正this问题。<br>   this相对正常点。<br>3.参数扩展<br>…<br>收集或者扩展。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认参数function(a,b = 5)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.数组方法<br>map映射,reduce汇总 一堆,filter 过滤(删选)forEach循环.<br>5.字符串<br>startWith/endWith<br>字符串模板 换行。$(a)xxx$(b)<br>6.promise方法<br>对数据分钟<br>promise.all<br>7.generator执行到一半可以暂停。<br>8.json对象。stringfy,parse.<br>9.解构赋值<br>左右结构一样<br>右边是个合法东西<br>声明和赋值一次性完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let [a,b,c] = [12,5,8];</span><br></pre></td></tr></table></figure></p>
+<p>10.面向对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Text&#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">        this.xxx = </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class class2 exnteds Text</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -387,6 +396,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/25/牛客前端面试笔记/" rel="prev" title="牛客前端面试笔记">
+                牛客前端面试笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -456,7 +469,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">33</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
