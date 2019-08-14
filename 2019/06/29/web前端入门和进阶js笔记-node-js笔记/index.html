@@ -87,7 +87,7 @@
 <meta property="og:description" content="异步编程node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/uploads/v8.jpg">
-<meta property="og:updated_time" content="2019-07-03T03:50:53.952Z">
+<meta property="og:updated_time" content="2019-07-05T02:21:43.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web前端入门和进阶js笔记-node js笔记">
 <meta name="twitter:description" content="异步编程node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
@@ -333,6 +333,13 @@
 <p>dom2级别的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.addEventListener(&quot;click&quot;,function() &#123;</span><br><span class="line"></span><br><span class="line">&#125;,false);</span><br></pre></td></tr></table></figure></p>
 <p>true表示捕获阶段触发,false<br>dom3级别的写法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">element.addEventListener(&quot;keyup&quot;,function() &#123;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>DOM3中，增加了很多事件类型，比如鼠标事件，键盘事件等。<br>为何事件没有DOM1的写法呢？因为，DOM1标准制定的时候，没有涉及与事件相关的内容。<br>window -&gt; document -&gt; html -&gt; body -&gt; 目标元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var myEvent = new Event(&quot;clickTest&quot;);</span><br><span class="line">element.addEventListener(&quot;clickTest&quot;,function() &#123;</span><br><span class="line">     console.log(&apos;smyhvae&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">element.dispatchEvent(myEvent);</span><br></pre></td></tr></table></figure></p>
+<p>http协议：<br>客户端和服务器端是两种身份，第一次请求结束后，就断开了，第二次请求时，<strong>服务器没有记住之前的状态</strong>,<br>HTTP报文的组成：<br>请求报文：请求行，请求头，空行，请求体<br>响应报文：状态行，响应头，空行，响应体<br>请求行：post方法，请求的url,http协议以及版本<br>请求头：一大堆键值对<br>请求体：数据部分<br>响应报文：<br>状态行：http协议以及版本，状态码以及描述<br>响应头：http/1.1 200 OK<br>响应体：返回的数据<br>http状态码：1xx 指示信息-表示请求已经接受 基础处理<br>2xx 成功 表示请求已被成功接受<br>3xx 重定向 要完成请求必须进一步操作<br>4xx 客户端错误<br>5xx 服务器错误<br>instanceof的作用：用于判断<strong>实例</strong>属于哪个构造函数<br>原理：判断实例对象的<strong>proto</strong>属性，和构造函数的prototype属性，是否是同一个引用(即是否是同一个地址)<br>foo instanceof Object的结果也是true,<br>new 运算符发生了什么<br>1.创建了一个<strong>新的空对象实例</strong><br>2.将此空对象的隐式原型指向其构造函数的显示原型<br>3.执行构造函数，同时 this 指向这个新实例。<br>4.如果返回值是一个新对象，就返回该对象，如果无返回值或者返回一个非对象值，那么就将步骤（1）创建的对象返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Animal()&#123;</span><br><span class="line">    this.name = &quot;sym&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>用class声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Animal&#123;</span><br><span class="line">    constructor(name)&#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>ajax：不支持跨域<br>websocket:不受同源策略的限制，支持跨域<br>cors:不受同源策略的限制，支持跨域。同时支持同源和跨域的Ajax。<br>jsonp实现原理：通过script标签的异步加载来实现，比如说，实际开发中，head标签里，可以通过script标签的src,里面来放url,加载很多在线的插件，这里就是通道了jsonp<br>在没有网站登出的情况下去访问非法网站，非法网站就要求A去访问新的网站，并且携带者A的cookie -&gt; CSRF<br>跨域脚本攻击：不需要你做任何的登录认证，它会通过合法的操作（比如在url中输入、在评论框中输入），向你的页面注入脚本，可能是js,html代码块，最后导致结果：盗用cookie,破坏页面解构，插入广告等。d-doss攻击。 -&gt; xss<br>随表单一起提交给服务器，服务器随后解析，xss代码随响应体一起传回，最后浏览器解析执行XSS代码。这个过程像一次反射，所以叫反射型XSS。<br>存储型：提交的代码会存储在服务器端，下次请求目标页面时就不用再提交XSS代码了。</p>
+<p>DTD(文档类型定义)：<br>是一系列的语法规则，用来定义XML或者(x)HTML文件类型，浏览器使用<strong>DTD判断文档类型</strong>.决定使用哪种协议来解析，以及切换浏览器模式。告诉浏览器，我是什么文档类型，你要用什么协议来解析我。<br>&lt;!DOCTYPE html&gt;<br>DOM tree和CSS Rule Tree合并成Render Tree,（虽然有了Render Tree，但并不知道节点的位置，需要依靠接下来的layout）<br>有了render Tree,浏览器已经知道网页中有哪些节点，各个节点的css定义以及他们的从属关系，<strong>从而去计算每个节点在屏幕上的位置(宽高，颜色等)</strong>.<br>painting:按照计算出来的规则，通过显卡，把内容绘制到屏幕上。<br>display:打击看到最终的效果。<br>reflow:重排，dom节点中的各个元素都有自己的盒子，这些都需要浏览器<strong>根据各种样式来进行计算，并根据计算结果将元素放在他该出现的位置</strong>，这个过程称为reflow.<br>触发reflow:增加，删除，修改dom节点。 导致reflow和repaint<br>移动dom位置。修改css样式，宽高，display为none时。<br>repaint:重绘制，当各种盒子的位置，大小以及其余属性，例如颜色，字体大小都确定后，浏览器便会把这些元素按照各自的特性绘制一遍，于是页面的内容也就出来了。<br><strong>页面呈现的内容，绘制在屏幕上，叫做重绘</strong><br><strong>页面元素的位置，叫做重排</strong><br>js是单线程(同一时间只能做意见事情),而且只有一个任务队列，全部的同步任务执行完毕后，才会去执行异步任务，<br>遇到异步任务，setTimeout等，先挂起。全部的同步任务执行完毕后，再来执行异步任务。<br>什么时候需要等待，就什么时候需要用异步。<br>定时任务：setTimeout,网络请求,ajax,动态img增加。<br>事件绑定。比如所，按钮绑定点击事件，用户爱点不点，我们不可能一直卡在那里，，什么都不做。所以，应该用异步）<br>同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务。异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有任务队列通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。<br>总结：只要主线程空了，就去读取“任务队列”。<br>提升页面性能方法<br>1.资源压缩合并，减少http请求。<br>2.非核心代码异步加载，<br>document.createElement() defer加载，async加载<br>defer:在html解析完之后才会执行，如果是多个，则按照加载顺序依次执行。<br>async:在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关。<br>3.利用浏览器缓存，和存储不是一件事<br>缓存 资源文件<br>强缓存：不用请求服务器，直接使用本地缓存<br>强缓存是利用HTTP响应头中的express或cache-control实现<br>Cache-Control的优先级高于Expires。<br>4.使用CDN<br>5.DNS预解析<br>前端错误监控：<br>1.前端错误的分类 2.每种错误的捕获方式 3.上报错误的基本原理<br>try…catch window.onerror函数 这个函数是全局的<br><strong>手机端的web开发，怎么和原生做交互？</strong><br><strong>调用原理需清楚,怎么调用原生的插件的</strong><br>let的<strong>创建</strong>过程被提升了，但是初始化没有被提升<br>var的<strong>创建</strong>和<strong>初始化</strong>都被提升了<br>function的<strong>创建</strong>和<strong>初始化</strong>和<strong>赋值</strong>都被提升了<br>声明时的重名问题：<br>假设a被声明为变量，紧接着又被声明为函数，原则是：：<strong>声明会被覆盖（先来后到，就近原则）。</strong><br>如果a已经有值，再用var声明是无效的<br>如果a已经有值，紧接着又被赋值，则<strong>赋值会被覆盖</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var fn;</span><br><span class="line">function fn() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(fn); //打印函数fn</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var fn;//再用var 无效</span><br><span class="line">console.log(fn);//打印结果 函数fn</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;&#125;  //fn被声明为function，且此时fn已经有值，这个值就是function的对象</span><br><span class="line"></span><br><span class="line">    function fn() &#123;   //此时fn被重复赋值，会覆盖上一行的值</span><br><span class="line">        console.log(&apos;smyhvae&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(fn)</span><br></pre></td></tr></table></figure>
+<p>下面的fn声明会覆盖上面的<br>使用var关键字声明的变量，是在函数作用域中有效，而且会在函数中所有的代码之前被<strong>声明</strong>.<br>函数声明也会在函数中所有的代码执行之前执行。<br>在函数中，没有var声明的变量会成为<strong>全局变量</strong>,而且不会提前声明。<br><strong>this在各个场景下的指向</strong></p>
 
       
     </div>
@@ -366,6 +373,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/05/深入浅出浏览器渲染定理/" rel="prev" title="深入浅出浏览器渲染定理与模块化概念，类型转换等">
+                深入浅出浏览器渲染定理与模块化概念，类型转换等 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -435,7 +446,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -446,7 +457,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -457,7 +468,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

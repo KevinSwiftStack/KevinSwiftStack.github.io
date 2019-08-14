@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="在一个web页面的css渲染中，块级格式化上下文(Block Fromatting Context)是按照块级盒子布局的，W3C对BFC的定义如下：浮动元素和绝对定位元素，非块级盒子的块级容器(例如inline-blocks,table-cells和table-captions);以及overflow值部位visible的块级盒子，都会为他们的内容创建新的BFC(块级格式上下文)为了便于理解，我们">
+<meta name="description" content="formatting context是w3c css2.1规范中的一个概念，是页面中的一块渲染区域，并且有一套渲染规则，他决定了其子元素如何定位，以及和其他元素的关系和相互作用。最常见的便是BFC(块级格式化上下文)是一个独立的渲染区域，只有block-level box参与，规定了内部的block-level box如何布局，并且与这个区域外部毫不相干，通俗的讲，bfc是一个容器，用于管理块级元">
 <meta property="og:type" content="article">
 <meta property="og:title" content="BFC笔记">
 <meta property="og:url" content="http://yoursite.com/2019/06/15/BFC笔记/index.html">
 <meta property="og:site_name" content="KevinSwift">
-<meta property="og:description" content="在一个web页面的css渲染中，块级格式化上下文(Block Fromatting Context)是按照块级盒子布局的，W3C对BFC的定义如下：浮动元素和绝对定位元素，非块级盒子的块级容器(例如inline-blocks,table-cells和table-captions);以及overflow值部位visible的块级盒子，都会为他们的内容创建新的BFC(块级格式上下文)为了便于理解，我们">
+<meta property="og:description" content="formatting context是w3c css2.1规范中的一个概念，是页面中的一块渲染区域，并且有一套渲染规则，他决定了其子元素如何定位，以及和其他元素的关系和相互作用。最常见的便是BFC(块级格式化上下文)是一个独立的渲染区域，只有block-level box参与，规定了内部的block-level box如何布局，并且与这个区域外部毫不相干，通俗的讲，bfc是一个容器，用于管理块级元">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-06-16T02:43:01.928Z">
+<meta property="og:updated_time" content="2019-07-12T15:41:29.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BFC笔记">
-<meta name="twitter:description" content="在一个web页面的css渲染中，块级格式化上下文(Block Fromatting Context)是按照块级盒子布局的，W3C对BFC的定义如下：浮动元素和绝对定位元素，非块级盒子的块级容器(例如inline-blocks,table-cells和table-captions);以及overflow值部位visible的块级盒子，都会为他们的内容创建新的BFC(块级格式上下文)为了便于理解，我们">
+<meta name="twitter:description" content="formatting context是w3c css2.1规范中的一个概念，是页面中的一块渲染区域，并且有一套渲染规则，他决定了其子元素如何定位，以及和其他元素的关系和相互作用。最常见的便是BFC(块级格式化上下文)是一个独立的渲染区域，只有block-level box参与，规定了内部的block-level box如何布局，并且与这个区域外部毫不相干，通俗的讲，bfc是一个容器，用于管理块级元">
 
 
 
@@ -311,8 +311,7 @@
       
 
       
-        <p>在一个web页面的css渲染中，<strong>块级格式化上下文(Block Fromatting Context)</strong>是按照块级盒子布局的，<br>W3C对BFC的定义如下：<br>浮动元素和绝对定位元素，非块级盒子的块级容器(例如inline-blocks,table-cells和table-captions);<br>以及overflow值部位visible的块级盒子，都会为他们的内容创建新的BFC(块级格式上下文)<br>为了便于理解，我们换一种方式来重新定义BFC。一个HTML元素要创建BFC，则满足下列的任意一个或多个条件即可：<br>1.float值不是none 2.position值不是static或者relative3.display值为inline-block<br>4.overflow的值不是visible<br>BFC是一个独立的布局环境，其中的元素布局是不受外界的影响，并且在一个BFC中，块盒与行盒（行盒由一行中所有的内联元素所组成）都会垂直的沿着其父元素的边框排列。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">  你的内容</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
-<p>在类container中添加类似overflow:scroll,overflow:hidden,display:flex等规则来创建BFC。</p>
+        <p>formatting context是w3c css2.1规范中的一个概念，是页面中的一块渲染区域，并且有一套渲染规则，他决定了其子元素如何定位，以及和其他元素的关系和相互作用。最常见的便是BFC(块级格式化上下文)<br>是一个独立的渲染区域，只有block-level box参与，规定了内部的block-level box如何布局，并且与这个区域外部毫不相干，通俗的讲，bfc是一个容器，用于管理块级元素。<br>如何创建<br>float为left|right overflow为hidden|auto|display display为table-cell position为absolute 根元素<br>BFC布局规则：内部box在垂直方向，一个一个排列。<br>BFC的区域不会与float box重叠(利用这点可以实现自适应两栏布局)。<br>内部垂直方向距离有margin决定。属于同一个bfc的2个相邻box会发生margin重叠。<br>margin重叠3个条件：同属于一个bfc,相邻，块级元素<br>计算bfc高度时，浮动元素也参与运算。<br>bfc是页面上的一个独立容器，容器内部的子元素不会影响到外部。</p>
 
       
     </div>
@@ -419,7 +418,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -430,7 +429,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -441,7 +440,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

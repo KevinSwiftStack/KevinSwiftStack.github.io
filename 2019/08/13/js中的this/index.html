@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,this指针问题,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="参考博客js中的this,表示函数的当前执行上下文，js中函数调用主要有以下几种方式，函数调用 alert(‘hello world’);方法调用 console.log(‘hello world’);构造函数 new RegExp(‘\d’)隐式调用 alert.call(undefined,’hello world’)理解this的关键是要清楚知道函数的调用以及如何影响上下文函数表达式 表示定">
+<meta name="keywords" content="面试,this指针问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js中的this">
+<meta property="og:url" content="http://yoursite.com/2019/08/13/js中的this/index.html">
+<meta property="og:site_name" content="KevinSwift">
+<meta property="og:description" content="参考博客js中的this,表示函数的当前执行上下文，js中函数调用主要有以下几种方式，函数调用 alert(‘hello world’);方法调用 console.log(‘hello world’);构造函数 new RegExp(‘\d’)隐式调用 alert.call(undefined,’hello world’)理解this的关键是要清楚知道函数的调用以及如何影响上下文函数表达式 表示定">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-14T03:28:40.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js中的this">
+<meta name="twitter:description" content="参考博客js中的this,表示函数的当前执行上下文，js中函数调用主要有以下几种方式，函数调用 alert(‘hello world’);方法调用 console.log(‘hello world’);构造函数 new RegExp(‘\d’)隐式调用 alert.call(undefined,’hello world’)理解this的关键是要清楚知道函数的调用以及如何影响上下文函数表达式 表示定">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/13/js中的this/">
+
+
+
+
+
+  <title>js中的this | KevinSwift</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KevinSwift</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/js中的this/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js中的this</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T19:46:16+08:00">
+                2019-08-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><a href="https://juejin.im/post/5d51feaef265da039005219e" target="_blank" rel="noopener">参考博客</a><br>js中的this,表示函数的当前执行上下文，js中函数调用主要有以下几种方式，<br>函数调用 alert(‘hello world’);<br>方法调用 console.log(‘hello world’);<br>构造函数 new RegExp(‘\d’)<br>隐式调用 alert.call(undefined,’hello world’)<br>理解this的关键是要清楚知道函数的调用以及如何影响上下文<br>函数表达式 表示定义函数并且在其中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function hello(name)&#123;</span><br><span class="line">    return &apos;hello&apos; + name;</span><br><span class="line">&#125;</span><br><span class="line">hello(&quot;ckq&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>1.在函数调用中的this<br><strong>this在函数调用中是一个全局对象</strong><br>对象是由执行环境来决定的，在浏览器中，this是window对象<br>严格模式下的this<br>this在严格模式的函数调用中为undefined<br>严格模式是在ecs5中引入的，提供了更好的安全性和更强的类型检查。<br>2.方法调用<br>当一个表达式以属性访问的形式来执行时，执行的是方法调用，<br>例如myObject.helloFunction(),[1,2].join(‘,’);<br>在方法调用中，this是拥有这个方法的对象<br>object.create也是创建一个对象，调用的上下文仍然是对象本身<br>在es6的语法中，方法调用的上下文也是实例本身</p>
+<p>陷阱：将方法与其对象分离<br>方法可以从对象中提取到一个单独的变量中，<br>const alone = myObj.method;<br>当方法调用的时候，与原始对象alone分离，如果方法在没有对象的情况下调用，那么函数调用就会发生，此时this指向全局对象window,严格模式下是undefined.<br>3.构造函数调用，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function country(name,travel)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.travel = travel;</span><br><span class="line">&#125;</span><br><span class="line">country.travel = function() &#123;</span><br><span class="line">    this.travel = true;</span><br><span class="line">&#125;</span><br><span class="line">const frace = new country(&apos;france&apos;;false);</span><br></pre></td></tr></table></figure></p>
+<p>new City(‘paris’,false);是构造函数的调用，这个对象的初始化由这个类中一个特殊的方法constructor来处理，this指向新创建的对象<br>构造函数创建了一个新的空的对象，它从构造函数的原型继承了属性。构造函数的作用就是去初始化这个对象。 可能你已经知道了，在这种类型的调用中，上下文指向新创建的实例。<br>myobject.fun()时会执行构造函数的调用而不是方法调用<br>在构造函数调用中this指向新创建的对象<br>当忘记new的时候，在函数调用中,this是window对象，因此 Vehicle（’Car’，4）在window对象上设置属性。 显然这是错误，它并没有创建新对象<br>5 隐式调用<br>使用myFun.call()或者myFun.apply()方法调用函数的时候，执行的是隐式调用<br>对象的类型是function,.call()和.apply调用具有可配置的上下文的函数</p>
+<p>方法 .call(thisArg[, arg1[, arg2[, …]]])将接受的第一个参数thisArg作为调用时的上下文，arg1, arg2, …这些则作为参数传入被调用的函数。<br>方法.apply(thisArg, [args])将接受的第一个参数thisArg作为调用时的上下文，并且接受另一个类似数组的对象[arg1, arg2, …]作为被调用函数的参数传入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function increment(number)&#123;</span><br><span class="line">    return ++number;</span><br><span class="line">&#125;</span><br><span class="line">increment.call(undefined,10); //11</span><br><span class="line">increment.apply(undefined,[10]); //11</span><br></pre></td></tr></table></figure></p>
+<p>隐式调用非常有用。例如为了解决方法调用时，this总是window或严格模式下的undefined的上下文问题。隐式调用可以模拟在一个对象上调用另外某个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    function Runner(str) &#123;</span><br><span class="line">       return str +  this.name;</span><br><span class="line">    &#125;</span><br><span class="line">    var rabbit = &#123;name:&apos;white &apos;&#125;;</span><br><span class="line">console.log(Runner.call(rabbit,&quot;ccc&quot;));</span><br></pre></td></tr></table></figure></p>
+<p>.bind()创建一个永久的上下文连接，并且始终保持它，一个函数不能通过.call或者.apply来改变它的上下文，甚至是再次绑定也没什么作用<br>6.箭头函数<br>箭头函数用以更短的形式声明函数，并在词法上绑定上下文，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const hello = (name) =&gt; &#123;</span><br><span class="line">    return &apos;hello&apos; + name;</span><br><span class="line">&#125;</span><br><span class="line">hello(&apos;world&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>箭头函数是匿名的，这意味着name属性是一个空字符串’’;跟常规函数也相反，也不提供arguments对象。但是,在es6中通过剩余参数修复了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const sumArguments = (...args) =&gt; &#123;</span><br><span class="line">    return args.reduce((result,item) =&gt; &#123;</span><br><span class="line">        result + item;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>**注意，箭头函数不会创建自己的上下文，而是从定义他的外部来获取上下文，换句话说，箭头函数在词汇上获取上下文。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this;</span><br><span class="line">var myFunc = () =&gt; &#123;</span><br><span class="line">    this;</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/this指针问题/" rel="tag"># this指针问题</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/09/angularjs脏检查机制/" rel="next" title="angularjs脏检查机制">
+                <i class="fa fa-chevron-left"></i> angularjs脏检查机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="KevinSwift">
+            
+              <p class="site-author-name" itemprop="name">KevinSwift</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KevinSwift</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

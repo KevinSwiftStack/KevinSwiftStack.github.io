@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,浏览器渲染原理,模块化,类型转换,前端知识大杂烩,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="浏览器的内核是指支持浏览器运行的最核心的程序，分为2个部分，一是渲染引擎，另一个是js引擎，渲染引擎在不同的浏览器中也是不同的，目前市面上常见的浏览器内核有Trident(IE),Gecko(火狐，Blink(Chrome),Webkit(Safari),webkit是当下浏览器世界真正的霸主页面加载过程：浏览器根据dns服务器得到域名的ip地址向这个ip的机器发送http请求服务器收到，处理并返">
+<meta name="keywords" content="面试,浏览器渲染原理,模块化,类型转换,前端知识大杂烩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出浏览器渲染定理与模块化概念，类型转换等">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/深入浅出浏览器渲染定理/index.html">
+<meta property="og:site_name" content="KevinSwift">
+<meta property="og:description" content="浏览器的内核是指支持浏览器运行的最核心的程序，分为2个部分，一是渲染引擎，另一个是js引擎，渲染引擎在不同的浏览器中也是不同的，目前市面上常见的浏览器内核有Trident(IE),Gecko(火狐，Blink(Chrome),Webkit(Safari),webkit是当下浏览器世界真正的霸主页面加载过程：浏览器根据dns服务器得到域名的ip地址向这个ip的机器发送http请求服务器收到，处理并返">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-14T06:25:21.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入浅出浏览器渲染定理与模块化概念，类型转换等">
+<meta name="twitter:description" content="浏览器的内核是指支持浏览器运行的最核心的程序，分为2个部分，一是渲染引擎，另一个是js引擎，渲染引擎在不同的浏览器中也是不同的，目前市面上常见的浏览器内核有Trident(IE),Gecko(火狐，Blink(Chrome),Webkit(Safari),webkit是当下浏览器世界真正的霸主页面加载过程：浏览器根据dns服务器得到域名的ip地址向这个ip的机器发送http请求服务器收到，处理并返">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/05/深入浅出浏览器渲染定理/">
+
+
+
+
+
+  <title>深入浅出浏览器渲染定理与模块化概念，类型转换等 | KevinSwift</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KevinSwift</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/05/深入浅出浏览器渲染定理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">深入浅出浏览器渲染定理与模块化概念，类型转换等</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-05T20:47:26+08:00">
+                2019-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/浏览器相关/" itemprop="url" rel="index">
+                    <span itemprop="name">浏览器相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>浏览器的内核是指支持浏览器运行的最核心的程序，分为2个部分，一是渲染引擎，另一个是js引擎，<br>渲染引擎在不同的浏览器中也是不同的，目前市面上常见的浏览器内核有Trident(IE),Gecko(火狐，<br>Blink(Chrome),Webkit(Safari),<br>webkit是当下浏览器世界真正的霸主<br>页面加载过程：<br>浏览器根据dns服务器得到域名的ip地址<br>向这个ip的机器发送http请求<br>服务器收到，处理并返回http请求<br>浏览器得到返回内容</p>
+<p>一堆HTML格式的字符串，因为只有HTML格式浏览器才能正确解析，<br>HTML树 -&gt; DOM树形结构<br>CSS -&gt; CSS规则树<br>js脚本，等到js脚本文件加载后，通过dom api和cssom api来操作dom树和css规则树<br>解析完成后，浏览器引擎会通过DOM Tree 和 CSS Rule Tree 来构造render tree,渲染树。<br>渲染树会包括需要显示的节点和这些节点的样式信息。<br>css的规则树主要为了完成匹配吧css规则添加到渲染树上的每个节点<br>最后，计算每个frame的位置，这又叫layout和reflow过程。<br>字节数据 =&gt; 字符串 =&gt; token =&gt; node =&gt; dom<br>在网络中传输的内容其实都是 0 和 1 这些字节数据。当浏览器接收到这些字节数据以后，它会将这些字节数据转换为字符串，也就是我们写的代码。<br>将字符串转化为token,例如<html>，<body>等。Token中会标识出当前Token是“开始标签”或是“结束标签”亦或是“文本”等信息。<br><strong>渲染树只会包括需要显示的节点和这些节点的样式信息</strong><br>渲染过程中，如果遇到script就停止渲染，执行js代码，因为浏览器有GUI渲染线程和JS引擎线程。为了防止渲染出现不同的结果，这两个线程是<strong>互斥</strong>的关系，JavaScript的加载、解析与执行会阻塞DOM的构建，也就是说，在构建DOM时，HTML解析器若遇到了JavaScript，那么它会暂停构建DOM，将控制权移交给JavaScript引擎，等JavaScript引擎运行完毕，浏览器再从中断的地方恢复DOM构建。<br>首屏渲染的越快的话，就越不应该在首屏就加载js文件，这也是将js放在body底部的原因。<br>js不仅阻塞dom的构建，也会导致cssom和dom的构建。<br>因为js不仅可以修改DOM，也可以修改样式。<br>因为js需要修改cssom.所以浏览器将延迟脚本执行和dom构建，直至完成cssom的下载和构建，<br><strong>在这种情况下，浏览器会先下载和构建CSSOM，然后再执行JavaScript，最后在继续构建DOM</strong><br>根据渲染树进行布局，也可以叫做<strong>回流</strong>,<br>输出一个精准的<strong>盒模型</strong>,每个元素在视口内的准确位置。<br><strong>重绘</strong>：当我们对dom的修改导致了样式的变化，却并未影响到几何属性，浏览器不需重新计算元素的几何属性、直接为该元素绘制新的样式<br><strong>回流</strong>：当我们对dom的修改引发了dom几何尺寸的变化，浏览器会重新计算，这个过程就是回流。<br><strong>回流一定会引发重绘，但重绘不一定引发回流</strong>.<br>减少重绘或者回流：<br>使用visibility替换display:none.因为前者会引发重绘。<br>不要使用table布局。<br>动画速度越快，回流次数越多<br>defer 使脚本在文档解析完成后执行。不会影响html的解析。<br>async:用于异步下载文件，下载完后立即解释执行。不会阻塞html的执行</body></html></p>
+<h2 id="模块化概念"><a href="#模块化概念" class="headerlink" title="模块化概念"></a>模块化概念</h2><p>将一个复杂的程序依据一定的规则封装成几个块(文件),并进行组合在一起<br>块的内部数据与实现是私有的，只是向外部暴露一些接口(方法),与外部其他模块通信。<br>模块化的好处<br>避免命名冲突(减少命名空间污染)<br>更好的分离，按需加载<br>更高复用性<br>高可维护性<br>引入多个script后出现的问题<br>请求过多，会发送多个请求。依赖模糊，难以维护<br>可能出现牵一发而动全身的情况。<br>模块化规范：commonjs,AMD,ES6,CMD规范<br>commonjs node应用由模块组成，采用commonjs模块规范，<br>每个文件就是一个模块，有自己的作用域。在一个文件里面定义的变量、函数、类，都是私有的，对其他文件不可见。<strong>在服务器端，模块的加载是运行时同步加载的；在浏览器端，模块需要提前编译打包处理。</strong><br>暴露模块 module代表当前模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">module.exports = value;</span><br><span class="line">exports.xxx = value;</span><br></pre></td></tr></table></figure></p>
+<p>引入模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(xxx);</span><br></pre></td></tr></table></figure></p>
+<p>commonjs规范加载模块是同步的，也就是说，只有加载完成，才能执行后面的操作<br>amd规范则是非同步的，允许指定回调函数，由于node js主要用于服务端编程，，模块文件一般都已经存在于本地硬盘，所以加载起来比较快，不用考虑非同步加载的方式，所以CommonJS规范比较适用。但是，<br>浏览器环境，要从服务器端加载模块，这时必须采用非同步模式，这时AMD就比较实适用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define[&apos;modlue1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line">    return 模块;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>引入使用模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">require(&apos;module1&apos;,&apos;module2&apos;,function(m1,m1)&#123;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>requurejs是一个工具库，，主要用于客户端的模块管理。它的模块管理遵守AMD规范，<br>基本思想：通过define,将代码定义为模块，通过require,实现代码的模块加载。<br>CMD<strong>规范专门用于浏览器端，模块的加载是异步的</strong>,模块使用时才会加载执行。<br>CMD整合了commonjs和amd规范的特点，在sea.js中，<br>通过define配置文件，通过requre导入文件。<br>AMD和CMD都适用于浏览器端，AMD同步，CMD异步。<br>ES6的模块化语法<br>export{basicNum,add};<br>import{add} from ‘./main’;<br>commonjs提出的是一个值的拷贝，而es6是值的引用。<br>commonjs是模块运行时加载，es6模块是**编译时输出的接口。</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>js是一门动态类型语言，所谓的动态类型可以确定是在语言中一切内容是不确定的<br>如果运算符发现，运算子的类型与预期不符合，就会自动进行转换。<br><strong>自动转换时基于强制转换的，</strong><br>强制转换主要指使用Number,String,Boolean.3个函数<br>其他数据类型转换为string<br>toString()方法<br>null和undefined这2个值没有toString方法，如果调用，会报错<br>采用number类型的toString()方法的基模式，可以用不同的基输出数字，<br>例如二进制基为2，八进制为8<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var num = 10;</span><br><span class="line">alert(num.toString(2)); //输出1010</span><br></pre></td></tr></table></figure></p>
+<p>方式二 采用string函数<br>string函数作强制转换，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = null;</span><br><span class="line">String(a);//为字符串&quot;null&quot;</span><br><span class="line">String(&#123;a:1&#125;);//转化为[object Object]</span><br></pre></td></tr></table></figure></p>
+<p>转为数字<br>如果字符串中有非数字的内容，则转为NaN,<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Number(&quot;324&quot;);//324</span><br><span class="line">Number(&quot;324anc&quot;);//NaN</span><br><span class="line">Number(undefined);//转为NaN</span><br><span class="line">Number(&#123;a:1&#125;) //转化为NaN</span><br></pre></td></tr></table></figure></p>
+<p>parseInt()把一个字符串转为整数，有效体转为整数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parseInt(10.43a&quot;) //为10</span><br></pre></td></tr></table></figure></p>
+<p>parseFloat()把一个字符串转为浮点数。<br>空字符串，null,undefined,+0,-0,和NaN转为布尔型为false.</p>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><p><strong>作用域是一个独立的地盘，让变量不会外泄，暴露出去，作用域最大的好处是隔离变量，不同作用域下的同名变量不会冲突。</strong><br>es6之间只有全局作用域和函数作用域。<br>es6提供了块级作用域。<br>let和const的声明并不会提升到当前代码块的顶部，因此需要手动提升。<br>let不能重复声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var count = 30;</span><br><span class="line">   function outFun2() &#123;</span><br><span class="line">   let count = 20;</span><br><span class="line">    console.log(count);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上这种情况 在嵌套的作用域内使用let声明一个同名的新变量，<br>并不会抛出错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var cnt = 30;</span><br><span class="line">let cnt = 40;</span><br></pre></td></tr></table></figure></p>
+<p>作用域链，更确切的说是在<strong>创建这个函数的时候的作用域，而不是调用时候的</strong><br>以上这种情况便会报错。<br>js的执行分为解释阶段和执行阶段<br>解释阶段：词法分析，语法分析，作用域规则确定<br>执行阶段：创建执行上下文，执行函数代码，垃圾回收<br>执行上下文最明显的就是this的指向是在执行时候确定的。</p>
+<h2 id="js事件循环机制"><a href="#js事件循环机制" class="headerlink" title="js事件循环机制"></a>js事件循环机制</h2><p>js是单线程任务，所有任务都需要排队，前一个任务结束，后一个任务才会接上，js中有2种任务，一种是同步任务，一种是异步任务，<br>异步任务指的是，不进入主线程，而进入<strong>消息队列</strong>的任务，只有任务队列通知主线程，某个异步任务可以执行了，该任务才会进入<strong>主线程</strong>,异步任务又包括<strong>宏任务</strong>和<strong>微任务</strong>,<br><strong>在所有同步任务执行完之前，异步任务是不会执行的</strong>.<br>event loop,只要主线程空了，就会去读取”任务队列”内的东西。<br>放入异步任务的代码：setTimeout,DOM事件，promise,ajax请求。<br>setTimeout和setInterval是过几秒后被放入异步队列<br>异步任务分为宏任务和微任务，<strong>宏任务队列可以有多个，而微任务队列只有一个</strong><br>宏任务包括:script全局任务，setTimeout,setInterval, setImmediate, I/O, UI rendering。<br>微任务包括：new Promise().then,<br>由于执行代码入口都是全局任务scrpit,而全局任务是属于宏任务，所以当栈为空的时候，首先执行微任务队列里的任务，再去执行宏任务队列中最前面的任务。执行宏任务过程中，遇到微任务，再依次加入微任务队列。<br>栈空后，再次读取微任务队列里的任务，以此类推。<br>当某个宏任务中代码全部执行完毕后，会查看是否有微任务队列，如果有，先执行微任务队列中的任务，如果没有，就查看是否有其他宏任务队列。</p>
+<h2 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h2><p>浅拷贝只复制指向某个对象的指针，而不复制对象本身，<strong>新旧对象还是共享同一块内存</strong>,<br>但是深拷贝会另外创建一个一模一样的对象，新对象和原对象不共享内存，修改新对象不影响原对象。<br>赋值赋的是栈中的地址，而不是堆中的地址。<br>浅拷贝的实现方式object.assign()<br>var initObj = Object.assign({},obj);<br>initObj.a.a = “wade”;<br>console.log(obj.a.a);//打印出来wade<br>深拷贝实现方式<br>json.parse(json.stringfy())<br>函数库loadash<br>该函数库有提供_.cloneDeep来做深拷贝</p>
+<h2 id="函数柯里化"><a href="#函数柯里化" class="headerlink" title="函数柯里化"></a>函数柯里化</h2><p>函数柯里化<br>只传递函数一部分参数来调用他，让他返回一个函数去处理剩余的参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">普通add函数</span><br><span class="line">function add(x,y)&#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;;</span><br><span class="line">//柯里化后</span><br><span class="line">function curryAdd(x)&#123;</span><br><span class="line">    return function(y)&#123;</span><br><span class="line">        return x + y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">add(1,2);</span><br><span class="line">curryAdd(1)(2);</span><br></pre></td></tr></table></figure></p>
+<p>柯里化作用 可以起到参数服用 复用的结果<br>可以将一个reg返回后，返回一个带有一个正则表达式校验的函数，<br>在剩余函数中调用。</p>
+<h2 id="视口"><a href="#视口" class="headerlink" title="视口"></a>视口</h2><p>代表当前可见的计算机图形区域，在web浏览器中，通常与浏览器窗口相同，但不包括浏览器的UI，菜单栏等。<br>布局视口：布局视口是网页布局的基准窗口，在 PC浏览器上，布局视口就等于当前浏览器窗口大小（不包括 borders 、 margins、滚动条）。，移动端默认为980px<br> document.documentElement.clientWidth/clientHeight来获取<br>视觉视口：用户通过屏幕真实看到的区域：<br> 相当于浏览器的窗口大小，当用户对浏览器进行缩放时，不会改变布局视口的大小，所以页面布局是不变的，但是缩放会改变视觉视口的大小<br>window.innerWidth和innerHeight来获取<br>理想视口：网站页面在移动端显示的理想大小。<br>当页面缩放比例为 100%时， CSS像素=设备独立像素， 理想视口=视觉视口。<br>screen.width /height</p>
+<p>window.innerHeight 获取浏览器视觉视口高度<br>window.screen 屏幕理想视口宽度，设备的分辨率，设备像素比<br>document.clientHeight 布局视口高度<br>offsetHeight 获取包括内边距，滚动条，边框和外边距<br>scrollHeight在不使用滚动条的情况下适合视口中的所有内容所需的最小宽度。测量方式与 clientHeight相同：它包含元素的内边距，但不包括边框，外边距或垂直滚动条。<br>移动端适配 @media移动端查询 flexible方案，统一使用rem来布局，<br>vh,vw方案将视觉视口window.innerWidth和height等分为100份<br>(连接)[<a href="https://mp.weixin.qq.com/s/oF6oAjdzguv9OwE9cdLrPQ]" target="_blank" rel="noopener">https://mp.weixin.qq.com/s/oF6oAjdzguv9OwE9cdLrPQ]</a></p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包是js的一个难点，<br>作用：可以访问函数内部的变量，使变量的值长期保存在内存中<br>形成条件：<strong>函数嵌套，内部函数引用外部函数的局部变量</strong><br>能够读取其他函数内部变量的函数<br>只有函数内部的子函数才能读取内部变量，因此可以把闭包理解为”定义在一个函数内部的函数”,<br>闭包的特点<strong>记住诞生的环境,比如f2记住了它诞生的环境f1,所以从f2可以得到f1的内部变量.
+</strong>闭包将内部函数和外部函数连接起来的一座桥梁**<br>内存泄漏指的是任何对象在您不需要拥有或者使用的时候它仍然存在，闭包不能滥用，否则导致内存泄漏，影响网页的性能。闭包使用完了后，要立即释放资源，将引用变量指向null.<br>闭包作用：读取函数内部的变量，可以使变量的值长期保存在内存中，生命周期比较长。<br>用来实现js模块，js模块:具有特定功能的js文件，将所有数据和功能都封装在一个函数内部，只向外暴露一个具有n个方法的对象或者函数，只需要通过暴露模块的对象调用来实现对应的功能即可。<br>forEach,map,filter,find,every,some,reduce它们都有共同的特点，不会改变原来数组。<br>线程与进程的区别</p>
+<h2 id="node中的事件循环"><a href="#node中的事件循环" class="headerlink" title="node中的事件循环"></a>node中的事件循环</h2><p><strong>一个进程只有一个主线程</strong><br><strong>进程是cpu资源分配的最小单位,线程是cpu调度的最小单位</strong>,<br>一个进程可以由一个线程或多个线程组成，线程是一个进程中代码的不同执行路径<br><strong>进程的内存空间是共享的，每个线程都可以共享这些内存</strong><br>浏览器内核是多线程的，在内核控制下各个线程互相配合以保持同步，<br>GUI渲染线程，js引擎线程，定时触发线程，事件触发线程，异步http请求线程。<br>node中的event loop<br>node中的event loop和浏览器中的完全是不相同的东西，node js采用v8作为js的解析引擎，而I/O处理方面采用了自己设计的libuv.<br>libuv是一个基于事件驱动的跨平台抽象层，封装了不同操作系统的底层特性，对外提供统一的api,事件循环机制也是这里面实现的。<br>node js运行机制如下:<br>v8引擎解析js脚本。<br>解析后的代码，调用node api.<br>libuv库负责node api的执行，将不同的任务分给不同的线程执行，形成一个event loop,以异步的方式将<strong>任务的执行结果返回v8引擎</strong>.<br>v8引擎将结果返回给用户</p>
+<p>libuv执行node api分为以下几个阶段<br>事件循环分为6个阶段，会按照顺序反复执行，每当进入一个阶段时，都会从对应的回调队列中取出函数去执行，当队列为空或者执行的回调函数达到系统设定时，将会进入下一个阶段。<br>外部输入数据 -&gt; 轮询阶段(poll) -&gt; 检查阶段(check) -&gt; 关闭事件回调阶段(close callback) -&gt; 定时器检测阶段(timer) -&gt; I/O事件回调阶段(I/O callbacks) -&gt; 闲置阶段(idle,prepare)<br>timers阶段(这个阶段执行timer(setTimeout,setInterval))的回调<br>i/o callback阶段，处理一些上一轮循环中少数的未执行的i/o回调<br>idle 仅node内部使用<br>poll阶段 获取新的i/o事件。<br>check阶段 执行setimmediate的回调<br>close callback 执行socket的close事件回调</p>
+<p>poll阶段<br>1.回到timer阶段执行回调<br>2.执行i/o回调<br>并且在进入该阶段如果没有设定timer的话，会发生如下事件<br>如果poll队列不为空，会遍历回调队列并且同步执行，直到队列为空或者达到系统上线<br>如果poll队列为空，如果有setimmediate回调需要执行，poll阶段停止并且进入到 check 阶段执行回调<br>如果没有setimmediate，会等待回调被加入到队列中并立即执行。<br>check阶段 setimmediate的回调会被加入到check中<br>node中事件也有宏任务(macro)和微任务(micro)<br>macro:setTimeout,setInterval,setImmediate,script代码<br>micro:process.nextTick,new Promise().then(回调)<br>process.nextTick,独立于event loop外，有自己的一个队列，<br>当每个阶段完成后，如果存在nextTick队列，会清空队列中的所有回调函数，并且优于其余的微任务执行。<br>浏览器环境中，microtask的任务队列是每个macrotask执行完后再执行<br>而在node js中，microtask会在事件循环的各个阶段之间执行，也就是一个阶段执行完毕，就会去执行microtask中的任务。</p>
+<h2 id="js中的垃圾回收和内存泄漏"><a href="#js中的垃圾回收和内存泄漏" class="headerlink" title="js中的垃圾回收和内存泄漏"></a>js中的垃圾回收和内存泄漏</h2><p>内存泄漏指的是：不再用到的内存，没有来级的释放。js具有<strong>自动回收垃圾机制</strong><br>js的垃圾回收机制：找出不再使用的变量，然后释放掉其内存即可。<strong>垃圾回收期会按照固定的时间间隔周期性的回收</strong><br>垃圾回收有2种方法：标记清除和引用计数<br>标记清除：<strong>当变量进入执行环境时，就标记这个变量进行环境</strong>，逻辑上讲，永远不要释放进入环境的变量所占用的内存，因为只要执行刘进入相应的环境，就可能会用到他们，<strong>当变量离开环境的时候，就将其标记为离开环境。</strong><br>引用计数：是指语言引擎有一张‘引用表’，保存了内存里面的所有资源(通常是各种值)的引用计数。<br>如果一个值的引用计数为0，就表示该值不会再用到，因此可以将该值释放。<br>如果一个值不再需要了，引用计数却不为0，垃圾回收机制将无法识别这块内存。从而导致内存泄漏。<br>哪些情况会造成内存泄漏：<br>会让<strong>变量一直处于进入环境的状态</strong>，而无法被回收。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function foo(arg)&#123;</span><br><span class="line">    bar = &quot;this&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>创造了一个全局变量，在页面关闭之前是不会释放的。<br>被遗忘的计时器或者回调函数 闭包可以维持内部函数的局部变量，使其得不到释放。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/浏览器渲染原理/" rel="tag"># 浏览器渲染原理</a>
+          
+            <a href="/tags/模块化/" rel="tag"># 模块化</a>
+          
+            <a href="/tags/类型转换/" rel="tag"># 类型转换</a>
+          
+            <a href="/tags/前端知识大杂烩/" rel="tag"># 前端知识大杂烩</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/29/web前端入门和进阶js笔记-node-js笔记/" rel="next" title="web前端入门和进阶js笔记-node js笔记">
+                <i class="fa fa-chevron-left"></i> web前端入门和进阶js笔记-node js笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/10/浏览器缓存机制/" rel="prev" title="浏览器缓存机制">
+                浏览器缓存机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="KevinSwift">
+            
+              <p class="site-author-name" itemprop="name">KevinSwift</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化概念"><span class="nav-number">1.</span> <span class="nav-text">模块化概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型转换"><span class="nav-number">2.</span> <span class="nav-text">类型转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域"><span class="nav-number">3.</span> <span class="nav-text">作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js事件循环机制"><span class="nav-number">4.</span> <span class="nav-text">js事件循环机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浅拷贝和深拷贝"><span class="nav-number">5.</span> <span class="nav-text">浅拷贝和深拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数柯里化"><span class="nav-number">6.</span> <span class="nav-text">函数柯里化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视口"><span class="nav-number">7.</span> <span class="nav-text">视口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包"><span class="nav-number">8.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#node中的事件循环"><span class="nav-number">9.</span> <span class="nav-text">node中的事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js中的垃圾回收和内存泄漏"><span class="nav-number">10.</span> <span class="nav-text">js中的垃圾回收和内存泄漏</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KevinSwift</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

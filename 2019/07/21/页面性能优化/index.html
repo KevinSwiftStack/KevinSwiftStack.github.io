@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,前端性能优化,前端常见攻击,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="互联网有一项著名的8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并从文件中去除多余的字符，例如回车，空格等。css代码的压缩：是无效代码删除和css语义合并js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语">
+<meta name="keywords" content="面试,前端性能优化,前端常见攻击">
+<meta property="og:type" content="article">
+<meta property="og:title" content="页面性能优化与常见的攻击">
+<meta property="og:url" content="http://yoursite.com/2019/07/21/页面性能优化/index.html">
+<meta property="og:site_name" content="KevinSwift">
+<meta property="og:description" content="互联网有一项著名的8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并从文件中去除多余的字符，例如回车，空格等。css代码的压缩：是无效代码删除和css语义合并js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-14T03:43:54.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="页面性能优化与常见的攻击">
+<meta name="twitter:description" content="互联网有一项著名的8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并从文件中去除多余的字符，例如回车，空格等。css代码的压缩：是无效代码删除和css语义合并js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/21/页面性能优化/">
+
+
+
+
+
+  <title>页面性能优化与常见的攻击 | KevinSwift</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KevinSwift</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/页面性能优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">页面性能优化与常见的攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T15:57:58+08:00">
+                2019-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>互联网有一项著名的<strong>8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性</strong><br>1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并<br>从文件中去除多余的字符，例如回车，空格等。<br>css代码的压缩：是无效代码删除和css语义合并<br>js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语义的缩减和优化 4.代码的保护<br><strong>css和js的压缩是非常有必要的,压缩合并css和js可以减少网站http请求的次数，但合并文件可能会带来问题：首屏渲染和缓存失效问题</strong><br>2.非核心代码进行异步加载。<br>异步加载的3种方式-async和defer。动态脚本的创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src = &quot;text/javascript&quot; src = &quot;xxx.js&quot; async = &quot;async&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>defer是在html解析完之后才会执行，如果是多个，则会按照加载的顺序依次执行，</strong><br><strong>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</strong><br>3.利用浏览器缓存<br>3.1利用前缓存 不会向服务器发送请求 直接从缓存中读取资源<br>3.2利用协商缓存 向服务器发送请求，服务器会根据request header中的一些参数来判断是否命中协商缓存<br>强缓存优先于协商缓存,若强制缓存生效则直接使用缓存。若不生效则使用协商缓存。<br><strong>用户行为对浏览器缓存的影响</strong><br>1.地址栏访问，链接跳转是正常用户行为，将会触发浏览器的缓存机制<br>2.F5刷新，浏览器会设置max-age = 0,跳过强缓存判断，会进行协商缓存判断。<br>3.ctrl + F5,跳过强缓存和协商缓存，直接从服务器获取数据<br>4.使用CDN<br><strong>浏览器的缓存只是为了提高二次访问的速度</strong>需要从网络层面进行优化，最常见的是CDN(内容分发网络),通过将静态资源(js,css,html图片)等缓存到离用户很近的相同网络运营商的CDN节点上，不但提高用户的访问速度，还能节省服务器的带宽消耗，降低负载。<br>CDN服务商在全国各个省份部署计算节点，当到达计算节点时，首先判断缓存是否有效，若有效，则立即响应缓存给用户，否则，就去内容服务器上请求数据，反馈给用户，并将内容缓存下来以便响应给后续访问的用户。<br><strong>一个地区内只要有一个用户预先加载资源，在CDN中建立了缓存，该地区中的其余用户便会因此而受益</strong><br>5.<br><strong>预解析DNS 使用该技术预先告知浏览器某些资源可能会在将来被使用，</strong><br>通过DNS预解析告诉浏览器我们未来可能从某个特定的URL获取资源，当浏览器真正使用的时候，就可以尽快完成DNS的解析。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel = &quot;dns-prefetch&quot; href = &quot;//example.com&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>懒加载也叫延迟加载，指的是在长网页中延迟加载图像，是一种很好用的性能优化方式</strong>,，<br>用户滚动到它们之前，<strong>可视区域外的图像不会加载</strong>,<br><strong>使用延迟加载使得网页加载更快</strong><br>为什么使用懒加载：1.能提升用户体验。2.减少无效资源的加载 3.防止并发加载的资源过多会阻塞js的加载。<br>预加载：另一个性能优化技术，告知浏览器某些资源可能会在未来使用到，<br>预加载把所有资源提前加载到本地，这样后面要使用的话就直接从缓存中读取。</p>
+<p>懒加载和预加载的对比，<br>两者主要区别是一个是提前加载，一个是迟缓甚至不加载，懒加载对服务器端有一定的缓解压力作用，预加载则会增加服务器端压力。<br>函数防抖和节流<br>函数节流(throttle)：<strong>一个函数执行一次后，只有大于设定的执行周期后才会执行第二次。</strong><br>有个需要频繁触发的函数，出于性能优化，在规定时间内，只让函数触发一次。<br>判断当前时间戳和上次执行的时间戳是否已经达到规定时间段。<br>函数节流：<br>1.DOM元素的拖拽功能，计算鼠标移动，射击游戏的mousedown/keydown.<br>函数防抖(debounce)：<br>防抖函数：<strong>一个需要频繁触发的函数，在规定时间内，只让最后一次生效即可，前面的不生效</strong></p>
+<h2 id="常见的攻击和防御方法"><a href="#常见的攻击和防御方法" class="headerlink" title="常见的攻击和防御方法"></a>常见的攻击和防御方法</h2><p>xss(跨站脚本攻击)，通过存在安全漏洞的web网站注册用户的浏览器内运行非法的html标签或者js进行攻击<br>1.利用虚假输入表单获取信息<br>2.利用脚本窃取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求。<br>3.显示伪造的文章或者图片<br>防御XSS攻击：<br>CSP建立白名单，开发者明确告诉浏览器哪些外部资源可以加载<br>通过设置http header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content-security-policy:defalut-src &apos;self&apos;</span><br></pre></td></tr></table></figure></p>
+<p>通过使用转移字符<br>3.httpOnly cookie<br>预防xss攻击的最有效手段 设置httpOnly,避免网页的cookie被客户端恶意js获取，保护用户的cookie信息<br>2.csrf攻击：<br>在登录a的情况下已经设置好cookie,所以在登录恶意网站时，将a网站上的cookie信息获取。<br>防范：get请求不对数据进行修改，不让第三方网站访问到用户的cookie.阻止第三方网站请求接口，请求时必须携带验证信息，例如cookie<br>3.点击劫持：视觉欺骗的攻击手段，攻击者将需要攻击的网站通过iframe嵌套到自己的网页中，并将iframe设置为透明，在页面中透出一个按钮诱导用户点击，特点：隐蔽性较高，UI-覆盖点击，利用iframe或者其他标签的属性。<br>4.URL跳转漏洞：借助未验证的URL进行跳转，将应用程序引导到不安全的第三方区域，从而导致安全问题。<br>5.SQL注入，一种典型的web安全漏洞，攻击者利用这个漏洞，可以访问或者修改数据，或者利用潜在的数据库漏洞进行攻击。<br>6.OS命令注入攻击：和SQL注入差不多，SQL注入是针对数据库的，而OS注入是针对操作系统的。OS命令注入攻击指的是通过Web应用，执行非法的操作系统命令而达到攻击的目的，只要在能调用shell函数的地方就能存在被攻击的风险。防御：进行规则限制，<br>在调用系统命令前将所有传入参数进行命令行参数转义过滤。不要直接拼接命令语句，借助一些工具作拼接。，例如 Node.js 的 shell-escape npm包</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/前端性能优化/" rel="tag"># 前端性能优化</a>
+          
+            <a href="/tags/前端常见攻击/" rel="tag"># 前端常见攻击</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/20/http相关知识/" rel="next" title="http相关知识,tcp知识,web实时推送">
+                <i class="fa fa-chevron-left"></i> http相关知识,tcp知识,web实时推送
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/05/面试笔记/" rel="prev" title="面经笔记">
+                面经笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="KevinSwift">
+            
+              <p class="site-author-name" itemprop="name">KevinSwift</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#常见的攻击和防御方法"><span class="nav-number">1.</span> <span class="nav-text">常见的攻击和防御方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KevinSwift</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
