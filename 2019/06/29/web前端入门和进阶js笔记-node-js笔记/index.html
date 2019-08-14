@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="面试,node相关,前端大杂烩,">
 
 
 
@@ -79,18 +79,19 @@
 
 
 
-<meta name="description" content="异步编程node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
+<meta name="description" content="异步编程node 采用google v8引擎来处理js脚本，js最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
+<meta name="keywords" content="面试,node相关,前端大杂烩">
 <meta property="og:type" content="article">
 <meta property="og:title" content="web前端入门和进阶js笔记-node js笔记">
 <meta property="og:url" content="http://yoursite.com/2019/06/29/web前端入门和进阶js笔记-node-js笔记/index.html">
 <meta property="og:site_name" content="KevinSwift">
-<meta property="og:description" content="异步编程node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
+<meta property="og:description" content="异步编程node 采用google v8引擎来处理js脚本，js最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/uploads/v8.jpg">
-<meta property="og:updated_time" content="2019-07-05T02:21:43.122Z">
+<meta property="og:updated_time" content="2019-08-14T11:27:38.357Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web前端入门和进阶js笔记-node js笔记">
-<meta name="twitter:description" content="异步编程node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
+<meta name="twitter:description" content="异步编程node 采用google v8引擎来处理js脚本，js最大特点就是单线程运行，一次只能运行一个任务node 大量采用异步操作，即任务不是马上执行，而是插在任务队列的尾部，等到前面的任务执行完再去执行.提高代码的响应能力。异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自">
 <meta name="twitter:image" content="http://yoursite.com/uploads/v8.jpg">
 
 
@@ -286,6 +287,39 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/node相关/" itemprop="url" rel="index">
+                    <span itemprop="name">node相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -313,19 +347,23 @@
       
 
       
-        <p>异步编程<br>node 采用google v8引擎来处理js脚本，v8最大特点就是单线程运行，一次只能运行一个任务<br>node 大量采用异步操作，即任务不是马上执行，<strong>而是插在任务队列的尾部，等到前面的任务执行完再去执行</strong>.<br>提高代码的响应能力。<br>异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自动被执行，而不是在等待。<br>所以只有把错误交给<strong>回调函数</strong>来处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(&quot;找小黑&quot;,function(error,data)&#123;</span><br><span class="line">    if(error)</span><br><span class="line">    throw error;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+        <p>异步编程<br>node 采用google v8引擎来处理js脚本，js最大特点就是单线程运行，一次只能运行一个任务<br>node 大量采用异步操作，即任务不是马上执行，<strong>而是插在任务队列的尾部，等到前面的任务执行完再去执行</strong>.<br>提高代码的响应能力。<br>异步IO也叫非阻塞IO，例如读文件，传统的语言，基本都是读取完毕才能进行下一步操作。非阻塞就是Node的callback，不会影响下一步操作，等到文件读取完毕，回调函数自动被执行，而不是在等待。<br>所以只有把错误交给<strong>回调函数</strong>来处理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo(&quot;找小黑&quot;,function(error,data)&#123;</span><br><span class="line">    if(error)</span><br><span class="line">    throw error;</span><br><span class="line">    console.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>异步线程不容易维护，阅读，调试，可以通过es5的promise机制和es6最新提出的async/await机制来实现<br>进程：每一个<strong>正在运行</strong>的应用程序被称为进程。进程是<strong>操作系统为应用程序分配资源的一个单位</strong><br>线程：用来执行应用程序中的代码，一个进程内部，可以分为<strong>多线程</strong><br>在一个线程内部，同时只可以干一件事<br>传统的开发方式大部分都是 I/O 阻塞的，所以需要多线程来更好的利用硬件资源。<br>多线程弊端：<br>创建线程耗费，线程数量有限，cpu需要在不同线程之间切换。</p>
-<p>事件驱动和非阻塞机制：<br>node中将所有的阻塞操作都交给了内部线程池来实现。<br>node主线程本身。主要是不断的往返调用。<br>node js基本上所有的事件机制都是利用设计模式中的<strong>观察者模式</strong>来实现。<br>node js单线程类似于进入一个while(true)循环，直到没有事件观察者退出，每个异步事件生成一个事件观察者，如果有事件发生就调用回调函数。<br>node js使用事件驱动模型，当web-server接收到后，就把他关闭然后进行处理，然后去服务下一个web请求。<br>当这个请求完成，它被放回处理队列，当到达队列开头，这个结果被返回给用户。<br>这个模型非常高效可扩展性非常强，因为webserver一直接受请求而不等待任何读写操作。（这也被称之为非阻塞式IO或者事件驱动IO）<br>在事件驱动模型中，会生成一个主循环来监听事件，当检测到事件时触发回调函数。<br>node采用事件驱动的运行模型，通过事件驱动的方式处理请求时无需为每一个请求额外创建线程。在事件驱动的模型当中，每一个IO工作被添加到事件队列中，线程循环的来处理队列上的工作任务，当执行过程中遇到阻塞，线程不会阻塞下来，而是会返回一个回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务结束后才会被执行。<br>nginx是<strong>多进程单线程</strong><br><strong>每个Tick周期中会从事件队列查看是否有事件需要处理，如果有就取出事件并执行相关的回调函数。事件队列事件全部执行完毕，node应用就会终止。Node对于堵塞IO的处理在幕后使用线程池来确保工作的执行。Node从池中取得一个线程来执行复杂任务，而不占用主循环线程。这样就防止堵塞IO占用空闲资源。当堵塞任务执行完毕通过添加到事件队列中的回调函数来处理接下来的工作。</strong><br>node内部采用google v8引擎，作为js引擎解释器<br><strong>通过自行开发的libuv库，调用操作系统资源</strong><br>总结<br><strong>node js</strong>是一个js的运行环境(平台)，不是一门语言，也不是一个框架。<br>node js环境即REPL环境<br>REPL:ead,eval,print,loop类似于浏览器的控制台<br><strong>接收用户输入，执行用户输入，打印执行结果到控制台，循环下一次</strong><br>程序模块化：<br>js文件越来越多，会遇到一些问题：文件污染，全局污染，命名冲突<br>程序模块化：<br>日期模块，数学计算模块，日志模块<br>模块化：将一个复杂的程序依据一定的规则(规范)封装成几个文件，并且组合在一起。<br>模块的内部数据：实现是私有的，只是向外部暴露一些接口。<br>模块化的好处<br>避免命名冲突，减少命名空间污染<br>降低耦合性；更好地分离、按需加载<br>高复用性：代码方便重用，别人开发的模块直接拿过来就可以使用，不需要重复开发类似的功能。<br>高可维护性：软件的声明周期中最长的阶段其实并不是开发阶段，而是维护阶段，需求变更比较频繁。使用模块化的开发，方式更容易维护。<br>部署方便<br>模块化规范：<br>模块化起源于node js,node js中把很多js打包成package,需要的时候直接(require) common.js要求 导入进来，这就是模块化的方式。<br>服务端模块化：commonjs是node js使用的模块化规范，约定标准，不是技术。用于约定我们的代码应该是怎样的一种结构。<br>浏览器端规范：amd规范:是requrejs在推广过程中对模块化定义的规范化产出。异步加载模块<br>同步加载模块：cmd是seajs在推广过程中对模块化定义的规范化产出。淘宝团队开发。<br>暴露模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports = value;</span><br><span class="line">exports.xxx = value;</span><br><span class="line">引入requre(xxx);</span><br></pre></td></tr></table></figure></p>
+<p>事件驱动和非阻塞机制：<br>node中将所有的阻塞操作都交给了内部线程池来实现。<br>node主线程本身。主要是不断的往返调用。<br>node js基本上所有的事件机制都是利用设计模式中的<strong>观察者模式</strong>来实现。<br>node js单线程类似于进入一个while(true)循环，直到没有事件观察者退出，每个异步事件生成一个事件观察者，如果有事件发生就调用回调函数。<br>node js使用事件驱动模型，当web-server接收到后，就把他关闭然后进行处理，然后去服务下一个web请求。<br>当这个请求完成，它被放回处理队列，当到达队列开头，这个结果被返回给用户。<br>这个模型非常高效可扩展性非常强，因为webserver一直接受请求而不等待任何读写操作。（这也被称之为非阻塞式IO或者事件驱动IO）<br>在事件驱动模型中，会生成一个主循环来监听事件，当检测到事件时触发回调函数。<br>node采用事件驱动的运行模型，通过事件驱动的方式处理请求时无需为每一个请求额外创建线程。在事件驱动的模型当中，每一个IO工作被添加到事件队列中，线程循环的来处理队列上的工作任务，当执行过程中遇到阻塞，线程不会阻塞下来，而是会返回一个回调函数，转而继续执行队列中的下一个任务。这个传递到队列中的回调函数在阻塞任务结束后才会被执行。<br>nginx是<strong>多进程单线程</strong><br><strong>每个Tick周期中会从事件队列查看是否有事件需要处理，如果有就取出事件并执行相关的回调函数。事件队列事件全部执行完毕，node应用就会终止。Node对于堵塞IO的处理在幕后使用线程池来确保工作的执行。Node从池中取得一个线程来执行复杂任务，而不占用主循环线程。这样就防止堵塞IO占用空闲资源。当堵塞任务执行完毕通过添加到事件队列中的回调函数来处理接下来的工作。</strong><br>node内部采用google v8引擎，作为js引擎解释器<br><strong>通过自行开发的libuv库，调用操作系统资源</strong><br>总结<br><strong>node js</strong>是一个js的运行环境(平台)，不是一门语言，也不是一个框架。<br>node js环境即REPL环境<br>REPL:ead,eval,print,loop类似于浏览器的控制台<br><strong>接收用户输入，执行用户输入，打印执行结果到控制台，循环下一次</strong></p>
+<h2 id="程序模块化："><a href="#程序模块化：" class="headerlink" title="程序模块化："></a>程序模块化：</h2><p>js文件越来越多，会遇到一些问题：文件污染，全局污染，命名冲突<br>程序模块化：<br>日期模块，数学计算模块，日志模块<br>模块化：将一个复杂的程序依据一定的规则(规范)封装成几个文件，并且组合在一起。<br>模块的内部数据：实现是私有的，只是向外部暴露一些接口。<br>模块化的好处<br>避免命名冲突，减少命名空间污染<br>降低耦合性；更好地分离、按需加载<br>高复用性：代码方便重用，别人开发的模块直接拿过来就可以使用，不需要重复开发类似的功能。<br>高可维护性：软件的声明周期中最长的阶段其实并不是开发阶段，而是维护阶段，需求变更比较频繁。使用模块化的开发，方式更容易维护。<br>部署方便<br>模块化规范：<br>模块化起源于node js,node js中把很多js打包成package,需要的时候直接(require) common.js要求 导入进来，这就是模块化的方式。<br>服务端模块化：commonjs是node js使用的模块化规范，约定标准，不是技术。用于约定我们的代码应该是怎样的一种结构。<br>浏览器端规范：amd规范:是requrejs在推广过程中对模块化定义的规范化产出。异步加载模块<br>同步加载模块：cmd是seajs在推广过程中对模块化定义的规范化产出。淘宝团队开发。<br>暴露模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports = value;</span><br><span class="line">exports.xxx = value;</span><br><span class="line">引入requre(xxx);</span><br></pre></td></tr></table></figure></p>
 <p>自定义:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    name:&quot;我是module1&quot;,</span><br><span class="line">    foo()&#123;</span><br><span class="line">        console.log(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>引入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let module1 = require(&quot;./modules/module1&quot;);</span><br><span class="line">module1.foo();</span><br></pre></td></tr></table></figure></p>
 <p>AMD:异步模块定义：AMD专门用于浏览器端，模块的加载是<strong>异步</strong>的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">define(function() &#123;</span><br><span class="line">    return 模块</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">require([&apos;module1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line">    //使用</span><br><span class="line">    m1 / m2;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>CMD同步模块加载，CMD专门用于浏览器端，模块的加载是<strong>同步</strong>的，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">module.exports = value;</span><br><span class="line">//引入依赖的模块(同步的方式)</span><br><span class="line">    var module2 = require(&apos;./module2&apos;)</span><br><span class="line"></span><br><span class="line">    //引入依赖的模块(异步的方式)</span><br><span class="line">    require.async(&apos;./module3&apos;, function (m3) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
 <p>es6模块化的说明<br>依赖模块需要编译打包处理<br>1.有些浏览器不支持es6的语法，写完es6的代码后，需要babel将es6转化为es5<br>export<br>引入模块 import xxx from ‘路径’<br>默认暴露的方式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export default() =&gt; &#123;</span><br><span class="line">    console.log(&quot;我暴露了&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>es6语法概览：<br>块级作用域，字符串，对象扩展，解构，类，模块化。<br>let定义变量，代替var<br>http协议是无状态的，服务器只会响应来自客户端的请求，但是他与客户端之间不具备持续连接。<br>服务端发送事件后，无法推送到客户端。只有在客户端查询服务器当前状态时，所发生事件的信息才会从服务器传递到客户端。<br>知道服务器的状态：<br>轮询：客户端每隔很短的时间，都会向服务器发出请求，，查看是否有新的消息，只要轮询速度足够快，例如1秒，就能给人造成交互是实时进行的印象。这种做法是无奈之举，实际上对服务器、客户端双方都造成了大量的性能浪费。<br>长连接：客户端只请求一次，但是服务器会保存这次连接，不会返回结果。当服务器有了新数据时，实时地发给客户端，而一直保持挂起状态。这种做法的也造成了大量的性能浪费。<br>websocket协议：允许客户端与服务器端以<strong>全双工</strong>的形式进行通信。<br>WebSocket 的原理非常简单：利用HTTP产生请求握手，HTTP头部含有 WebSocket 协议的请求，*握手之后，二者之间使用TCP进行交流（QQ的协议）。<br>HTTP1.1通过使用Connection:keep-alive进行长连接，HTTP 1.1默认进行持久连接。在一次 TCP 连接中可以完成多个 HTTP 请求，但是对每个请求仍然要单独发 header，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。</p>
+<p>es6语法概览：<br>块级作用域，字符串，对象扩展，解构，类，模块化。<br>let定义变量，代替var</p>
+<h2 id="http状态"><a href="#http状态" class="headerlink" title="http状态"></a>http状态</h2><p>http协议是无状态的，服务器只会响应来自客户端的请求，但是他与客户端之间不具备持续连接。<br>服务端发送事件后，无法推送到客户端。只有在客户端查询服务器当前状态时，所发生事件的信息才会从服务器传递到客户端。<br>知道服务器的状态：<br>轮询：客户端每隔很短的时间，都会向服务器发出请求，，查看是否有新的消息，只要轮询速度足够快，例如1秒，就能给人造成交互是实时进行的印象。这种做法是无奈之举，实际上对服务器、客户端双方都造成了大量的性能浪费。<br>长连接：客户端只请求一次，但是服务器会保存这次连接，不会返回结果。当服务器有了新数据时，实时地发给客户端，而一直保持挂起状态。这种做法的也造成了大量的性能浪费。<br>websocket协议：允许客户端与服务器端以<strong>全双工</strong>的形式进行通信。<br>WebSocket 的原理非常简单：利用HTTP产生请求握手，HTTP头部含有 WebSocket 协议的请求，*握手之后，二者之间使用TCP进行交流（QQ的协议）。<br>HTTP1.1通过使用Connection:keep-alive进行长连接，HTTP 1.1默认进行持久连接。在一次 TCP 连接中可以完成多个 HTTP 请求，但是对每个请求仍然要单独发 header，Keep-Alive不会永久保持连接，它有一个保持时间，可以在不同的服务器软件（如Apache）中设定这个时间。</p>
 <p>websocket是一个真正的全双工。长连接第一次tcp链路建立之后，后续数据可以双方都进行发送，不需要发送请求头。</p>
 <p>keep-alive双方并没有建立正真的连接会话，服务端可以在任何一次请求完成后关闭。WebSocket 它本身就规定了是正真的、双工的长连接，两边都必须要维持住连接的状态。<br>es6中新语法<br>如果不想让 arr1 和 arr2 指向同一个内存地址，我们可以借助扩展运算符来做：<br>arr1是一个数组，arr2不需要指向arr1<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let arr2 = [...arr1];</span><br></pre></td></tr></table></figure></p>
-<p>angularJS提供更多的是一套解决方案，更像是一个生态<br>vue和react目前都使用了virtual dom<br>vue和react的相同点<br>利用虚拟DOM实现快速渲染<br>轻量级<br>响应式组件<br>支持服务端渲染<br>易于集成路由工具，打包工具以及状态管理工具<br>虚拟dom:可以在js内存里构建类似于DOM的对象，去拼装数据，拼装完整后，把数据完整解析，一次性插入到DOM里面去，这就形成了虚拟DOM。<br>promise:简单来说就是一个容器，里面保存着某个未来才会结束的事件的结果，从语法上说，promise是一个对象，从他可以获取异步操作的结果，promise提供一个统一的api,各种异步操作都可以用同样的方法处理，让开发者不用再关心时序和底层的结果，promise的状态具有<strong>不受外界影响和不可逆</strong>的特点。传统回调存在bug:调用回调次数过少或过多。对于Promise来说，即使是立即完成的Promise也无法被同步观察到，也就是说一个Promise调用then()的时候，即使这个Promise已经决议了，提供给then的回调也总会被异步调用。<br>对于一个proise对象来说，对象的注册和每一个观察回调都是相对独立的，互不干预的，而promise对象调用reslove和reject,每个注册的观察回调也都会被自动调度。所以这些观察回调的任意一个都无法影响或延误对其他回调的调用。<br>css中的BFC概念。<br>文档流，常说的文档流其实分为<strong>定位流，浮动流，普通流</strong>,3种，而普通流就是指BFC中的FC(fomatting context),直译过来就是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用，常见的FC有BFC,IFC,还有GFC和FFC。<br>BFC，块级格式化上下文，是用于布局块级盒子的一块渲染区域。MDN上的解释就是：BFC是web页面css视觉渲染的一部分，用于决定块盒子的布局及浮动相互影响的一个区域。<br>一个BFC的范围包含创建该上下文元素的所有子元素，但不包括创建了新BFC的子元素的内部元素。这从另一方角度说明，一个元素不能同时存在2个BFC中，因为如果一个元素能够同时处于两个BFC中，那么就意味着这个元素能与两个BFC中的元素发生作用，就违反了BFC的隔离作用。<br>常规流：盒一个接着一个排列。<br>浮动：floats，左浮动元素尽量靠左，靠上，右浮动。<br>绝对定位：盒从常规流中被移除，不影响常规流的布局。<br>根元素，即HTML标签<br>浮动元素：float值为 left、 right<br>overflow值不为 visible，为 auto、 scroll、 hidden<br>display值为 inline-block、 table-cell、 table-caption、 table、 inline-table、 flex、 inline-flex、 grid、 inline-grid<br>定位元素：position值为 absolute、 fixed</p>
+<p>angularJS提供更多的是一套解决方案，更像是一个生态<br>vue和react目前都使用了virtual dom<br>vue和react的相同点<br>利用虚拟DOM实现快速渲染<br>轻量级<br>响应式组件<br>支持服务端渲染<br>易于集成路由工具，打包工具以及状态管理工具<br>虚拟dom:可以在js内存里构建类似于DOM的对象，去拼装数据，拼装完整后，把数据完整解析，一次性插入到DOM里面去，这就形成了虚拟DOM。</p>
+<h2 id="promise机制"><a href="#promise机制" class="headerlink" title="promise机制"></a>promise机制</h2><p>promise:简单来说就是一个容器，里面保存着某个未来才会结束的事件的结果，从语法上说，promise是一个对象，从他可以获取异步操作的结果，promise提供一个统一的api,各种异步操作都可以用同样的方法处理，让开发者不用再关心时序和底层的结果，promise的状态具有<strong>不受外界影响和不可逆</strong>的特点。传统回调存在bug:调用回调次数过少或过多。对于Promise来说，即使是立即完成的Promise也无法被同步观察到，也就是说一个Promise调用then()的时候，即使这个Promise已经决议了，提供给then的回调也总会被异步调用。<br>对于一个proise对象来说，对象的注册和每一个观察回调都是相对独立的，互不干预的，而promise对象调用reslove和reject,每个注册的观察回调也都会被自动调度。所以这些观察回调的任意一个都无法影响或延误对其他回调的调用。<br>css中的BFC概念。</p>
+<h2 id="BFC概念"><a href="#BFC概念" class="headerlink" title="BFC概念"></a>BFC概念</h2><p>文档流，常说的文档流其实分为<strong>定位流，浮动流，普通流</strong>,3种，而普通流就是指BFC中的FC(fomatting context),直译过来就是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用，常见的FC有BFC,IFC,还有GFC和FFC。<br>BFC，块级格式化上下文，是用于布局块级盒子的一块渲染区域。MDN上的解释就是：BFC是web页面css视觉渲染的一部分，用于决定块盒子的布局及浮动相互影响的一个区域。<br>一个BFC的范围包含创建该上下文元素的所有子元素，但不包括创建了新BFC的子元素的内部元素。这从另一方角度说明，一个元素不能同时存在2个BFC中，因为如果一个元素能够同时处于两个BFC中，那么就意味着这个元素能与两个BFC中的元素发生作用，就违反了BFC的隔离作用。<br>常规流：盒一个接着一个排列。<br>浮动：floats，左浮动元素尽量靠左，靠上，右浮动。<br>绝对定位：盒从常规流中被移除，不影响常规流的布局。<br>根元素，即HTML标签<br>浮动元素：float值为 left、 right<br>overflow值不为 visible，为 auto、 scroll、 hidden<br>display值为 inline-block、 table-cell、 table-caption、 table、 inline-table、 flex、 inline-flex、 grid、 inline-grid<br>定位元素：position值为 absolute、 fixed</p>
 <ol start="5">
 <li>作用<br>BFC是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面元素，反之亦然。我们可以利用BFC的这个特性来做很多事。<br>5.1阻止元素被浮动覆盖。5.2可以包含浮动元素，通过改变包含浮动子元素的父盒子的属性值，触发BFC，以此来包含子元素的浮动盒子。<br>5.3阻止因为浏览器因为四舍五入造成的多列布局换行的情况<br>5.4阻止相邻元素的margin合并</li>
 </ol>
@@ -335,11 +373,13 @@
 <p>DOM3中，增加了很多事件类型，比如鼠标事件，键盘事件等。<br>为何事件没有DOM1的写法呢？因为，DOM1标准制定的时候，没有涉及与事件相关的内容。<br>window -&gt; document -&gt; html -&gt; body -&gt; 目标元素<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var myEvent = new Event(&quot;clickTest&quot;);</span><br><span class="line">element.addEventListener(&quot;clickTest&quot;,function() &#123;</span><br><span class="line">     console.log(&apos;smyhvae&apos;);</span><br><span class="line">&#125;)</span><br><span class="line">element.dispatchEvent(myEvent);</span><br></pre></td></tr></table></figure></p>
 <p>http协议：<br>客户端和服务器端是两种身份，第一次请求结束后，就断开了，第二次请求时，<strong>服务器没有记住之前的状态</strong>,<br>HTTP报文的组成：<br>请求报文：请求行，请求头，空行，请求体<br>响应报文：状态行，响应头，空行，响应体<br>请求行：post方法，请求的url,http协议以及版本<br>请求头：一大堆键值对<br>请求体：数据部分<br>响应报文：<br>状态行：http协议以及版本，状态码以及描述<br>响应头：http/1.1 200 OK<br>响应体：返回的数据<br>http状态码：1xx 指示信息-表示请求已经接受 基础处理<br>2xx 成功 表示请求已被成功接受<br>3xx 重定向 要完成请求必须进一步操作<br>4xx 客户端错误<br>5xx 服务器错误<br>instanceof的作用：用于判断<strong>实例</strong>属于哪个构造函数<br>原理：判断实例对象的<strong>proto</strong>属性，和构造函数的prototype属性，是否是同一个引用(即是否是同一个地址)<br>foo instanceof Object的结果也是true,<br>new 运算符发生了什么<br>1.创建了一个<strong>新的空对象实例</strong><br>2.将此空对象的隐式原型指向其构造函数的显示原型<br>3.执行构造函数，同时 this 指向这个新实例。<br>4.如果返回值是一个新对象，就返回该对象，如果无返回值或者返回一个非对象值，那么就将步骤（1）创建的对象返回。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function Animal()&#123;</span><br><span class="line">    this.name = &quot;sym&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>用class声明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class Animal&#123;</span><br><span class="line">    constructor(name)&#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>ajax：不支持跨域<br>websocket:不受同源策略的限制，支持跨域<br>cors:不受同源策略的限制，支持跨域。同时支持同源和跨域的Ajax。<br>jsonp实现原理：通过script标签的异步加载来实现，比如说，实际开发中，head标签里，可以通过script标签的src,里面来放url,加载很多在线的插件，这里就是通道了jsonp<br>在没有网站登出的情况下去访问非法网站，非法网站就要求A去访问新的网站，并且携带者A的cookie -&gt; CSRF<br>跨域脚本攻击：不需要你做任何的登录认证，它会通过合法的操作（比如在url中输入、在评论框中输入），向你的页面注入脚本，可能是js,html代码块，最后导致结果：盗用cookie,破坏页面解构，插入广告等。d-doss攻击。 -&gt; xss<br>随表单一起提交给服务器，服务器随后解析，xss代码随响应体一起传回，最后浏览器解析执行XSS代码。这个过程像一次反射，所以叫反射型XSS。<br>存储型：提交的代码会存储在服务器端，下次请求目标页面时就不用再提交XSS代码了。</p>
-<p>DTD(文档类型定义)：<br>是一系列的语法规则，用来定义XML或者(x)HTML文件类型，浏览器使用<strong>DTD判断文档类型</strong>.决定使用哪种协议来解析，以及切换浏览器模式。告诉浏览器，我是什么文档类型，你要用什么协议来解析我。<br>&lt;!DOCTYPE html&gt;<br>DOM tree和CSS Rule Tree合并成Render Tree,（虽然有了Render Tree，但并不知道节点的位置，需要依靠接下来的layout）<br>有了render Tree,浏览器已经知道网页中有哪些节点，各个节点的css定义以及他们的从属关系，<strong>从而去计算每个节点在屏幕上的位置(宽高，颜色等)</strong>.<br>painting:按照计算出来的规则，通过显卡，把内容绘制到屏幕上。<br>display:打击看到最终的效果。<br>reflow:重排，dom节点中的各个元素都有自己的盒子，这些都需要浏览器<strong>根据各种样式来进行计算，并根据计算结果将元素放在他该出现的位置</strong>，这个过程称为reflow.<br>触发reflow:增加，删除，修改dom节点。 导致reflow和repaint<br>移动dom位置。修改css样式，宽高，display为none时。<br>repaint:重绘制，当各种盒子的位置，大小以及其余属性，例如颜色，字体大小都确定后，浏览器便会把这些元素按照各自的特性绘制一遍，于是页面的内容也就出来了。<br><strong>页面呈现的内容，绘制在屏幕上，叫做重绘</strong><br><strong>页面元素的位置，叫做重排</strong><br>js是单线程(同一时间只能做意见事情),而且只有一个任务队列，全部的同步任务执行完毕后，才会去执行异步任务，<br>遇到异步任务，setTimeout等，先挂起。全部的同步任务执行完毕后，再来执行异步任务。<br>什么时候需要等待，就什么时候需要用异步。<br>定时任务：setTimeout,网络请求,ajax,动态img增加。<br>事件绑定。比如所，按钮绑定点击事件，用户爱点不点，我们不可能一直卡在那里，，什么都不做。所以，应该用异步）<br>同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务。异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有任务队列通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。<br>总结：只要主线程空了，就去读取“任务队列”。<br>提升页面性能方法<br>1.资源压缩合并，减少http请求。<br>2.非核心代码异步加载，<br>document.createElement() defer加载，async加载<br>defer:在html解析完之后才会执行，如果是多个，则按照加载顺序依次执行。<br>async:在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关。<br>3.利用浏览器缓存，和存储不是一件事<br>缓存 资源文件<br>强缓存：不用请求服务器，直接使用本地缓存<br>强缓存是利用HTTP响应头中的express或cache-control实现<br>Cache-Control的优先级高于Expires。<br>4.使用CDN<br>5.DNS预解析<br>前端错误监控：<br>1.前端错误的分类 2.每种错误的捕获方式 3.上报错误的基本原理<br>try…catch window.onerror函数 这个函数是全局的<br><strong>手机端的web开发，怎么和原生做交互？</strong><br><strong>调用原理需清楚,怎么调用原生的插件的</strong><br>let的<strong>创建</strong>过程被提升了，但是初始化没有被提升<br>var的<strong>创建</strong>和<strong>初始化</strong>都被提升了<br>function的<strong>创建</strong>和<strong>初始化</strong>和<strong>赋值</strong>都被提升了<br>声明时的重名问题：<br>假设a被声明为变量，紧接着又被声明为函数，原则是：：<strong>声明会被覆盖（先来后到，就近原则）。</strong><br>如果a已经有值，再用var声明是无效的<br>如果a已经有值，紧接着又被赋值，则<strong>赋值会被覆盖</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var fn;</span><br><span class="line">function fn() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(fn); //打印函数fn</span><br></pre></td></tr></table></figure></p>
+<p>ajax：不支持跨域<br>websocket:不受同源策略的限制，支持跨域<br>cors:不受同源策略的限制，支持跨域。同时支持同源和跨域的Ajax。<br>jsonp实现原理：通过script标签的异步加载来实现，比如说，实际开发中，head标签里，可以通过script标签的src,里面来放url,加载很多在线的插件，这里就是通道了jsonp</p>
+<h2 id="反射型xss"><a href="#反射型xss" class="headerlink" title="反射型xss"></a>反射型xss</h2><p>在没有网站登出的情况下去访问非法网站，非法网站就要求A去访问新的网站，并且携带者A的cookie -&gt; CSRF<br>跨域脚本攻击：不需要你做任何的登录认证，它会通过合法的操作（比如在url中输入、在评论框中输入），向你的页面注入脚本，可能是js,html代码块，最后导致结果：盗用cookie,破坏页面解构，插入广告等。d-doss攻击。 -&gt; xss<br>随表单一起提交给服务器，服务器随后解析，xss代码随响应体一起传回，最后浏览器解析执行XSS代码。这个过程像一次反射，所以叫反射型XSS。<br>存储型：提交的代码会存储在服务器端，下次请求目标页面时就不用再提交XSS代码了。</p>
+<h2 id="文档类型"><a href="#文档类型" class="headerlink" title="文档类型"></a>文档类型</h2><p>DTD(文档类型定义)：<br>是一系列的语法规则，用来定义XML或者(x)HTML文件类型，浏览器使用<strong>DTD判断文档类型</strong>.决定使用哪种协议来解析，以及切换浏览器模式。告诉浏览器，我是什么文档类型，你要用什么协议来解析我。<br>&lt;!DOCTYPE html&gt;<br>DOM tree和CSS Rule Tree合并成Render Tree,（虽然有了Render Tree，但并不知道节点的位置，需要依靠接下来的layout）<br>有了render Tree,浏览器已经知道网页中有哪些节点，各个节点的css定义以及他们的从属关系，<strong>从而去计算每个节点在屏幕上的位置(宽高，颜色等)</strong>.<br>painting:按照计算出来的规则，通过显卡，把内容绘制到屏幕上。<br>display:打击看到最终的效果。<br>reflow:重排，dom节点中的各个元素都有自己的盒子，这些都需要浏览器<strong>根据各种样式来进行计算，并根据计算结果将元素放在他该出现的位置</strong>，这个过程称为reflow.<br>触发reflow:增加，删除，修改dom节点。 导致reflow和repaint<br>移动dom位置。修改css样式，宽高，display为none时。<br>repaint:重绘制，当各种盒子的位置，大小以及其余属性，例如颜色，字体大小都确定后，浏览器便会把这些元素按照各自的特性绘制一遍，于是页面的内容也就出来了。<br><strong>页面呈现的内容，绘制在屏幕上，叫做重绘</strong><br><strong>页面元素的位置，叫做重排</strong><br>js是单线程(同一时间只能做意见事情),而且只有一个任务队列，全部的同步任务执行完毕后，才会去执行异步任务，<br>遇到异步任务，setTimeout等，先挂起。全部的同步任务执行完毕后，再来执行异步任务。<br>什么时候需要等待，就什么时候需要用异步。<br>定时任务：setTimeout,网络请求,ajax,动态img增加。<br>事件绑定。比如所，按钮绑定点击事件，用户爱点不点，我们不可能一直卡在那里，，什么都不做。所以，应该用异步）<br>同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务。异步任务指的是，不进入主线程、而进入”任务队列”（task queue）的任务，只有任务队列通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。<br>总结：只要主线程空了，就去读取“任务队列”。<br>提升页面性能方法<br>1.资源压缩合并，减少http请求。<br>2.非核心代码异步加载，<br>document.createElement() defer加载，async加载<br>defer:在html解析完之后才会执行，如果是多个，则按照加载顺序依次执行。<br>async:在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关。<br>3.利用浏览器缓存，和存储不是一件事<br>缓存 资源文件<br>强缓存：不用请求服务器，直接使用本地缓存<br>强缓存是利用HTTP响应头中的express或cache-control实现<br>Cache-Control的优先级高于Expires。<br>4.使用CDN<br>5.DNS预解析<br>前端错误监控：<br>1.前端错误的分类 2.每种错误的捕获方式 3.上报错误的基本原理<br>try…catch window.onerror函数 这个函数是全局的<br><strong>手机端的web开发，怎么和原生做交互？</strong><br><strong>调用原理需清楚,怎么调用原生的插件的</strong></p>
+<h2 id="let-var-function"><a href="#let-var-function" class="headerlink" title="let var function"></a>let var function</h2><p>let的<strong>创建</strong>过程被提升了，但是初始化没有被提升<br>var的<strong>创建</strong>和<strong>初始化</strong>都被提升了<br>function的<strong>创建</strong>和<strong>初始化</strong>和<strong>赋值</strong>都被提升了<br>声明时的重名问题：<br>假设a被声明为变量，紧接着又被声明为函数，原则是：：<strong>声明会被覆盖（先来后到，就近原则）。</strong><br>如果a已经有值，再用var声明是无效的<br>如果a已经有值，紧接着又被赋值，则<strong>赋值会被覆盖</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var fn;</span><br><span class="line">function fn() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(fn); //打印函数fn</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">var fn;//再用var 无效</span><br><span class="line">console.log(fn);//打印结果 函数fn</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function fn() &#123;&#125;  //fn被声明为function，且此时fn已经有值，这个值就是function的对象</span><br><span class="line"></span><br><span class="line">    function fn() &#123;   //此时fn被重复赋值，会覆盖上一行的值</span><br><span class="line">        console.log(&apos;smyhvae&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(fn)</span><br></pre></td></tr></table></figure>
-<p>下面的fn声明会覆盖上面的<br>使用var关键字声明的变量，是在函数作用域中有效，而且会在函数中所有的代码之前被<strong>声明</strong>.<br>函数声明也会在函数中所有的代码执行之前执行。<br>在函数中，没有var声明的变量会成为<strong>全局变量</strong>,而且不会提前声明。<br><strong>this在各个场景下的指向</strong></p>
+<p>下面的fn声明会覆盖上面的<br>使用var关键字声明的变量，是在函数作用域中有效，而且会在函数中所有的代码之前被<strong>声明</strong>.<br>函数声明也会在函数中所有的代码执行之前执行。<br>在函数中，没有var声明的变量会成为<strong>全局变量</strong>,而且不会提前声明。</p>
 
       
     </div>
@@ -354,6 +394,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/node相关/" rel="tag"># node相关</a>
+          
+            <a href="/tags/前端大杂烩/" rel="tag"># 前端大杂烩</a>
+          
+        </div>
       
 
       
@@ -428,8 +478,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -457,7 +516,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -468,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -491,6 +550,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#程序模块化："><span class="nav-number">1.</span> <span class="nav-text">程序模块化：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#http状态"><span class="nav-number">2.</span> <span class="nav-text">http状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise机制"><span class="nav-number">3.</span> <span class="nav-text">promise机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BFC概念"><span class="nav-number">4.</span> <span class="nav-text">BFC概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射型xss"><span class="nav-number">5.</span> <span class="nav-text">反射型xss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文档类型"><span class="nav-number">6.</span> <span class="nav-text">文档类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-var-function"><span class="nav-number">7.</span> <span class="nav-text">let var function</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
