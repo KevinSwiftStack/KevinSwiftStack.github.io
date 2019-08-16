@@ -88,7 +88,7 @@
 <meta property="og:description" content="CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。输入层：CNN的输入一般是二维向量，可以有高度，比如RGB图像。卷积层：卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/deeplearning/deeplearning3.jpg">
-<meta property="og:updated_time" content="2019-04-12T12:08:02.865Z">
+<meta property="og:updated_time" content="2019-08-16T06:53:51.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN基础">
 <meta name="twitter:description" content="CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。输入层：CNN的输入一般是二维向量，可以有高度，比如RGB图像。卷积层：卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层">
@@ -336,7 +336,7 @@
       
 
       
-        <p>CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。<br>输入层：<br>CNN的输入一般是二维向量，可以有高度，比如RGB图像。<br>卷积层：<br>卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，<br>每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层是用来对输入层进行卷积，提取更高层次的特征。<br>池化层：<br>又称为采样层，它的作用是减小数据处理量同时保留有用信息，<br>通常池化层是每邻域四个像素中的最大值变为一个像素（这就是下一讲要降的max_pooling），为什么可以这么做呢？这是因为卷积已经提取出特征，相邻区域的特征是类似，近乎不变，这是池化只是选出最能表征特征的像素，缩减了数据量，同时保留了特征，何乐而不为呢？池化层的作用可以描述为模糊图像，丢掉了一些不是那么重要的特征.<br><img src="/deeplearning/deeplearning3.jpg" width="50%" height="50%"><br>RELU层<br>这个RELU我们之前讲过，全名将修正线性单元，是神经元的激活函数，对输入值x的作用是max(0,x)，当然RELU只是一种选择，还有选Leak-Relu等等，一般都是用Relu！<br>全连接层<br>这个层就是一个常规的神经网络，它的作用是对经过多次卷积层和多次池化层所得出来的高级特征进行全连接（全连接就是常规神经网络的性质），算出最后的预测值。<br>2.6 输出层<br>输出层就不用介绍了，就是对结果的预测值，一般会加一个softmax层。</p>
+        <p>CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。<br>输入层：<br>CNN的输入一般是二维向量，可以有高度，比如RGB图像。<br>卷积层：<br>卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，<br>每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层是用来对输入层进行卷积，提取更高层次的特征。<br>池化层：<br>又称为采样层，它的作用是减小数据处理量同时保留有用信息，<br>通常池化层是每邻域四个像素中的最大值变为一个像素（这就是下一讲要降的max_pooling），为什么可以这么做呢？这是因为卷积已经提取出特征，相邻区域的特征是类似，近乎不变，这时池化只是选出最能表征特征的像素，缩减了数据量，同时保留了特征，何乐而不为呢？池化层的作用可以描述为模糊图像，丢掉了一些不是那么重要的特征.<br><img src="/deeplearning/deeplearning3.jpg" width="50%" height="50%"><br>RELU层<br>这个RELU我们之前讲过，全名将修正线性单元，是神经元的激活函数，对输入值x的作用是max(0,x)，当然RELU只是一种选择，还有选Leak-Relu等等，一般都是用Relu！<br>全连接层<br>这个层就是一个常规的神经网络，它的作用是对经过多次卷积层和多次池化层所得出来的高级特征进行全连接（全连接就是常规神经网络的性质），算出最后的预测值。<br>2.6 输出层<br>输出层就不用介绍了，就是对结果的预测值，一般会加一个softmax层。</p>
 
       
     </div>
@@ -367,8 +367,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/28/深度学习学习-1/" rel="next" title="深度学习学习(1)">
-                <i class="fa fa-chevron-left"></i> 深度学习学习(1)
+              <a href="/2019/02/28/深度学习学习-1/" rel="next" title="深度学习-基本概念(1)">
+                <i class="fa fa-chevron-left"></i> 深度学习-基本概念(1)
               </a>
             
           </div>
@@ -460,7 +460,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -471,7 +471,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

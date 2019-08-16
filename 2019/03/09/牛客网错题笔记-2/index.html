@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="面试,js相关,牛客网,">
 
 
 
@@ -80,6 +80,7 @@
 
 
 <meta name="description" content="1.问题：http302状态表示什么，domContentLoaded表示什么事件ie6/7/8不支持事件捕获。localStorage存储的数据，在刷新页面后会消失。解析：http302状态表示被请求的资源暂时转移，然后会给出一个转移后的URL,而浏览器在处理服务器返回的302状态的时候，原则上会重新建立一个TCP请求，然后再取重定向后的URL的页面；但是如果页面存在于缓存中，则不重新获取；ht">
+<meta name="keywords" content="面试,js相关,牛客网">
 <meta property="og:type" content="article">
 <meta property="og:title" content="牛客网错题笔记(2)">
 <meta property="og:url" content="http://yoursite.com/2019/03/09/牛客网错题笔记-2/index.html">
@@ -87,7 +88,7 @@
 <meta property="og:description" content="1.问题：http302状态表示什么，domContentLoaded表示什么事件ie6/7/8不支持事件捕获。localStorage存储的数据，在刷新页面后会消失。解析：http302状态表示被请求的资源暂时转移，然后会给出一个转移后的URL,而浏览器在处理服务器返回的302状态的时候，原则上会重新建立一个TCP请求，然后再取重定向后的URL的页面；但是如果页面存在于缓存中，则不重新获取；ht">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/nowcoder/nowcoder01.png">
-<meta property="og:updated_time" content="2019-03-31T07:33:40.678Z">
+<meta property="og:updated_time" content="2019-08-16T03:22:46.831Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="牛客网错题笔记(2)">
 <meta name="twitter:description" content="1.问题：http302状态表示什么，domContentLoaded表示什么事件ie6/7/8不支持事件捕获。localStorage存储的数据，在刷新页面后会消失。解析：http302状态表示被请求的资源暂时转移，然后会给出一个转移后的URL,而浏览器在处理服务器返回的302状态的时候，原则上会重新建立一个TCP请求，然后再取重定向后的URL的页面；但是如果页面存在于缓存中，则不重新获取；ht">
@@ -286,6 +287,28 @@
           </span>
 
           
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -363,10 +386,10 @@
 <p>说法正确的是：<br>答案：gen()执行后返回的是一个generator对象。<br>解析：function *声明(function 关键字后面跟了一个星号)，定义了一个生成器函数(generator function),返回一个generator对象。返回一个iterator实例的next()方法,那么这个函数才开始真正执行，并且把yield后面的值包装成固定对象返回，直到运行到函数结尾，最后再返回undefined.<br>6.问题：在不改变元素的显示属性的情况下，元素都是可以设置宽度的，并且能够设置成功，这句话是否正确。<br>答案：错误<br>解析：块状元素：div,p,h1,h6,ol,ul,dl,table,address,form,blockquote等。设置display:block就是将元素设置为块状元素，每个元素都是从新的一行开始的。并且其后的元素也另起一行。<strong>元素的高度，宽度，行高和顶，底边距都是可以设置的。</strong><br>元素宽度在不设置的情况下，是它本身父容器的100%,(和父元素的宽度一致)，除非设定一个宽度。<br>内联元素：a,span,br,i,em,strong,label,q,cite,display:inline来设置。和其他元素在同一行上，<strong>元素的高度，宽度，顶部，底部距离不可以设置。</strong>元素宽度就是包含的文字或者图片的宽度，不可改变。<br>内联块状元素：inline-block,同时具备内联元素和块状元素的特征，和其他元素在同一行上，<strong>元素的高度，宽度，行高顶部底部距离都可以设置。</strong><br>7.问题：表单提交时会触发什么dom方法：<br>答案：submit<br>解析：在w3中，submit被称为方法，而onsubmit被称为事件。具体可见：<a href="http://www.w3school.com.cn/jsref/event_onsubmit.asp?" target="_blank" rel="noopener">onsubmit事件</a> <a href="http://www.w3school.com.cn/jsref/met_form_submit.asp" target="_blank" rel="noopener">submit方法</a><br>8.问题：css sprites方法错误的是：<br>答案：css sprites增加了总的图片的字节，但是很好的减少网页的http请求，从而大大的提升网页的性能。<br>解析：在国内被称为css精灵，是一种网页图片应用处理方式，允许你将一个页面涉及到的所有零星图片都包含到一张大图中，这样一来，访问该页面的时候，载入的图片就不会像以前那样一幅一幅的慢慢显示出来，利用css的backgroud-image,background-repeat,background-position组合进行背景定位，background-position可以用数字精确定位出背景图片的位置。css精灵能很好的减少http请求。<strong>css精灵能减少图片的字节</strong>，3张合成一张总是小于3张图片的总字节。解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素命名，从而提高了网页的制作效率，更换风格方便，只需要在一张或少张图片上修改图片的颜色或者样式，整个网页的风格就可以改变，维护起来更加方便。<br>9.问题：下面有关js常见事件的触发情况，描述错误的是：<br>答案：onmousedown:某个鼠标按键被按下 onkeypress:某个键盘的键被按下或者按住，onblur:元素失去焦点，obchange:用户改变域的内容。<br>10.问题：w3c指定的js标准事件模型，以下正确的是<br>答案：事件捕获 到 事件处理 到 事件冒泡<br>解析：先事件捕获 window &gt; document 往下级直到 特定的事件节点，然后进行事件处理，再事件冒泡，从特定节点往上级，这个完整的过程。<br>11.问题：下列描述中，关于js函数定义方式，正确的是：<br>答案：函数声明的语法定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function sum(sum1,sum2)&#123;</span><br><span class="line">    return sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>函数表达式定义函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var sum = function(sum1,sum2)&#123;</span><br><span class="line">    return sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>function构造函数可接受任意数量的参数，但最后一个参数始终被看成函数体:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var sum = new Function(&quot;num1&quot;,&quot;num2&quot;,</span><br><span class="line">&quot;return num1 + num2&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>12.问题：使用h1标签会形成什么效果：<br>答案：加粗，大号字体。<br>13.问题：L在不涉及样式情况下，页面元素的优先显示与标签选用无关，正确或错误：<br>答案：正确<br>解析：优先显示和优先级还是不一样的，优先显示是html文档从上向下加载，**只与标签的上下顺序有关，<br>与优先级无关<br>14.问题：常见的浏览器端的存储技术有哪些：<br>答案：cookie,localStorage,session,userData<br>解析：cookie,localStorage是常用的存储端技术，useData,IE浏览器可以使用userData来存储数据，容量可达到640K，这种方案是很可靠的，不需要安装额外的插件。缺点：它仅在IE下有效。<br>session 通常是服务器端的。indexDB。localStorage,sessionStorage,cookie通常是浏览器端存储的。<br>15.问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123;</span><br><span class="line">    foo: &quot;bar&quot;,</span><br><span class="line">    func: function() &#123;</span><br><span class="line">        var self = this;</span><br><span class="line">        console.log(this.foo);  </span><br><span class="line">        console.log(self.foo);  </span><br><span class="line">        (function() &#123;</span><br><span class="line">            console.log(this.foo);  </span><br><span class="line">            console.log(self.foo);  </span><br><span class="line">        &#125;());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObject.func();</span><br></pre></td></tr></table></figure></p>
+<p>12.问题：使用h1标签会形成什么效果：<br>答案：加粗，大号字体。<br>13.问题：L在不涉及样式情况下，页面元素的优先显示与标签选用无关，正确或错误：<br>答案：正确<br>解析：优先显示和优先级还是不一样的，优先显示是html文档从上向下加载，<strong>只与标签的上下顺序有关</strong>，<br>与优先级无关<br>14.问题：常见的浏览器端的存储技术有哪些：<br>答案：cookie,localStorage,session,userData<br>解析：cookie,localStorage是常用的存储端技术，useData,IE浏览器可以使用userData来存储数据，容量可达到640K，这种方案是很可靠的，不需要安装额外的插件。缺点：它仅在IE下有效。<br>session 通常是服务器端的。indexDB。localStorage,sessionStorage,cookie通常是浏览器端存储的。<br>15.问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123;</span><br><span class="line">    foo: &quot;bar&quot;,</span><br><span class="line">    func: function() &#123;</span><br><span class="line">        var self = this;</span><br><span class="line">        console.log(this.foo);  </span><br><span class="line">        console.log(self.foo);  </span><br><span class="line">        (function() &#123;</span><br><span class="line">            console.log(this.foo);  </span><br><span class="line">            console.log(self.foo);  </span><br><span class="line">        &#125;());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObject.func();</span><br></pre></td></tr></table></figure></p>
 <p>答案：输出为bar bar undefined bar<br>解析：1、func是由myObject调用的，this指向 myObject。<br>     2、self指向myObject，相当于myObject的this的副本。<br>     3、这个立即执行匿名函数表达式（IIFE）是由window调用的，this指向window 。<br>     4、IIFE的作用域处于myObject.func的作用域中，本作用域找不到self变量，沿着作用域链向上查找self变量，找到了指向 myObject对象的<br>16.问题：下面有关javascript内部对象的描述，正确的有？<br>1.History 对象包含用户（在浏览器窗口中）访问过的 URL<br>2.Location 对象包含有关当前 URL 的信息<br>3.Window 对象表示浏览器中打开的窗口<br>4.Navigator 对象包含有关浏览器的信息<br>17.问题：攻击者使用无效IP地址，利用TCP连接的三次握手过程，连续发送会话请求，使受害主机处于开放会话的请求之中，直至连接超时，最终因耗尽资源而停止响应。这种攻击被称为:<br>1.DNS欺骗攻击<br>2.DDos攻击<br>3.XSS攻击</p>
 <p>4.SYN Flooding攻击<br>答案：4.<br>解析：各种攻击要去了解一下。<br>18.问题 以下js执行结果为：<br>以下Javascript代码执行后的输出结果依次是:()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var tmp = &#123;&#125;;</span><br><span class="line">var A = function() &#123;&#125;;</span><br><span class="line">A.prototype = tmp;</span><br><span class="line"></span><br><span class="line">var a = new A();</span><br><span class="line">A.prototype = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">var b = Object.create(tmp);</span><br><span class="line">b.constructor = A.constructor;</span><br><span class="line"></span><br><span class="line">console.log(a instanceof A);</span><br><span class="line">console.log(b instanceof A);</span><br></pre></td></tr></table></figure></p>
-<p>答案：false,false<br>解析：<br>19.问题：<br>a.inline-block可以设置高度,inline不可以设置高度<br>b.inline-block和inline都可以设置padding-left<br>c.inline-block可以设置margin-left,inline不可以<br>d.block会独占一行,inline-block不会。<br>答案:abd<br>解析：行内元素是不自动换行的，设置宽高无效，设置 <strong>上下margin和上下padding</strong>无效。<br>20.问题:<br>a.let声明的变量值和类型都可以改变<br>b.const声明的常量不可以改变<br>c.两者都不存在变量提升，同时存在暂时性死区，只能在声明的位置后面使用<br>d.const可以先声明再初始化，可以后赋值<br>答案:abc<br>21.问题：<br>对以下Javascript代码运行结果的描述错误的是:()</p>
+<p>答案：false,false<br>解析：<br>19.问题：<br>a.inline-block可以设置高度,inline不可以设置高度<br>b.inline-block和inline都可以设置padding-left<br>c.inline-block可以设置margin-left,inline不可以<br>d.block会独占一行,inline-block不会。<br>答案:abd<br>解析：行内元素是不自动换行的，设置宽高无效，设置 <strong>上下margin和上下padding无效</strong>。<br>20.问题:<br>a.let声明的变量值和类型都可以改变<br>b.const声明的常量不可以改变<br>c.两者都不存在变量提升，同时存在暂时性死区，只能在声明的位置后面使用<br>d.const可以先声明再初始化，可以后赋值<br>答案:abc<br>21.问题：<br>对以下Javascript代码运行结果的描述错误的是:()</p>
 <pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">var a = &#123;&#125;,</span><br><span class="line">    b = &#123; key: &apos;b&apos; &#125;,</span><br><span class="line">    c = &#123; key: &apos;c&apos; &#125;;</span><br><span class="line"></span><br><span class="line">a[b] = 123;</span><br><span class="line">a[c] = 456;</span><br></pre></td></tr></table></figure>
 </code></pre><p>a.变量 <code>a</code> 有两个属性<br>b.<code>console.log(a[b])</code> 输出 <code>123</code><br>c.<code>console.log(a[c])</code> 输出 <code>456</code><br>d.<code>console.log(a[a])</code> 输出 <code>undefined</code><br>解析：对象添加属性有2种方式，第一种是采用点语法,例如采用obj.a = 1;第二种采用[] 的方法，obj[a] = ‘Joe’,题目中传入的是一个对象，所以会隐式的调用对象的toString()方法，把对象转换成字符串，执行 a[b] = 123 时 , a对象里是这样的 { ‘[object Object]’ : 123 } 。同理, a[c] = 345 , 把[object Object]重新赋值 。<strong>所以a对象只有一个属性</strong>，输出a[b] 相当于输出a的[object Object]456， a[a]同样得到456。</p>
 
@@ -383,6 +406,16 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/js相关/" rel="tag"># js相关</a>
+          
+            <a href="/tags/牛客网/" rel="tag"># 牛客网</a>
+          
+        </div>
       
 
       
@@ -486,7 +519,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -497,7 +530,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

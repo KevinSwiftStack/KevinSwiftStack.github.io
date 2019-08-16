@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="js相关,">
+  <meta name="keywords" content="面试,js相关,事件机制,冒泡,">
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="js事件冒泡js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。有如下html12345678910111213141516&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;script src=&amp;quot;https://cdn.staticfile.org/jque">
-<meta name="keywords" content="js相关">
+<meta name="keywords" content="面试,js相关,事件机制,冒泡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js事件冒泡和委托机制">
 <meta property="og:url" content="http://yoursite.com/2019/03/25/js事件冒泡和委托机制/index.html">
 <meta property="og:site_name" content="KevinSwift">
 <meta property="og:description" content="js事件冒泡js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。有如下html12345678910111213141516&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;script src=&amp;quot;https://cdn.staticfile.org/jque">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-25T02:22:29.508Z">
+<meta property="og:updated_time" content="2019-08-16T03:01:55.629Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js事件冒泡和委托机制">
 <meta name="twitter:description" content="js事件冒泡js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。有如下html12345678910111213141516&amp;lt;!DOCTYPE html&amp;gt;&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;&amp;lt;head&amp;gt;    &amp;lt;script src=&amp;quot;https://cdn.staticfile.org/jque">
@@ -336,7 +336,7 @@
       
         <h3 id="js事件冒泡"><a href="#js事件冒泡" class="headerlink" title="js事件冒泡"></a>js事件冒泡</h3><p>js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。<br>有如下html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;ul data-type=&quot;cityPick&quot;&gt;</span><br><span class="line">&lt;li data-id = &quot;0&quot;&gt;全部&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;1&quot;&gt;纽约&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;2&quot;&gt;洛杉矶&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;script src = &quot;event.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
 <p>js代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,function () &#123;</span><br><span class="line">  alert(&quot;父元素被点击&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function () &#123;</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>当点击子元素时，父元素的alert事件也会被触发。<br>而在某些时候，我们不希望他冒泡，<br>可以用stopPropagation()方法阻止对父元素的冒泡传递。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function (e) &#123;</span><br><span class="line">    e.stopPropagation();//阻止事件冒泡</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>当点击子元素时，父元素的alert事件也会被触发。<br>而在某些时候，我们不希望他冒泡，<br>可以用stopPropagation()方法阻止对父元素的冒泡传递。<br>某些事件的默认事件不能被触发，例如点击a的href 链接跳转时，不进行跳转<br>可以用e.preventDefault()事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function (e) &#123;</span><br><span class="line">    e.stopPropagation();//阻止事件冒泡</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <h3 id="js事件委托"><a href="#js事件委托" class="headerlink" title="js事件委托"></a>js事件委托</h3><p>事件委托实际上利用了冒泡的原理，从点击的元素开始，递归方式的向父元素传播事件，好处是不用为每一个子元素设置click事件，而只需为父元素上绑定一次即可。<br>如下代码html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = &quot;btnGroup&quot;&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮1&lt;/div&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮2&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
 <p>js代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnGroup&quot;).on(&apos;click&apos;,&apos;.btn&apos;,function () &#123;</span><br><span class="line">    alert($(this).html());</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p><strong>由于事件委托是通过事件冒泡实现的，所以如果子级的元素阻止了事件冒泡，那么事件委托也将失效！</strong><br>(参考链接)[<a href="https://www.cnblogs.com/alsy/p/4915912.html]" target="_blank" rel="noopener">https://www.cnblogs.com/alsy/p/4915912.html]</a></p>
@@ -357,7 +357,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
             <a href="/tags/js相关/" rel="tag"># js相关</a>
+          
+            <a href="/tags/事件机制/" rel="tag"># 事件机制</a>
+          
+            <a href="/tags/冒泡/" rel="tag"># 冒泡</a>
           
         </div>
       
@@ -472,7 +478,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -483,7 +489,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
