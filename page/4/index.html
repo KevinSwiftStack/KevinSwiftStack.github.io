@@ -249,6 +249,203 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/牛客网错题笔记-2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/09/牛客网错题笔记-2/" itemprop="url">牛客网错题笔记(2)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-09T11:09:17+08:00">
+                2019-03-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.问题：http302状态表示什么，domContentLoaded表示什么事件<br>ie6/7/8不支持事件捕获。localStorage存储的数据，在刷新页面后会消失。<br>解析：http302状态表示被请求的资源暂时转移，然后会给出一个转移后的URL,<br>而浏览器在处理服务器返回的302状态的时候，原则上会重新建立一个TCP请求，然后再取重定向后的URL的页面；但是如果页面存在于缓存中，则不重新获取；<br>http各状态码解析：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>一切正常，实体主体中的文档</td>
+</tr>
+<tr>
+<td>500(bad request)</td>
+<td>客户端方面的问题，实体主题中的文档(若存在的话)，是一个错误消息，。希望客户端能够理解此错误消息，并改正问题。</td>
+</tr>
+<tr>
+<td>500(“Internal Server Error”)</td>
+<td>服务期方面的问题。实体主体中的文档（如果存在的话）是一个错误消息。该错误消息通常无济于事，因为客户端无法修复服务器方面的问题。</td>
+</tr>
+<tr>
+<td>301</td>
+<td>表示永久性的转移，搜索引擎在抓取新内容的同时也将旧的网址交换为重定向之后的网址</td>
+</tr>
+<tr>
+<td>302</td>
+<td>代表暂时性转移，搜索引擎会抓取新的内容而保存旧的网址。</td>
+</tr>
+<tr>
+<td>404</td>
+<td>表示找不到资源</td>
+</tr>
+<tr>
+<td>401</td>
+<td>表示未授权，需要用户身份验证</td>
+</tr>
+<tr>
+<td>403</td>
+<td>禁止访问，没有权限访问此站</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://blog.csdn.net/zhouchangshun_666/article/details/79354193" target="_blank" rel="noopener">具体解析</a><br>onload事件触发时，页面上所有的DOM，样式表，脚本，图片，flash都已经加载完成了，domContentLoaded事件触发时，仅当DOM加载完成，不包括样式表，图片，flash。<br><img src="/nowcoder/nowcoder01.png" width="30%" height="30%"><br>2.问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Foo()&#123;</span><br><span class="line">     var i=0;</span><br><span class="line">     return function()&#123;</span><br><span class="line">         document.write(i++);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line">var f1=Foo(),</span><br><span class="line">f2=Foo();</span><br><span class="line">f1();</span><br><span class="line">f1();</span><br><span class="line">f2();</span><br></pre></td></tr></table></figure></p>
+<p>输出为：<br>答案：010<br>解析：f1和f2分别创建了自己的执行环境，所以它们两个是相互独立的，执行完成之后都返回一个匿名函数，这个匿名函数的作用域链被初始化为其包含函数的活动对象(这里就是i)和全局变量对象，f1执行之后i不会被销毁，因为返回的匿名函数还要引用i,i仍然在内存中，所以执行了2次之后i的值变成了1，而f2执行后i值是0。<br>3.问题：现有如下html的结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line"> &lt;li&gt;click me&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;click me&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;click me&lt;/li&gt;</span><br><span class="line"> &lt;li&gt;click me&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure></p>
+<p>运行以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var elements=document.getElementsByTagName(&apos;li&apos;);</span><br><span class="line">   var length=elements.length;</span><br><span class="line">   for(var i=0;i&lt;length;i++)&#123;</span><br><span class="line">       elements[i].onclick=function()&#123;</span><br><span class="line">       alert(i);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 依次点击后，弹出值为：<br> 答案：4，4，4，4<br> 解析：这是js的运行机制，事件click,focus，定时器setTimeOut,setInterval,ajax等都是异步，属于异步任务，js是单线程的，一个时间点只能做一个事情，优先处理同步任务，按照代码从上往下的运行，遇到异步任务，首先会挂起，放到异步任务里面去，继续执行同步任务，只有同步任务执行完了，才去执行异步任务，然后按照顺序执行，这里for循环是同步任务，onclick是异步任务，所以只有for循环执行完了，i已经变成4了，因为i是全局变量，最后的一个i++,使得i变成4，后面的click事件，在循环外面，不受i &lt; length的的限制，所以for循环了4次，click都被挂起，共4次，for循环结束后，点击触发了4个onclick函数，所以输出了4个4。<br> 4.问题：js中，document.getElementById返回的值得类型是<br> a.array b.object c.string d.function<br> 答案：b<br> 解析：可以使用typeof方法来查看document.getElementById返回的是什么值类型。<br> document.getElementById(“ul”)返回的是object,而document.getElementById是一个方法，因此返回的是function<br>5.问题：有以下es6的代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function *gen() &#123;</span><br><span class="line">    yield 1;</span><br><span class="line">    yield 2;</span><br><span class="line">    yield 3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>说法正确的是：<br>答案：gen()执行后返回的是一个generator对象。<br>解析：function *声明(function 关键字后面跟了一个星号)，定义了一个生成器函数(generator function),返回一个generator对象。返回一个iterator实例的next()方法,那么这个函数才开始真正执行，并且把yield后面的值包装成固定对象返回，直到运行到函数结尾，最后再返回undefined.<br>6.问题：在不改变元素的显示属性的情况下，元素都是可以设置宽度的，并且能够设置成功，这句话是否正确。<br>答案：错误<br>解析：块状元素：div,p,h1,h6,ol,ul,dl,table,address,form,blockquote等。设置display:block就是将元素设置为块状元素，每个元素都是从新的一行开始的。并且其后的元素也另起一行。<strong>元素的高度，宽度，行高和顶，底边距都是可以设置的。</strong><br>元素宽度在不设置的情况下，是它本身父容器的100%,(和父元素的宽度一致)，除非设定一个宽度。<br>内联元素：a,span,br,i,em,strong,label,q,cite,display:inline来设置。和其他元素在同一行上，<strong>元素的高度，宽度，顶部，底部距离不可以设置。</strong>元素宽度就是包含的文字或者图片的宽度，不可改变。<br>内联块状元素：inline-block,同时具备内联元素和块状元素的特征，和其他元素在同一行上，<strong>元素的高度，宽度，行高顶部底部距离都可以设置。</strong><br>7.问题：表单提交时会触发什么dom方法：<br>答案：submit<br>解析：在w3中，submit被称为方法，而onsubmit被称为事件。具体可见：<a href="http://www.w3school.com.cn/jsref/event_onsubmit.asp?" target="_blank" rel="noopener">onsubmit事件</a> <a href="http://www.w3school.com.cn/jsref/met_form_submit.asp" target="_blank" rel="noopener">submit方法</a><br>8.问题：css sprites方法错误的是：<br>答案：css sprites增加了总的图片的字节，但是很好的减少网页的http请求，从而大大的提升网页的性能。<br>解析：在国内被称为css精灵，是一种网页图片应用处理方式，允许你将一个页面涉及到的所有零星图片都包含到一张大图中，这样一来，访问该页面的时候，载入的图片就不会像以前那样一幅一幅的慢慢显示出来，利用css的backgroud-image,background-repeat,background-position组合进行背景定位，background-position可以用数字精确定位出背景图片的位置。css精灵能很好的减少http请求。<strong>css精灵能减少图片的字节</strong>，3张合成一张总是小于3张图片的总字节。解决了网页设计师在图片命名上的困扰，只需对一张集合的图片上命名就可以了，不需要对每一个小元素命名，从而提高了网页的制作效率，更换风格方便，只需要在一张或少张图片上修改图片的颜色或者样式，整个网页的风格就可以改变，维护起来更加方便。<br>9.问题：下面有关js常见事件的触发情况，描述错误的是：<br>答案：onmousedown:某个鼠标按键被按下 onkeypress:某个键盘的键被按下或者按住，onblur:元素失去焦点，obchange:用户改变域的内容。<br>10.问题：w3c指定的js标准事件模型，以下正确的是<br>答案：事件捕获 到 事件处理 到 事件冒泡<br>解析：先事件捕获 window &gt; document 往下级直到 特定的事件节点，然后进行事件处理，再事件冒泡，从特定节点往上级，这个完整的过程。<br>11.问题：下列描述中，关于js函数定义方式，正确的是：<br>答案：函数声明的语法定义：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function sum(sum1,sum2)&#123;</span><br><span class="line">    return sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>函数表达式定义函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var sum = function(sum1,sum2)&#123;</span><br><span class="line">    return sum1 + sum2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>function构造函数可接受任意数量的参数，但最后一个参数始终被看成函数体:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var sum = new Function(&quot;num1&quot;,&quot;num2&quot;,</span><br><span class="line">&quot;return num1 + num2&quot;);</span><br></pre></td></tr></table></figure></p>
+<p>12.问题：使用h1标签会形成什么效果：<br>答案：加粗，大号字体。<br>13.问题：L在不涉及样式情况下，页面元素的优先显示与标签选用无关，正确或错误：<br>答案：正确<br>解析：优先显示和优先级还是不一样的，优先显示是html文档从上向下加载，<strong>只与标签的上下顺序有关</strong>，<br>与优先级无关<br>14.问题：常见的浏览器端的存储技术有哪些：<br>答案：cookie,localStorage,session,userData<br>解析：cookie,localStorage是常用的存储端技术，useData,IE浏览器可以使用userData来存储数据，容量可达到640K，这种方案是很可靠的，不需要安装额外的插件。缺点：它仅在IE下有效。<br>session 通常是服务器端的。indexDB。localStorage,sessionStorage,cookie通常是浏览器端存储的。<br>15.问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var myObject = &#123;</span><br><span class="line">    foo: &quot;bar&quot;,</span><br><span class="line">    func: function() &#123;</span><br><span class="line">        var self = this;</span><br><span class="line">        console.log(this.foo);  </span><br><span class="line">        console.log(self.foo);  </span><br><span class="line">        (function() &#123;</span><br><span class="line">            console.log(this.foo);  </span><br><span class="line">            console.log(self.foo);  </span><br><span class="line">        &#125;());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">myObject.func();</span><br></pre></td></tr></table></figure></p>
+<p>答案：输出为bar bar undefined bar<br>解析：1、func是由myObject调用的，this指向 myObject。<br>     2、self指向myObject，相当于myObject的this的副本。<br>     3、这个立即执行匿名函数表达式（IIFE）是由window调用的，this指向window 。<br>     4、IIFE的作用域处于myObject.func的作用域中，本作用域找不到self变量，沿着作用域链向上查找self变量，找到了指向 myObject对象的<br>16.问题：下面有关javascript内部对象的描述，正确的有？<br>1.History 对象包含用户（在浏览器窗口中）访问过的 URL<br>2.Location 对象包含有关当前 URL 的信息<br>3.Window 对象表示浏览器中打开的窗口<br>4.Navigator 对象包含有关浏览器的信息<br>17.问题：攻击者使用无效IP地址，利用TCP连接的三次握手过程，连续发送会话请求，使受害主机处于开放会话的请求之中，直至连接超时，最终因耗尽资源而停止响应。这种攻击被称为:<br>1.DNS欺骗攻击<br>2.DDos攻击<br>3.XSS攻击</p>
+<p>4.SYN Flooding攻击<br>答案：4.<br>解析：各种攻击要去了解一下。<br>18.问题 以下js执行结果为：<br>以下Javascript代码执行后的输出结果依次是:()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var tmp = &#123;&#125;;</span><br><span class="line">var A = function() &#123;&#125;;</span><br><span class="line">A.prototype = tmp;</span><br><span class="line"></span><br><span class="line">var a = new A();</span><br><span class="line">A.prototype = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">var b = Object.create(tmp);</span><br><span class="line">b.constructor = A.constructor;</span><br><span class="line"></span><br><span class="line">console.log(a instanceof A);</span><br><span class="line">console.log(b instanceof A);</span><br></pre></td></tr></table></figure></p>
+<p>答案：false,false<br>解析：<br>19.问题：<br>a.inline-block可以设置高度,inline不可以设置高度<br>b.inline-block和inline都可以设置padding-left<br>c.inline-block可以设置margin-left,inline不可以<br>d.block会独占一行,inline-block不会。<br>答案:abd<br>解析：行内元素是不自动换行的，设置宽高无效，设置 <strong>上下margin和上下padding无效</strong>。<br>20.问题:<br>a.let声明的变量值和类型都可以改变<br>b.const声明的常量不可以改变<br>c.两者都不存在变量提升，同时存在暂时性死区，只能在声明的位置后面使用<br>d.const可以先声明再初始化，可以后赋值<br>答案:abc<br>21.问题：<br>对以下Javascript代码运行结果的描述错误的是:()</p>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line">var a = &#123;&#125;,</span><br><span class="line">    b = &#123; key: &apos;b&apos; &#125;,</span><br><span class="line">    c = &#123; key: &apos;c&apos; &#125;;</span><br><span class="line"></span><br><span class="line">a[b] = 123;</span><br><span class="line">a[c] = 456;</span><br></pre></td></tr></table></figure>
+</code></pre><p>a.变量 <code>a</code> 有两个属性<br>b.<code>console.log(a[b])</code> 输出 <code>123</code><br>c.<code>console.log(a[c])</code> 输出 <code>456</code><br>d.<code>console.log(a[a])</code> 输出 <code>undefined</code><br>解析：对象添加属性有2种方式，第一种是采用点语法,例如采用obj.a = 1;第二种采用[] 的方法，obj[a] = ‘Joe’,题目中传入的是一个对象，所以会隐式的调用对象的toString()方法，把对象转换成字符串，执行 a[b] = 123 时 , a对象里是这样的 { ‘[object Object]’ : 123 } 。同理, a[c] = 345 , 把[object Object]重新赋值 。<strong>所以a对象只有一个属性</strong>，输出a[b] 相当于输出a的[object Object]456， a[a]同样得到456。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/红皮书笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1756,159 +1953,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/29/docker学习-2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/29/docker学习-2/" itemprop="url">docker学习(2)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-29T13:52:03+08:00">
-                2019-01-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/docker容器/" itemprop="url" rel="index">
-                    <span itemprop="name">docker容器</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="docker部署node-js应用"><a href="#docker部署node-js应用" class="headerlink" title="docker部署node js应用"></a>docker部署node js应用</h3><p>其实是创建一个node js项目的镜像，在镜像之上运行容器。<br>创建一个空文件夹，里面包含如下文件。<br>server.js package.json Dockerfile .dockerignore<br>命令如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mkdir docker_demo</span><br><span class="line">cd docker_demo</span><br><span class="line">touch server.js</span><br><span class="line">touch package.json</span><br><span class="line">touch Dockerfile</span><br><span class="line">touch .dockerignore</span><br></pre></td></tr></table></figure></p>
-<p>server.js是koa的主程序。写入如下代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const Koa = require(&apos;koa&apos;);</span><br><span class="line">const app = new Koa();</span><br><span class="line"></span><br><span class="line">app.use(async ctx =&gt; &#123;</span><br><span class="line">  ctx.body = &apos;Hello docker&apos;;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(3000);</span><br></pre></td></tr></table></figure></p>
-<p>package.json是依赖项目文件。有以下配置。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;docker_demo&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;0.1.0&quot;,</span><br><span class="line">  &quot;private&quot;: true,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;start&quot;: &quot;node server.js&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line">    &quot;koa&quot;: &quot;^2.5.0&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>通过npm install和npm start便可在本地运行<br>dockerfile是由一系列命令和参数构成的脚本，一个dockerfile里面包含了构建整个image的完整命令，docker通过docker build来执行dockerfile中的一系列命令来创建image,在.dockerignore中写入如下代码，表示在构建的时候忽略这些文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"># Logs</span><br><span class="line">logs</span><br><span class="line">*.log</span><br><span class="line">npm-debug.log*</span><br><span class="line"></span><br><span class="line"># Runtime data</span><br><span class="line">pids</span><br><span class="line">*.pid</span><br><span class="line">*.seed</span><br><span class="line"></span><br><span class="line"># Directory for instrumented libs generated by jscoverage/JSCover</span><br><span class="line">lib-cov</span><br><span class="line"></span><br><span class="line"># Coverage directory used by tools like istanbul</span><br><span class="line">coverage</span><br><span class="line"></span><br><span class="line"># nyc test coverage</span><br><span class="line">.nyc_output</span><br><span class="line"></span><br><span class="line"># Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)</span><br><span class="line">.grunt</span><br><span class="line"></span><br><span class="line"># node-waf configuration</span><br><span class="line">.lock-wscript</span><br><span class="line"></span><br><span class="line"># Compiled binary addons (http://nodejs.org/api/addons.html)</span><br><span class="line">build/Release</span><br><span class="line"></span><br><span class="line"># Dependency directories</span><br><span class="line">node_modules</span><br><span class="line">jspm_packages</span><br><span class="line"></span><br><span class="line"># Optional npm cache directory</span><br><span class="line">.npm</span><br><span class="line"></span><br><span class="line"># Optional REPL history</span><br><span class="line">.node_repl_history</span><br><span class="line">.idea</span><br><span class="line">.node_modules</span><br><span class="line">node_modules</span><br><span class="line">.vscode</span><br></pre></td></tr></table></figure></p>
-<p>在dockerfile中写入如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#制定node镜像的版本</span><br><span class="line">FROM node:8.9.0-alpine</span><br><span class="line">#声明作者</span><br><span class="line">MAINTAINER robin</span><br><span class="line">#移动当前目录下面的文件到app目录下</span><br><span class="line">ADD . /app/</span><br><span class="line">#进入到app目录下面，类似cd</span><br><span class="line">WORKDIR /app</span><br><span class="line">#安装依赖</span><br><span class="line">RUN npm install</span><br><span class="line">#对外暴露的端口</span><br><span class="line">EXPOSE 3000</span><br><span class="line">#程序启动脚本</span><br><span class="line">CMD [&quot;npm&quot;, &quot;start&quot;]</span><br></pre></td></tr></table></figure></p>
-<p>使用build命令构建镜像。注意后面那个.不能少。<br>是在当前docker_demo的文件夹下面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t docker_demo .</span><br></pre></td></tr></table></figure></p>
-<p>便可以创建镜像。<br>通过<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker riun -d -p 9000:3000 docker_demo</span><br></pre></td></tr></table></figure></p>
-<p>来基于该node镜像创建容器。<br>查看容器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
-<p>便可以通过访问本地端口9000来访问docker node容器。<br><a href="https://blog.csdn.net/wknhsj1/article/details/81100206" target="_blank" rel="noopener">参考博客</a></p>
-<h3 id="docker镜像迁移"><a href="#docker镜像迁移" class="headerlink" title="docker镜像迁移"></a>docker镜像迁移</h3><p>在开发中，不免要进行镜像迁移。本机mac上的迁移到ubuntu或者windows上等。<br>首先打包镜像.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker save  docker_demo | gzip &gt; docker_demo-latest.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>表示打包形式为压缩包形式，名字为docker_demo-latest.tar.gz文件。<br>随后在装好了docker的其余主机上。加载镜像即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker load -i docker_demo-latest.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>这样即可。在其余主机上创建镜像。并且以此镜像为基础创建容器。<br><a href="https://www.cnblogs.com/anliven/p/6759585.html" target="_blank" rel="noopener">参考博客</a><br><a href="https://blog.csdn.net/liqi_q/article/details/83030737" target="_blank" rel="noopener">ubuntu上安装docker过程</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1963,7 +2007,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1974,7 +2018,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1985,7 +2029,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">58</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
