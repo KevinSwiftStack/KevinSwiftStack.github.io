@@ -249,6 +249,160 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/jquery源码解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/01/jquery源码解析/" itemprop="url">jquery源码解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-01T09:47:32+08:00">
+                2019-06-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/jquery相关/" itemprop="url" rel="index">
+                    <span itemprop="name">jquery相关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/jquery相关/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>jquery2.0以及后续版本将不再支持IE 6/7/8浏览器<br>jquery采用一个匿名构造函数立即执行的方法<br>整个模块化便是如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(function(global, factory)&#123;</span><br><span class="line">    if ( typeof module === &quot;object&quot; &amp;&amp; typeof module.exports === &quot;object&quot; ) &#123;</span><br><span class="line">    //模块化环境</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        factory( global );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(typeof window !== &quot;undefined&quot; ? window: this, function(window, noGlobal) &#123;</span><br><span class="line">    //回调函数</span><br><span class="line"></span><br><span class="line">    if ( typeof noGlobal === strundefined ) &#123;</span><br><span class="line">        window.jQuery = window.$ = jQuery;</span><br><span class="line">    &#125;</span><br><span class="line">    return jQuery;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>接收2个参数，global(当前执行作用域链的对象),factory(回调)<br>匿名函数：本身做了一个初始化的判断，判断当前js是否使用了模块化开发，。如果是再做一些相应的逻辑处理<br>回调函数：factory所有的jquery方法属性都是在这个回调函数里面实现的最后一行代码，就是向外暴露接口。<br>整体架构如下:<br><img src="/images/jquery1.jpg" width="50%" height="50%"><br>如今jQuery库，一共13个模块，模块不是单一的<br>jquery采用AMD进行模块化开发<br>可以分为五大模块，选择器，DOM操作，事件，ajax与动画，<br>jquery可以抽出共同的特性并且使之模块化。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/20/移动端适配问题/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1673,204 +1827,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/06/红皮书笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/06/红皮书笔记/" itemprop="url">红皮书笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-06T11:02:12+08:00">
-                2019-03-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="第二章-在-HTML-中使用-JavaScript"><a href="#第二章-在-HTML-中使用-JavaScript" class="headerlink" title="第二章 在 HTML 中使用 JavaScript"></a>第二章 在 HTML 中使用 JavaScript</h2><h3 id="scrpit加载的方式"><a href="#scrpit加载的方式" class="headerlink" title="scrpit加载的方式"></a>scrpit加载的方式</h3><p>async：可选，表示应该立即下载脚本，但不妨碍页面中的其他操作，比如下载其他资源或者或者等待加载其他脚本，只对外部脚本文件有效。<br>charest:表示通过src属性指定的代码的字符集。<br>defer:表示脚本可以延迟到文档完全被解析和显示以后再执行。只对外部脚本有效。<br>src:可选。路径。<br>type：可选，表示编写代码所使用的脚本语言的内容类型。也称为MIME类型。text/javascript属性。<br>js在head中与body中的加载不同。<br>在文档的head中包含所有js文件，意味着必须等到全部js代码被下载，解析，执行后才会显示页面的内容，<br>浏览器遇到body标签才开始呈现内容。这会导致浏览器呈现时候出现明显的延迟。<br>而延迟期间浏览器将会是一片空白，为了避免这个问题，现代web一般将全部js引用放到body中。<br>在head的script标签中加入defer属性defer = “defer”,脚本会被延迟到整个页面解析完毕再被执行。<br><strong>head中的部分是代码在整个body前预先被加载，所以希望那些被调用的代码可以在这里写，例如按钮的点击事件等。<br>而body中的代码是html被加载完成之后再被执行。所以有用到body中的一些属性的，放在这里写。</strong></p>
-<h2 id="第三章-js中的基本概念"><a href="#第三章-js中的基本概念" class="headerlink" title="第三章 js中的基本概念"></a>第三章 js中的基本概念</h2><h3 id="label标签语句："><a href="#label标签语句：" class="headerlink" title="label标签语句："></a>label标签语句：</h3><p>使用label标签语句可以在代码中添加标签，以便将来使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">start:for(var i = 0; i &lt; 4;i++) &#123;</span><br><span class="line">    if (i == 2)</span><br><span class="line">        break start;</span><br><span class="line">    alert(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如上所示，start标签标示的for循环语句可由break或continue引用，<br>break和continue可以和label联合起来使用，从而返回特定的代码，这种联合使用通常发生在循环嵌套的情况下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var num = 0;</span><br><span class="line">outermost:</span><br><span class="line">for(var i = 0; i &lt; 10;i++)&#123;</span><br><span class="line">    for(var j = 0; j &lt; 10;j++)&#123;</span><br><span class="line">        if(i == 5 &amp;&amp; j == 5)</span><br><span class="line">            break outermost;</span><br><span class="line">    num++;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">console.log(num);</span><br></pre></td></tr></table></figure></p>
-<p>上述例子中,outermost标签代表外部的for语句，如果循环正常执行10次，则num最终的值时100，但内部循环中break带了一个参数，表示要返回的标签，添加这个标签的结果是break不仅会内部退出，也会外部退出循环。<br>这样，num的值刚好是55.</p>
-<h3 id="with语句"><a href="#with语句" class="headerlink" title="with语句"></a>with语句</h3><p>with语句的作用是将代码的作用域设置到一个特定的对象中，<br>with语句结构如下：<br>with (expression) statement;<br>定义with语句的主要目的是为了简化多次编写同一个对象的麻烦。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var dic = &#123;</span><br><span class="line">    a:1,</span><br><span class="line">    b:2,</span><br><span class="line">    c:3</span><br><span class="line">&#125;;</span><br><span class="line">with(dic)&#123;</span><br><span class="line">    var out_a = a;</span><br><span class="line">    var out_b = b;</span><br><span class="line">    var out_c = c;</span><br><span class="line">&#125;</span><br><span class="line">console.log(out_a);</span><br><span class="line">console.log(out_b);</span><br><span class="line">console.log(out_c);</span><br></pre></td></tr></table></figure></p>
-<p>使用with语句关联了dic对象，这意味着with语句的代码快中，每个变量首先被认为是一个局部变量，而如果在局部变量中找不到该对象，就会查询dic中是否有该对象，严格模式下是不允许使用with语句的。<br>‘use strict’;with语句会报错。with语句会导致性能的降低，同时也会给调试代码造成困难，因此<br>在开发大型应用程序时，不建议使用 with 语句。</p>
-<h3 id="switch语句中可以合并多个case"><a href="#switch语句中可以合并多个case" class="headerlink" title="switch语句中可以合并多个case."></a>switch语句中可以合并多个case.</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">switch (i) &#123;</span><br><span class="line">    case 25:</span><br><span class="line">/* 合并两种情形 */ case 35:</span><br><span class="line">        alert(&quot;25 or 35&quot;);</span><br><span class="line">        break;</span><br><span class="line">    case 45:</span><br><span class="line">        alert(&quot;45&quot;);</span><br><span class="line">        break;</span><br><span class="line">    default:</span><br><span class="line">    break;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>case中的变量可以是一个表达式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var num = 25;</span><br><span class="line">switch (true) &#123;</span><br><span class="line">    case num &lt; 0:</span><br><span class="line">        alert(&quot;Less than 0.&quot;);</span><br><span class="line">        break;</span><br><span class="line">    case num &gt;= 0 &amp;&amp; num &lt;= 10:</span><br><span class="line">        alert(&quot;Between 0 and 10.&quot;);</span><br><span class="line">        break;</span><br><span class="line">    case num &gt; 10 &amp;&amp; num &lt;= 20:</span><br><span class="line">        alert(&quot;Between 10 and 20.&quot;);</span><br><span class="line">        break;</span><br><span class="line">    default:</span><br><span class="line">        alert(&quot;More than 20.&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>ecmascript函数不介意传递进去多少个参数，也不在乎传递进来的参数是什么类型的，也就是说，即使你定义的函数接收2个参数，但实际传进来3个，1个都是可以的。之所以这样， 是因为js中参数在内部是以数组形式表示的，函数接收到的始终是一个数组，而不关心数组中包含哪些参数(如果有参数的话)。如果这个数组中不包含任何元素，无所谓;如果包含多个元素，也没有问题。实际上，在函数体内可以通过arguments对象访问这个参数数组，从而获取传递给函数的每一个参数。<br>arguments对象只是与数组类似(并不是array的实例)，因为可以使用方括号语法访 问它的每一个元素(即第一个元素是 arguments[0]，第二个元素是 argumetns[1]，以此类推)，使 用 length 属性来确定传递进来多少个参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function add(num1,num2) &#123;</span><br><span class="line">    return num1 + num2;</span><br><span class="line">&#125;</span><br><span class="line">console.log(add(1));</span><br></pre></td></tr></table></figure></p>
-<p>这样是不会报错的。只是会返回NaN,因为num2没有传递进去。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function add(num1,num2) &#123;</span><br><span class="line">    return arguments[0] * arguments[1];</span><br><span class="line">&#125;</span><br><span class="line">console.log(add(1,2));</span><br></pre></td></tr></table></figure></p>
-<p>可以用argument来访问其中的参数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function doAdd(num1, num2) &#123;</span><br><span class="line">    arguments[1] = 10;</span><br><span class="line">    alert(arguments[0] + num2);</span><br><span class="line">&#125;</span><br><span class="line">console.log(doAdd(1,2));</span><br></pre></td></tr></table></figure></p>
-<p>在以上代码中，doAdd函数每次都会重写第二个参数，将第二个参数的值改为10，因为argument对象中的值会自动反映到对应的命名参数中，所以修改arguments[1],也就修改了num2,结果它们的值都会变成10,不过，这并不是说读取这两个值会访问相同的内存空间;它们的内存空间是独立的，但它们的值会同步。另外需记住，如果只传入了一个参数，<strong>那么arguments[1]的值修改不会反映到对应的num2中，</strong>，这是因为argument对象的长度是由传入的参数个数决定的，不是由定义时候的命名参数决定的。<br><strong>**没有传递值得命名参数将自动被赋予undefined,</strong>这就跟定义了变量但是没有初始化时一样的。例如，如果只给 doAdd()函数传递了一个参数，则 num2 中就会保存 undefined 值。<br>严格模式对如何使用 arguments 对象做出了一些限制。首先，像前面例子中那样的赋值会变得无效。也就是说，即使把 arguments[1]设置为 10，num2 的值仍然还是 undefined。其次，重写 arguments 的值会导致语法错误(代码将不会执行)。</p>
-<p>js中函数是没有重载的概念的。像其他语言中，定义了函数名字，即签名，但只要接收的参数不同，就会被重载，注意，js中是没有这个的。<strong>js中函数没有签名</strong>,因为其参数是由包含零或多个值的数组来表示的，而如果没有函数签名，重载也是做不到的。<br>相同名字的第二个函数定义会覆盖第一个。</p>
-<h2 id="第四章-变量、作用域和内存问题"><a href="#第四章-变量、作用域和内存问题" class="headerlink" title="第四章 变量、作用域和内存问题"></a>第四章 变量、作用域和内存问题</h2><h3 id="基本类型和引用类型"><a href="#基本类型和引用类型" class="headerlink" title="基本类型和引用类型"></a>基本类型和引用类型</h3><p>js包含两种不同数据类型的值，基本类型值和引用类型值，基本类型值有string,boolean,number,undefined,null,这5种数据类型是按照值访问的。因为可以操作保存在变量中的实际的值。引用类型的值是保存在内存中的对象，js不允许直接访问内存中的位置，也就是说不能直接操作对象的内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。 为此，引用类型的值是按引用访问的。<strong>当复制保存对象的某个变量时，操作的是对象的引用，但是在为对象添加属性时，操作的是实际的对象。</strong><br>如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var person = new Object();</span><br><span class="line">person.name = &quot;jack&quot;;</span><br><span class="line">alert(person.name);</span><br></pre></td></tr></table></figure></p>
-<p>注意：我们不能给基本数据类型值添加属性，尽管不会导致任何错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;jack&quot;;</span><br><span class="line">name.age = 27;</span><br><span class="line">alert(name.age);</span><br></pre></td></tr></table></figure></p>
-<p>输出为undefined.<br>复制的问题：从一个变量向另一个变量复制基本类型的值时，会在变量对象上创建一个新值，然后把该值复制 到为新变量分配的位置上。来看一个例子:<br><img src="/jsbooks/js01.png" width="30%" height="30%"><br>当复制引用类型的时候，同样也会将存储在变量对象中的值复制一份放到 为新变量分配的空间中。不同的是，这个副本实质上是一个<strong>指针</strong>，而这个指针指向存储在堆中的一个对象，复制操作结束以后，两个变量实际上将引用同一个对象，因此，改变其中的一个变量值，会影响另外一个变量的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var obj1 = new Object();</span><br><span class="line">var obj2 = obj1;</span><br><span class="line">obj1.name = &quot;ckq&quot;;</span><br><span class="line">alert(obj2.name);//ckq</span><br></pre></td></tr></table></figure></p>
-<p>输出的第二个obj2的name也为ckq。<br>如下图所示：<br><img src="/jsbooks/js02.png" width="30%" height="30%"></p>
-<h3 id="传递参数"><a href="#传递参数" class="headerlink" title="传递参数"></a>传递参数</h3><p>js中所有函数都是按照<strong>值传递</strong>的，把函数外部的值复制给函数内部的参数，就和把值从一个变量复制到另一个变量一样。<br>基本数据类型是值传递容易理解。引用数据类型传值时，会把这个值在内存中的地址复制给一个局部变量，因此这个局部变量的变化会反映在函数的外部。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function addTen(num) &#123;</span><br><span class="line">    num += 10;</span><br><span class="line">    return num;</span><br><span class="line">&#125;</span><br><span class="line">var count = 20;</span><br><span class="line">var result = addTen(count);</span><br><span class="line">alert(count);//20</span><br><span class="line">alert(result);//30</span><br></pre></td></tr></table></figure></p>
-<p>传递给addTen中的num和count是独立的，没有关系。<br>如果传递的是引用类型：则函数内部产生的变化会影响到外部<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function set(obj) &#123;</span><br><span class="line">    obj.name = &quot;cpp&quot;;</span><br><span class="line">&#125;</span><br><span class="line">var obj = new Object();</span><br><span class="line">set(obj);</span><br><span class="line">alert(obj.name);//cpp</span><br></pre></td></tr></table></figure></p>
-<p>复制给set中的obj是外部的一个拷贝。实际上是一个指针，所以内部引起的变化会影响到外部。<br>下面是一个特殊的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function set(obj) &#123;</span><br><span class="line">    obj.name = &quot;cpp&quot;;</span><br><span class="line">    obj = new Object();</span><br><span class="line">    obj.name = &quot;ckq&quot;;</span><br><span class="line">&#125;</span><br><span class="line">var obj = new Object();</span><br><span class="line">set(obj);</span><br><span class="line">alert(obj.name);//cpp</span><br></pre></td></tr></table></figure></p>
-<p>在上述例子中，首先将obj复制给函数，随后obj.name设置成cpp.当obj = new Object()的时候，<strong>在这时候obj已经指向了新的内存空间，与前面的指向无关</strong>，此时将obj设置成了ckq,所以后面的弹出obj依然是cpp。</p>
-<h3 id="检测类型"><a href="#检测类型" class="headerlink" title="检测类型"></a>检测类型</h3><p>typeof只能检测基本的数据类型，例如字符串，数值，布尔值，还是undefined的最佳工具，如果变量的值是一个obj或者null的时候，则会返回object类型。可以采用instance of类型来检测更加具体的类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = &quot;abc&quot;;</span><br><span class="line">var b = true;</span><br><span class="line">var c = 22;</span><br><span class="line">var d;</span><br><span class="line">var e = null;</span><br><span class="line">var f = new Object();</span><br><span class="line">console.log(typeof a);//string</span><br><span class="line">console.log(typeof b);//boolean</span><br><span class="line">console.log(typeof c);//number</span><br><span class="line">console.log(typeof d);//undefined</span><br><span class="line">console.log(typeof e);//object</span><br><span class="line">console.log(typeof f);//object</span><br></pre></td></tr></table></figure></p>
-<p>根据规定，所有引用类型的值都是object的实例，因此，在检测一个基本数据类型的时候，会返回false,因为不是对象，检测对象的时候，会返回true.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var person = new Object();</span><br><span class="line">console.log(person instanceof Object);//true</span><br><span class="line">console.log(person instanceof Array); //false</span><br><span class="line">var a = &quot;11&quot;;</span><br><span class="line">console.log(a instanceof String);//false</span><br></pre></td></tr></table></figure></p>
-<p>因为基本数据类型不是引用类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = new Array(1,2,3);</span><br><span class="line">console.log(a);//1,2,3</span><br><span class="line">console.log(a instanceof Array);//true</span><br></pre></td></tr></table></figure></p>
-<h3 id="执行环境和作用域"><a href="#执行环境和作用域" class="headerlink" title="执行环境和作用域"></a>执行环境和作用域</h3><p>执行环境是js中重要的一个概念，执行环境定义了变量或函数有权访问的其他数据，决定了他们各自的行为，每个执行环境都有一个与之关联的<strong>变量对象</strong>，环境中所有的变量和函数都保存在这里，虽然我们编写的代码无法访问，但解析器会在后台处理。<br>每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。 而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。ECMAScript 程序中的执行流 正是由这个方便的机制控制着。<br>当代码在一个环境中执行时，会创建变量对象的一个<strong>作用域链</strong>，作用域链的用途，<strong>是保证对执行环节有权访问的所有变量和函数的有序访问</strong>，作用域链的前端，始终都是当前执行的代码所在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对 象在最开始时只包含一个变量，即 arguments 对象(这个对象在全局环境中是不存在的)。作用域链中 的下一个变量对象来自包含(外部)环境，而再下一个变量对象则来自下一个包含环境。这样，一直延 续到全局执行环境;全局执行环境的变量对象始终都是作用域链中的最后一个对象。<br>以下代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var color = &quot;blue&quot;;</span><br><span class="line">    function changeColor()&#123;</span><br><span class="line">        var anotherColor = &quot;red&quot;;</span><br><span class="line">        function swapColors()&#123;</span><br><span class="line">            var tempColor = anotherColor;</span><br><span class="line">            anotherColor = color;</span><br><span class="line">            color = tempColor;</span><br><span class="line">// 这里可以访问color、anotherColor和tempColor &#125;</span><br><span class="line">// 这里可以访问color和anotherColor，但不能访问tempColor</span><br><span class="line">        swapColors();</span><br><span class="line">    &#125;</span><br><span class="line">// 这里只能访问color changeColor();</span><br></pre></td></tr></table></figure></p>
-<p>有如下作用域链：<br><img src="/jsbooks/js03.png" width="30%" height="30%"><br>内部环境可以通过作用域链访问所有的外部环境，但外部环境不能访问内部环境中的任何函数和变量，这些环境的联系是有序的，线性的。</p>
-<h3 id="延长作用域链"><a href="#延长作用域链" class="headerlink" title="延长作用域链"></a>延长作用域链</h3><p>虽然执行环境总共只有2种，全局和局部的，但还是有其他办法来延长作用域链。有些语句可以在作用域的前端临时增加一个变量对象，该变量对象会在代码执行后自动销毁，在两种情况下会发生这种现象。具体来说，就是当执行流进入下列任何一个语句时，作用域链就会 得到加长:<br>**try-catch模块和with语句。<br>这两个语句都会在作用域链的前端添加一个变量对象。对 with 语句来说，会将指定的对象添加到<br>作用域链中。对 catch 语句来说，会创建一个新的变量对象，其中包含的是被抛出的错误对象的声明。 下面看一个例子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function buildUrl() &#123;</span><br><span class="line">    var qs = &quot;?debug=true&quot;;</span><br><span class="line">    with(location)&#123;</span><br><span class="line">        var url = href + qs;</span><br><span class="line">&#125;</span><br><span class="line">return url; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在此，with 语句接收的是 location 对象，因此其变量对象中就包含了 location 对象的所有属 性和方法，而这个变量对象被添加到了作用域链的前端。</p>
-<h3 id="没有块级作用域"><a href="#没有块级作用域" class="headerlink" title="没有块级作用域"></a>没有块级作用域</h3><p>js中是没有块级作用域的 例如如下会输出true<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if (true) &#123;</span><br><span class="line">     var color = &quot;blue&quot;;</span><br><span class="line"> </span><br><span class="line"> alert(color);    //&quot;blue&quot;</span><br></pre></td></tr></table></figure></p>
-<p>在c或者java中，花括号后，color便会自动销毁，但在js中，if语句中的变量声明会将变量添加到当前的执行环境(在这里是全局环境)，在用for语句时要尤其记住这一点。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for (var i=0; i &lt; 10; i++)&#123;</span><br><span class="line">        doSomething(i);</span><br><span class="line">&#125;</span><br><span class="line">    alert(i);      //10</span><br></pre></td></tr></table></figure></p>
-<p>对于js来说，由for语句创建的变量i即使在for循环后，也会存在于循环外部的执行环境中。<br>声明变量。<br>使用var声明的变量会被自动添加到最接近的环境中，在函数内部，最接近的环境就是函数的局部环境;在 with语句中，最接近的环境是函数环境，**如果初始化变量时候没有使用var,该变量会被自动添加到全局环境中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> function add(num1, num2) &#123;</span><br><span class="line">         sum = num1 + num2;</span><br><span class="line">    return sum;</span><br><span class="line"> &#125;</span><br><span class="line">var result = add(10, 20); //30</span><br><span class="line">alert(sum); //sum是全局变量，因此会弹出sum.</span><br></pre></td></tr></table></figure></p>
-<p>js中，不声明而直接初始化是一个非常严重的错误，所以，我们建议在初始化之前，一定要先声明，这样会避免许多错误，在严格模式下，初始化未经声明的变量会导致错误。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;</span><br><span class="line">sum = 4;</span><br><span class="line">console.log(sum);</span><br></pre></td></tr></table></figure></p>
-<p>上述代码会报错。</p>
-<h2 id="第五章-引用类型"><a href="#第五章-引用类型" class="headerlink" title="第五章 引用类型"></a>第五章 引用类型</h2><h3 id="object类型"><a href="#object类型" class="headerlink" title="object类型"></a>object类型</h3><p>直接创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var person = new Object();</span><br><span class="line">person.name = &quot;nichoload&quot;;</span><br></pre></td></tr></table></figure></p>
-<p>使用对象字面量的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var p = &#123;</span><br><span class="line">    name:&apos;load&apos;,</span><br><span class="line">    age:28,</span><br><span class="line">      5:true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>推荐使用对象字面量。<br>用方括号或者点来进行访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(p[&apos;name&apos;]); //load</span><br><span class="line">console.log(p.name); //load</span><br></pre></td></tr></table></figure></p>
-<h3 id="array类型"><a href="#array类型" class="headerlink" title="array类型"></a>array类型</h3><p>创建 ecmscript的每一项都可以存储任何数据类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var color = new Array();</span><br><span class="line">//长度为20的</span><br><span class="line">var colors = new Array(20);</span><br><span class="line">//包含3个字符串的</span><br><span class="line">var colors = new Array(&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;);</span><br><span class="line">//或者直接创建</span><br><span class="line">var colors = [&quot;red&quot;,&quot;blue&quot;,&quot;green&quot;];</span><br></pre></td></tr></table></figure></p>
-<p>如下创建最后一个可能会包含undefined<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,2,];</span><br><span class="line">console.log(values[2]);//undefined</span><br></pre></td></tr></table></figure></p>
-<p>可以直接修改数组的length，修改后末尾会自动添加上undefined<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,2];</span><br><span class="line">values.length = 3;</span><br><span class="line">console.log(values[2]); //undefined</span><br></pre></td></tr></table></figure></p>
-<h3 id="检测数组"><a href="#检测数组" class="headerlink" title="检测数组"></a>检测数组</h3><p>可以使用isArray方法来检测数组 或者使用 isstanceof方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,2];</span><br><span class="line">if(values instanceof Array)&#123;</span><br><span class="line">    console.log(true);</span><br><span class="line">&#125;</span><br><span class="line">if(Array.isArray(values))</span><br><span class="line">    console.log(true);</span><br></pre></td></tr></table></figure></p>
-<h3 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h3><p>toString() 方法返回拼接后的字符串,逗号分隔<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,2];</span><br><span class="line">console.log(values.toString()); //1,2</span><br><span class="line">console.log(values.valuesOf());//[1,2]</span><br></pre></td></tr></table></figure></p>
-<h3 id="join方法"><a href="#join方法" class="headerlink" title="join方法"></a>join方法</h3><p>join方法表示使用不同的字符进行拼接数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(values.join(&quot;||&quot;));//1||2</span><br></pre></td></tr></table></figure></p>
-<p><strong>如果不给 join()方法传入任何值，或者给它传入 undefined，则使用逗号作为分隔 符。IE7 及更早版本会错误的使用字符串”undefined”作为分隔符。</strong><br>类似栈的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,2];</span><br><span class="line">values.push(3);</span><br><span class="line">console.log(values); //1,2,3</span><br></pre></td></tr></table></figure></p>
-<p>在末尾添加<br>获得末尾的最后一项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var item = values.pop();</span><br><span class="line">console.log(item);</span><br></pre></td></tr></table></figure></p>
-<h3 id="类似队列的方法"><a href="#类似队列的方法" class="headerlink" title="类似队列的方法"></a>类似队列的方法</h3><p>shift方法表示从最前面移除一个数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var item = values.shift();</span><br><span class="line">console.log(item); //1</span><br></pre></td></tr></table></figure></p>
-<h3 id="重排序方法"><a href="#重排序方法" class="headerlink" title="重排序方法"></a>重排序方法</h3><p>reverse表示翻转，sort表示排序，默认升序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,4,3];</span><br><span class="line">values.reverse();</span><br><span class="line">console.log(values); //3,4,1</span><br><span class="line">console.log(values.sort()); //1,3,4</span><br></pre></td></tr></table></figure></p>
-<p><strong>sort方法调用每个数组项toString()方法,然后进行比较</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var values = [1,10,5];</span><br><span class="line">console.log(values.sort()); //1,10,5</span><br></pre></td></tr></table></figure></p>
-<p>典型例子<br><strong>所以需要自己传入一个compare函数进行比较。</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function compare(value1,value2) &#123;</span><br><span class="line">    if(value1 &lt; value2)</span><br><span class="line">        return -1;</span><br><span class="line">    else if(value1 &gt; value2)</span><br><span class="line">        return 1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var values = [1,10,5];</span><br><span class="line">console.log(values.sort(compare)); //1,5,10</span><br></pre></td></tr></table></figure></p>
-<p>表示升序排列。<br>第二个表示降序排列<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function compare(value1,value2) &#123;</span><br><span class="line">    if(value1 &lt; value2)</span><br><span class="line">        return 1;</span><br><span class="line">    else if(value1 &gt; value2)</span><br><span class="line">        return -1;</span><br><span class="line">    else</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var values = [1,10,5];</span><br><span class="line">console.log(values.sort(compare)); //10,5,1</span><br></pre></td></tr></table></figure></p>
-<h3 id="Array的基本方法"><a href="#Array的基本方法" class="headerlink" title="Array的基本方法"></a>Array的基本方法</h3><p><strong>concat方法，基于当前数组创建一个副本，随后再将新的参数添加到这个副本的末尾，最后返回新的构建的数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2];</span><br><span class="line">var color1 = color.concat(&quot;yellow&quot;);</span><br><span class="line">console.log(color); //1,2</span><br><span class="line">console.log(color1);//1,2,&apos;yellow&apos;</span><br></pre></td></tr></table></figure></p>
-<p>slice方法，接收一个或两个参数，返回项的起始和结束为止，只有一个参数时，方法返回从该参数指定位置开始到当前数组末尾的所有项。如果有两个参数，该方法返回起始和结束位置之间的项。<strong>slice不会影响原来的数组</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,4,5];</span><br><span class="line">var color1 = color.slice(2);</span><br><span class="line">console.log(color); //1,2,3,4,5</span><br><span class="line">console.log(color1);//3,4,5</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,4,5];</span><br><span class="line">var color1 = color.slice(1,3);</span><br><span class="line">console.log(color); //1,2,3,4,5</span><br><span class="line">console.log(color1);//2,3 不包含末尾</span><br></pre></td></tr></table></figure>
-<p>splice方法是最强大的，<br>删除方法 只需指定2个参数，要删除的第一个位置和要删除的项数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,4,5];</span><br><span class="line">var color1 = color.splice(0,2);</span><br><span class="line">console.log(color); //3,4,5</span><br><span class="line">console.log(color1);//1,2</span><br></pre></td></tr></table></figure></p>
-<p><strong>返回的不是新数组，而是在原数组的基础上修改。</strong><br>插入方法 起始位置，要删除的项数，和插入的项。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,4,5];</span><br><span class="line">color1 = color.splice(0,2,7,5);</span><br><span class="line">console.log(color);//1,2 表示删除的2项</span><br><span class="line">console.log(color1); //7,5,3,4,5</span><br></pre></td></tr></table></figure></p>
-<p>位置方法 indexOf表示从开始找起，lastIndexof表示从末尾找起<br>indexof有2个参数可选，array.indexOf(item,start)，item必须查找的元素，start规定开始查找的元素位置<br>可选的整数参数。规定在数组中开始检索的位置。它的合法取值是 0 到 stringObject.length - 1。如省略该参数，则将从字符串的首字符开始检索。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">console.log(color.indexOf(3));//2</span><br><span class="line">console.log(color.indexOf(3,4));//-1</span><br><span class="line">console.log(color.lastIndexOf(3));//3</span><br><span class="line">console.log(color.lastIndexOf(3));//3</span><br><span class="line">console.log(color.lastIndexOf(3,4));//表示从数组下标4，也就是5开始找，随后找到的是数组下标3.</span><br></pre></td></tr></table></figure></p>
-<p><strong>表示从前向后，和从后向前，但是返回的index依然是从左往右的</strong></p>
-<p>迭代方法<br>every，对数组中的每一项都运行给定的函数，如果该函数每一项都返回true,则返回true.<br>filter,最数组的每一项运行给定函数，返回函数true的项形成的数组<br>forEach,每一项运行函数，但是没有返回值。<br>map,每一项运行函数，返回每次函数调用的结果形成的数组<br>some,对数组每一项运行函数，如果函数对任一一项返回true,则返回true.<br><strong>以上的方法都不会修改数组找那个的包含的值</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">var every = color.every(function (item,index,array) &#123;</span><br><span class="line">    return item &gt; 2;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(every);//false</span><br><span class="line"></span><br><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">var some = color.some(function (item,index,array) &#123;</span><br><span class="line">    return item &gt; 2;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(some);//true</span><br><span class="line"></span><br><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">var filters = color.filter(function (item,index,array) &#123;</span><br><span class="line">    return item &gt; 2;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(filters);//3,3,5</span><br><span class="line"></span><br><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">var filters = color.map(function (item,index,array) &#123;</span><br><span class="line">    return item * 2;</span><br><span class="line">&#125;)</span><br><span class="line">console.log(filters);//2,4,6,6,10</span><br><span class="line"></span><br><span class="line">var color = [1,2,3,3,5];</span><br><span class="line">var filters = color.forEach(function (item,index,array) &#123;</span><br><span class="line">    console.log(item * 2);</span><br><span class="line">&#125;)</span><br><span class="line">console.log(filters);//undefined forEach没有返回值，因此没有filter</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1923,7 +1879,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-count">47</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1934,7 +1890,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1945,7 +1901,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">58</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
