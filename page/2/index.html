@@ -249,6 +249,293 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/页面性能优化/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/21/页面性能优化/" itemprop="url">页面性能优化与常见的攻击</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T15:57:58+08:00">
+                2019-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>互联网有一项著名的<strong>8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性</strong><br>1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并<br>从文件中去除多余的字符，例如回车，空格等。<br>css代码的压缩：是无效代码删除和css语义合并<br>js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语义的缩减和优化 4.代码的保护<br><strong>css和js的压缩是非常有必要的,压缩合并css和js可以减少网站http请求的次数，但合并文件可能会带来问题：首屏渲染和缓存失效问题</strong><br>2.非核心代码进行异步加载。<br>异步加载的3种方式-async和defer。动态脚本的创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src = &quot;text/javascript&quot; src = &quot;xxx.js&quot; async = &quot;async&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>defer是在html解析完之后才会执行，如果是多个，则会按照加载的顺序依次执行，</strong><br><strong>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</strong><br>3.利用浏览器缓存<br>3.1利用前缓存 不会向服务器发送请求 直接从缓存中读取资源<br>3.2利用协商缓存 向服务器发送请求，服务器会根据request header中的一些参数来判断是否命中协商缓存<br>强缓存优先于协商缓存,若强制缓存生效则直接使用缓存。若不生效则使用协商缓存。<br><strong>用户行为对浏览器缓存的影响</strong><br>1.地址栏访问，链接跳转是正常用户行为，将会触发浏览器的缓存机制<br>2.F5刷新，浏览器会设置max-age = 0,跳过强缓存判断，会进行协商缓存判断。<br>3.ctrl + F5,跳过强缓存和协商缓存，直接从服务器获取数据<br>4.使用CDN<br><strong>浏览器的缓存只是为了提高二次访问的速度</strong>需要从网络层面进行优化，最常见的是CDN(内容分发网络),通过将静态资源(js,css,html图片)等缓存到离用户很近的相同网络运营商的CDN节点上，不但提高用户的访问速度，还能节省服务器的带宽消耗，降低负载。<br>CDN服务商在全国各个省份部署计算节点，当到达计算节点时，首先判断缓存是否有效，若有效，则立即响应缓存给用户，否则，就去内容服务器上请求数据，反馈给用户，并将内容缓存下来以便响应给后续访问的用户。<br><strong>一个地区内只要有一个用户预先加载资源，在CDN中建立了缓存，该地区中的其余用户便会因此而受益</strong><br>5.<br><strong>预解析DNS 使用该技术预先告知浏览器某些资源可能会在将来被使用，</strong><br>通过DNS预解析告诉浏览器我们未来可能从某个特定的URL获取资源，当浏览器真正使用的时候，就可以尽快完成DNS的解析。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel = &quot;dns-prefetch&quot; href = &quot;//example.com&quot;&gt;</span><br></pre></td></tr></table></figure></p>
+<p><strong>懒加载也叫延迟加载，指的是在长网页中延迟加载图像，是一种很好用的性能优化方式</strong>,，<br>用户滚动到它们之前，<strong>可视区域外的图像不会加载</strong>,<br><strong>使用延迟加载使得网页加载更快</strong><br>为什么使用懒加载：1.能提升用户体验。2.减少无效资源的加载 3.防止并发加载的资源过多会阻塞js的加载。<br>预加载：另一个性能优化技术，告知浏览器某些资源可能会在未来使用到，<br>预加载把所有资源提前加载到本地，这样后面要使用的话就直接从缓存中读取。</p>
+<p>懒加载和预加载的对比，<br>两者主要区别是一个是提前加载，一个是迟缓甚至不加载，懒加载对服务器端有一定的缓解压力作用，预加载则会增加服务器端压力。<br>函数防抖和节流<br>函数节流(throttle)：<strong>一个函数执行一次后，只有大于设定的执行周期后才会执行第二次。</strong><br>有个需要频繁触发的函数，出于性能优化，在规定时间内，只让函数触发一次。<br>判断当前时间戳和上次执行的时间戳是否已经达到规定时间段。<br>函数节流：<br>1.DOM元素的拖拽功能，计算鼠标移动，射击游戏的mousedown/keydown.<br>函数防抖(debounce)：<br>防抖函数：<strong>一个需要频繁触发的函数，在规定时间内，只让最后一次生效即可，前面的不生效</strong></p>
+<h2 id="常见的攻击和防御方法"><a href="#常见的攻击和防御方法" class="headerlink" title="常见的攻击和防御方法"></a>常见的攻击和防御方法</h2><p>xss(跨站脚本攻击)，通过存在安全漏洞的web网站注册用户的浏览器内运行非法的html标签或者js进行攻击<br>1.利用虚假输入表单获取信息<br>2.利用脚本窃取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求。<br>3.显示伪造的文章或者图片<br>防御XSS攻击：<br>CSP建立白名单，开发者明确告诉浏览器哪些外部资源可以加载<br>通过设置http header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content-security-policy:defalut-src &apos;self&apos;</span><br></pre></td></tr></table></figure></p>
+<p>通过使用转移字符<br>3.httpOnly cookie<br>预防xss攻击的最有效手段 设置httpOnly,避免网页的cookie被客户端恶意js获取，保护用户的cookie信息<br>2.csrf攻击：<br>在登录a的情况下已经设置好cookie,所以在登录恶意网站时，将a网站上的cookie信息获取。<br>防范：get请求不对数据进行修改，不让第三方网站访问到用户的cookie.阻止第三方网站请求接口，请求时必须携带验证信息，例如cookie<br>3.点击劫持：视觉欺骗的攻击手段，攻击者将需要攻击的网站通过iframe嵌套到自己的网页中，并将iframe设置为透明，在页面中透出一个按钮诱导用户点击，特点：隐蔽性较高，UI-覆盖点击，利用iframe或者其他标签的属性。<br>4.URL跳转漏洞：借助未验证的URL进行跳转，将应用程序引导到不安全的第三方区域，从而导致安全问题。<br>5.SQL注入，一种典型的web安全漏洞，攻击者利用这个漏洞，可以访问或者修改数据，或者利用潜在的数据库漏洞进行攻击。<br>6.OS命令注入攻击：和SQL注入差不多，SQL注入是针对数据库的，而OS注入是针对操作系统的。OS命令注入攻击指的是通过Web应用，执行非法的操作系统命令而达到攻击的目的，只要在能调用shell函数的地方就能存在被攻击的风险。防御：进行规则限制，<br>在调用系统命令前将所有传入参数进行命令行参数转义过滤。不要直接拼接命令语句，借助一些工具作拼接。，例如 Node.js 的 shell-escape npm包</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/http相关知识/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/20/http相关知识/" itemprop="url">http相关知识,tcp知识,web实时推送</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T11:30:44+08:00">
+                2019-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>http状态码：<br>1xx 指示信息-表示请求已经接受，继续处理 表示客户端需要提交下一步请求<br>2xx 成功 表示请求已被成功接受<br>304未修改，客户端的缓存是最新的<br>3xx 重定向 要完成请求需要进一步操作 302(重定向), 307 和 304(拿缓存)<br>4xx 客户端错误 请求有语法错误等<br>5xx 服务器端错误 服务器未能实现合法的请求</p>
+<p>403 //对被请求的页面访问禁止 404 请求资源不存在 比如输入了错误的URL<br>post 向URL指定的资源提交数据<br>put 提交数据 put指定了在服务器上的位置 而post没有<br>head 只请求页面的首部<br>delete 方法：删除服务器上的某资源<br>options 方法：它用于获取当前 URL支持的方法，如果请求成功，会有一个 Allow 的头包含类似“GET,POST”这样的信息</p>
+<p>持久连接：只要任意一端没有提出明确断开连接，则保持TCP的连接状态</p>
+<p>https的工作原理：！！！<br>https在HTTP上建立了SSL加密层，对传输数据进行了加密，是http的安全版<br>主要作用：<br>1.对数据进行加密，并建立一个信息安全通道，来保证传输数据的过程中的数据安全<br>2.对网站服务器进行真实身份认证<br>http使用的是明文进行发送。<br>完成了数据隐私性传输，完整性的校验，身份认证<br>http先和SSL通信，再由SSL和tcp通信。<br>对称加密：加密和解密用同一个秘钥，将秘钥也需要发送给对方。<br>非对称加密：私有秘钥不能让任何人知道，公开秘钥可以随意发布<br>使用公开秘钥加密的方式：发送密文的一方使用对方的公开秘钥进行加密，<br>对方收到后，利用私钥进行解密。<br>非对称加密特点是信息一传输多，服务端只需要维护一个<strong>私钥就能和多个客户端进行通信</strong></p>
+<p>http使用的方式：在交换秘钥环节使用非对称加密方式，之后的建立通信交换报文阶段采用对称加密方式</p>
+<p><strong>发送密文的一方使用对方的公开秘钥加密处理对称的秘钥，然后对方利用自己的私钥进行解密拿到对称的秘钥，这样可以确保秘钥在安全的情况下，使用对称秘钥进行加密</strong></p>
+<p>解决报文是否可能遭到篡改 – 数字签名<br>确定消息是由发送方签名并且发过来的，因为别人假冒不了<br>数字签名保证消息的完整性，证明数据没有被篡改<br>文本用hash生成消息摘要 再由私钥生成数字签名，发送给接受者<br>接受者只有用发送者的公钥才能进行解密，然后用hash函数产生摘要信息。</p>
+<p>解决通信双方身份可能被伪装的问题：数字证书<br>数字认证机构处于客户端和服务器双方都可信赖的第三方机构的立场上</p>
+<p>https通信过程<br>1.client发送https请求 server的连接端口为443<br>2.server把事先配置好的公钥证书返回给客户端<br>3.client验证公钥证书<br>4.clent使用<strong>伪随机数产生对称秘钥，然后用证书的公钥加密,发送给server</strong><br>5.server利用自己私钥进行解密，client和server拥有了相同的私钥<br>6.server使用对称秘钥加密明文内容，发送给client<br>7.client使用对称秘钥解密密文，得到明文内容<br>8.client再次发送http,使用对称秘钥加密请求B,然后server使用对称秘钥解密</p>
+<p>tcp3次握手过程<br>client -&gt; server发送<br>server 接收后 回复ack<br>client收到ack后回复ack</p>
+<p>问：为什么建立连接需要3次<br>答：防止失效的连接请求报文段被服务端接收，从而产生报错 A是client,B是server<br>发送的失效报文到达时，A和B已经断开了，但是B又建立了连接，向A发送数据，所以造成资源浪费<br>tcp 4次挥手<br>客户端打算关闭连接<br>tcp停止释放报文，fin = 1<br>服务器接收到后确认，确认号是ack + 1<br><strong>客户端到服务器这个连接已经释放，但是服务器到客户端还未释放，client不能发送，server不能接受，但是server可以发送，client可以接受</strong><br>因为tcp是全双工的，两端可以同时发送和接收数据</p>
+<p>服务器到客户端发送fin<br>客户端接收到后，必须发出请求，ack = 1<br>运输层中有传输控制协议tcp和用户数据协议udp<br>dns查看 浏览器缓存 -&gt; 系统缓存 -&gt; 路由器缓存</p>
+<p>http/2相比于http/1，可以说大幅度提高了网页的性能，只需要升级到该协议就能减少很多之前需要做的性能优化工作，<br>当然兼容问题以及如何优雅降级应该是国内还不普遍使用的原因之一。<br>http/3相对于http/2又是一个提升<br>http协议：<br>处于计算机网络中的应用层，http是建立在tcp协议之上，<strong>所以http协议的瓶颈及其优化技巧都是基于tcp本身的特性</strong>,<br>例如tcp建立的3次握手和断开连接的4次挥手以及每次建立连接带来的RTT延迟时间</p>
+<p>http/1.x缺陷<br>连接无法复用 每次都会导致3次握手和慢启动，慢启动对大量小文件请求影响较大。<br>head-of-line blocking(holb) 导致宽度无法被充分利用，以及后续请求被阻塞<br>http/1.x在传输数据时，所有传输内容都是明文，客户端和服务端都无法验证对方身份，这在一定程度上无法保证数据的安全性</p>
+<p>http/2方法/状态码/语义都与http/1.x一样，http/2基于SPDY3协议，专注于<strong>性能</strong>,最大的目标是在用户和网站之间只用一个连接。</p>
+<p>http/2采用二进制格式传输数据，而非http1.x的文本格式。<br>http/2采用了多路复用技术。<br>解决了同一个域名下的请求数量的问题。<br>同时也更容易实现全速传输。<br>http/2<br>同域名下所有通行都在单个连接上完成。<br>单个连接可以承载任意数量的双向数据流。<br>数据流以消息的形式发送，而消息又由一个或多个帧组成，多个帧之间可以乱序发送，因为根据帧首部的流标识可以重新组装。<br>同个域名只需要占用一个 TCP 连接，使用一个连接并行发送多个请求和响应,消除了因多个 TCP 连接而带来的延时和内存消耗。<br>并行交错地发送多个请求，请求之间互不影响。<br>并行交错地发送多个响应，响应之间互不干扰。<br>在HTTP/2中，每个请求都可以带一个31bit的优先值，0表示最高优先级， 数值越大优先级越低。有了这个优先值，客户端和服务器就可以在处理不同的流时采取不同的策略，以最优的方式发送流、消息和帧。<br>http/2只采用一个tcp协议，<br>http/2压缩了header<br>server-push也叫cache push<br>某些资源客户端一定会请求，可以采用服务端push方式，提前给客户端必要的资源。<br>http3协议是基于QUIC协议，QUIC协议是基于UDP协议。<br>QUIC新功能：<br>0-RTT 通过使用类似TCP快速打开的技术，缓存当前会话的上下文，在下次恢复会话的时候，只需要将之前的缓存传递给服务端验证通过就可以进行传输了。0-RTT建立连接可以说是QUIC相比HTTP2最大的性能优势。<br>https建立一次完全握手需要3个RTT，而QUIC建立在UDP基础上，同时又实现了0RTT的安全握手，所以在大部分情况下，只需要0个RTT就能实现数据传送。<br>同一条QUIC连接上可以创建多个stream,来发送多个http请求。<br>QUIC有向前纠错机制，每个数据包除了它本身的内容之外，还包括了部分其他数据包的数据，因此少量的丢包可以通过其他包的冗余数据直接组装而无需重传。<br>http/1.x有连接无法复用，队头阻塞，协议开销大和安全因素等多个缺陷。<br>http/2通过多路复用，二进制流，Header等压缩技术，极大的提高了性能。但是还是存在性能问题。<br>quic基于udp协议来实现，是http/3中的底层支撑协议，该协议基于UDP，又吸取了TCP中的精华，实现了既块又可靠的协议传输。</p>
+<p>web实时推送机制 将后台发生的变化主动的，实时的传送到浏览器端。而不需要用户端主动刷新页面<br><strong>轮询</strong>是客户端和服务器之间会一直进行连接，每隔一段时间就询问一次，缺点：连接数会非常多，一个接受，一个发送，<br><strong>而且每次发送请求都会有http的header，会很耗流量，也会消耗cpu的利用率。
+</strong>长轮询<strong>客户端发送http给服务器后，看有没有新消息，如果没有新消息，就一直等待，当有新消息的时候，才会返回给客户端。在某种程度上减小了网络带宽和CPU利用率等问题。由于http数据包的头部数据量往往很大（通常有400多个字节),但是真正被服务器用到的数据却很少，<br>这样的数据在网络上周期性的传输，</strong>难免对网络带宽是一种浪费<strong>
+</strong>iframe<strong>流方式是在页面中插入一个隐藏的iframe,利用其src属性在服务器和客户端之间建立一条长连接，服务器想iframe传输数据，来实时更新页面。<br>优点：消息能够实时到达；浏览器兼容好<br>缺点：服务器维护一个长连接会增加开销；IE、chrome、Firefox会显示加载没有完成，图标会不停旋转。
+</strong>web socket<strong>机制，web服务器和客户端之间建立连接后，之后所有的通信都依靠这个专用协议进行。任意一方可直接向对方发送报文。<br>http是半双工协议，web socket是全双工协议。<br>tcp和udp的比较<br>tcp/ip是互联网相关的各类协议族的总称，例如tcp,udp,ip,ftp,http,icmp,smtp等<br>是互联网的基础，一系列网络协议的总称，<br>这些协议可以划分为四层，分别为链路层、网络层、传输层和应用层。<br>tcp/ip的4层模型<br>链路层 -&gt; 网络层 -&gt; 传输层 -&gt; 应用层<br>udp协议全称是用户数据报协议，在网络中它与 TCP 协议一样用于处理数据包，是一种</strong>无连接的协议<strong>。<br>面向无连接，不需要和tcp一样在发送数据前建立3次握手。<br>有单播，多播，广播的功能。<br>支持一对一，一对多，多对多，多对一的方式。<br>udp是面向报文的，是不可靠的。<br>头部开销小，传播数据报文是很高效的<br>两台计算机通信时，需要畅通并且可靠。<br>当你想查看网页或查看电子邮件时，希望完整且按顺序查看网页，而不丢失任何内容。当你下载文件时，希望获得的是完整的文件，而不仅仅是文件的一部分，因为如果数据丢失或乱序，都不是你希望得到的结果，于是就用到了 TCP。
+</strong>tcp协议全称是传输控制协议，是一种面向连接的，可靠的，基于字节流的传输层通信协议<strong>.<br>3次握手和4次挥手<br>tcp仅支持单播传输<br>ajax是一种</strong>异步请求数据的web开发技术**,在不需要重新刷新页面的情况下，ajax通过异步请求加载后台数据，并在前端显示。<br>ajax目的是提高用户体验，减少网络数据传输量<br>基于浏览器提供的xmlhttprequest对象，使得浏览器可以发出http请求和接收到http响应。<br>浏览器接着干自己的事情</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/19/伪数组和promise/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1657,354 +1944,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/14/面试笔记-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/14/面试笔记-1/" itemprop="url">公众号文章-面试经验-面试官需要什么样的人才</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-14T19:05:14+08:00">
-                2019-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/面试相关/" itemprop="url" rel="index">
-                    <span itemprop="name">面试相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>我在阿里做技术面试官的一些经验<br>言川  前端技术优选  3天前<br>戳蓝字「前端技术优选」关注我们哦！</p>
-<p>我可能是在同龄人中做面试官经验比较丰富的，在某乎实习的时候就参与了前端的技术面试。后来在阿里以及另一家公司也面试过不少候选人，校招、社招、外包都有面试过。这里以一个面试官的角度来给大家谈谈在面试的时候怎么能给面试官留下更好的印象，更容易拿到大厂的Offer。为了不造成任何面试题泄露，这里我不会涉及到任何具体的面试题。</p>
-<p>社招和校招的面试重点<br>社招其实和校招的面试重点有一些区别，以前端为例，社招更看重对前端技术体系的深入理解，以及解决问题的能力。比如对React的实现原理的理解，性能、安全等方面问题。为了避免泄题嫌疑这里就不举具体例子，具体大家可以自行搜索一下。</p>
-<p>社招的通常简历中会有很多项目经历，面试官也会挑一两个项目问的比较深入，所以写在简历上的项目一定要自己有比较深的理解，不然面试的时候深入问一下答不上来就会非常不好。</p>
-<p>相对的，校招更看重的其实是基本功和学习能力（或者说是潜力）。前端知识更多会考一些基础的JS和CSS，框架的原理方面不会问的很深，数据结构和算法、网络协议等会问的比较多，如果有靠谱的项目/比赛经历也会是考察重点。</p>
-<p>还有比较敏感的学历问题，坦白说，如果一个HR/面试官要从成百上千的简历中初步筛选，是没有精力一个个认真看的，学历作为一个重要指标这个时候非常值得参考。而实际情况也是高学历的候选人大部分时候会明显强于低学历的候选人，即使一些人的简历看起来非常华丽。</p>
-<p>大厂的面试流程<br>一般阿里腾讯这样的大公司，校招面试的流程是一轮统一笔试+三轮技术面试+一轮HR面试，如果对候选人的水平有争议，技术面试有可能会增加一轮，以2019年春招（实习生招聘）为例：</p>
-<p>统一的笔试。</p>
-<p>技术初面，一般这一轮都是由你将来同一个团队的比较资深的同事来面试</p>
-<p>技术二面，一般是由你的未来主管面试</p>
-<p>技术交叉面，一般是其他事业部的主管面试</p>
-<p>HR终面，非技术问题</p>
-<p>对应届生来说，大厂统一校招前，如果你想进哪一个，一定要关注一下他们的内推信息。内推一般都不用笔试，可以直接参加面试。而且一般内推和统一招聘是分开的，也就是内推挂了依然可以参加统一招聘，多一次机会。当然内推具体会不会影响统招，还是要让内推人确认下。</p>
-<p>这里说一下实习生的春招和秋招，春招和秋招都是招第二年毕业的学生，区别是春招签的是实习Offer，秋招会签正式Offer，所以区别大家应该懂得（春招不一定能转正）。</p>
-<p>社招一般也是三/四轮技术面+一轮HR面，不过社招很多时候会有一轮是级别比较高的人（总监级）人来面试。</p>
-<p>面试前准备<br>首先在面试前一定要花一些时间进行准备，特别是常见的比较典型的面试题要准备一下，避免由于长时间没有接触某一类知识而在面试的时候发挥失常，比如计算机网络、常见的算法等。大部分面试问题都能在网上找到相同类型的，但是想全部找到原题一边不太现实，很多面试官都会有自己准备的题目。比如我在每一次大规模招聘开始的时候，都会花一些时间自己准备几个题目。</p>
-<p>然后就是简历一定要认真写，重点突出，最好一页就能写完。三四页的长篇大论一般我都不会认真看。简历中写上去的东西，一定要诚实，不懂得别乱写。技术面试至少有一轮面试官会对着你的简历来问的，如果写的精通实际却解释不清楚，会给面试官非常差的印象，降低整个人的信用。所以简历中写道的项目，如果是很久以前的最好自己再回忆整理一下。</p>
-<p>既然简历不能写的太长，那么哪些东西写上去会让面试官特别感兴趣呢？</p>
-<p>大型比赛获奖</p>
-<p>靠谱的项目/实习经历</p>
-<p>开源项目经历</p>
-<p>相对的，有一类简历写法会让人比较反感，就是把各种技术名词罗列出来写成一长列，全是熟悉/精通xxxx。不是不能这么写，而是不能写的特别多。没有哪个人是能全部都精通的，如果你这么写了，面试官随便挑两个问一问结果答得不好，那么会觉得你精通的都这个水平，其他肯定更不怎么样。</p>
-<p>面试的时候的一些建议<br>面试官和候选人从来不是对立关系，作为面试官非常希望候选人特别优秀，最好面一个人就能直接通过，没有人想在低质量的候选人身上不断浪费时间。所以面试的时候一定要心态放好，不是去被刁难，而是平等的交流。这里说几个我认为比较重要的点：</p>
-<p>诚实，确实完全不懂的就直接说不知道，不要装也不要编，面试官的水平一般远高于你，很多时候你以为忽悠过去了，其实面试官只是懒得跟你解释太多而已。</p>
-<p>主动发问，如果解决一个问题的时候有一些疑问或者不懂的地方，可以主动问面试官，一般都会给你一些提示。甚至有的题目专门会留一个模棱两可的条件就是希望你能问出来的。发现并提出问题的能力也很重要</p>
-<p>不怕错误，不要放弃，即使上一个题目完全错的离谱下一题也要认真对待</p>
-<p>不要刻意套近乎，我就很反感上来一口一个“哥”，甚至打听面试官私人问题的</p>
-<p>作为面试官，绝大多数人一般都是非常友好的。很多时候一些比较难的问题，都会先抛出一个相对简单的，候选人解决完之后会提出下一个要求，比如限制条件再解决这个问题，或者指出你的实现方式存在的问题然后问你怎么解决。好的面试题通常不是一上来就特别难，而是看起来不算太难，但是随着面试官逐步引导追问会变得越来越难。</p>
-<p>很多时候一个复杂的问题在面试的时候本来就很难用一两句话描述清楚，这个时候面试官很可能会故意只进行粗略的描述，希望候选人在读题的时候能自己发现问题并提出来。如果你感觉一个面试题有模棱两可的地方，一定要主动提出来，能给面试官留下很好的印象。</p>
-<p>面试的时候不要因为某个题目犯了严重错误就自暴自弃，后面不专心答题了。一个题目结束后调整好心态进行下一题。没有哪一个面试官会因为某一个题目而一票否决候选人，都是面试结束后根据候选人的综合表现来评价的。所以心态放好，即使个别题目错误的离谱，整体评价依然可以做到比较好。</p>
-<p>面试结束的时候应该问点什么<br>一般面试快结束的时候，面试官都会问你有没有什么问题想问他的？很多人在这个时候手足无措不知道问些什么好。其实很多问题都可以问，比如：</p>
-<p>团队的一些技术栈和所承担的业务</p>
-<p>如果通过了未来的工作主要是做什么？</p>
-<p>有师兄师姐带我么？公司有没有一些系统的培训？</p>
-<p>甚至可以问一些学习的方法</p>
-<p>但是切记有一个问题不要问，就是“我能通过这次面试么”，这个问题非常不适合在这里问，不通过的一般也不好当面说，能通过这一轮面试的一般也会其他候选人综合对比，或者有下一轮。</p>
-<p>面试结果？<br>面试结束后，如果通过了，正常都会在一周内有回复的，如果等了一周也没有见到回复，那么最好问一下面试你的人，虽然八成是没戏了。如果没有通过面试也不要太灰心，可以加一下面试官的微信，或者让他帮你拉群。很多团队自己为了以后方面抢人，都会有一些招聘群，加进去方便下一次有机会的时候能获得第一手信息。</p>
-<p>面试官面试的时候在干嘛<br>这个比较有意思，其实技术面试官都是比较资深的员工，大家平时都很忙的，很多时候面试其实是额外的任务。所以面试的时候，除了和候选人沟通之外，面试官有可能还在同时做自己的事。比如在线编程环节，沟通完题目要求之后，如果候选人埋头写题目不说话，我有时候就会去干别的事，15分钟后才回来看。所以即使写代码的时候最好和面试官保持沟通，说说自己的思路，不懂的地方提出来。不然面试官无聊了可能就去干别的去了。</p>
-<p>还有很多面试官在开头会让候选人自我介绍，其实这个时候你只要保持镇定简单说下就好，他八成没听你说的话，正在抓紧时间看你的简历呢。所以我从来不会让人自我介绍，我会在面试开始前先花两分钟看完简历，标记重点要问的问题。甚至个别自己记不清的还要google一下。</p>
-<p>最后说一句，无论多少人在说工作难找，优秀的人才总是每个公司都要抢的。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/13/Web前端入门和进阶学习笔记/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/13/Web前端入门和进阶学习笔记/" itemprop="url">html,css restful相关</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-13T22:22:11+08:00">
-                2019-06-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/html相关/" itemprop="url" rel="index">
-                    <span itemprop="name">html相关</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/html相关/css相关/" itemprop="url" rel="index">
-                    <span itemprop="name">css相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>h1标签有什么作用：<br>正确答案：给文本增加主标题的语义<br>错误答案：给文字加粗，加黑，放大<br>标记：</p><p>称为开始标记 ，</p>称为结束标记，也叫标签。每个标签都规定好了特殊的含义。<br>元素：<p>内容</p>称为元素.<br>属性：给每一个标签所做的辅助信息。<br>xhtml： 符合XML语法标准的HTML。<br>dhtml：dynamic，动态的。javascript + css + html合起来的页面就是一个dhtml。<br>http：超文本传输协议。用来规定客户端浏览器和服务端交互时数据的一个格式。SMTP：邮件传输协议，ftp：文件传输协议。<br>避免乱码：我们用meta标签声明的当前这个html文档的字库，一定要和保存的文件编码类型相同，否则乱码(重点)<br>html结构<br>1.声明部分：主要作用是用来告诉浏览器这个页面使用的是哪个标准。&lt;!doctype html&gt;是HTML5标准。<br>2.head部分：将页面的一些额外信息告诉服务器。不会显示在页面上。<br>3.body部分：我们所写的代码必须放在此标签內。<br>1.文档声明头<br>&lt;!DOCTYPE&gt; 文档声明头 DocType Declaration 简称DTD，此标签可告知浏览器文档使用哪种 HTML 或 XHTML 规范。<br>2.头标签<br>title base meta body link<p></p>
-<p><title>：指定整个网页的标题，在浏览器最上方显示。</title></p>
-<p><base>：为页面上的所有链接规标题栏显示的内容定默认地址或默认目标。</p>
-<p><meta>：提供有关页面的基本信息</p>
-<p><body>：用于定义HTML文档所要显示的内容，也称为主体标签。我们所写的代码必须放在此标签內。</body></p>
-<p><link>：定义文档与外部资源的关系。<br>meta中设置description 即百度搜索结果，就能显示这些语句，表示引擎优化SEO<br>文本级标签p span a b i u em 里面只能放文字，图片，表单元素<br>容器级标签 div h系列，里面能放任何东西<br>div 把标签中的内容当做一个块来对待，必须独占一行<br>span 是不换行的<br>center 代表是一个标签，而不是一个属性值，只要是这个标签的内容，都会居中于浏览器<br>pre 预格式化标签 含义：将保留其中的所有的空白字符(空格、换行符)，原封不动的输出结果（告诉浏览器不要忽略空格和空行） 说明：真正排网页过程中，<pre>标签几乎用不着。但在PHP中用于打印一个数组时使用。<br>锚链接：指定超链接起一个名字 作用是在本地或者其他页面的不同位置进行跳转。<br>列表标签<ul> unordered list 表示无序列表 没有1 2 3 只有点<br>有序列表<ol> 有1.2.3标签<br>定义列表dl dl的子元素只能是dt或者dd dt表示标题,dd表示内容<br>表格table 表格由行组成，行由列组成<br>表单标签<form> 用于与服务器的交互，表单就是收集用户信息的，就是让用户填写的、选择的。<br>属性：<br>name：表单的名称，用于JS来操作或控制表单时使用；<br>id：表单的名称，用于JS来操作或控制表单时使用；<br>action：指定表单数据的处理程序，一般是PHP，如：action=“login.php”<br>method：表单数据的提交方式，一般取值：get(默认)和post<br>get提交和post提交的区别：</form></ol></ul></pre></p>
-<p>GET方式： 将表单数据，以”name=value”形式追加到action指定的处理程序的后面，两者间用”?”隔开，每一个表单的”name=value”间用”&amp;”号隔开。 特点：只适合提交少量信息，并且不太安全(不要提交敏感数据)、提交的数据类型只限于ASCII字符。</p>
-<p>POST方式： 将表单数据直接发送(隐藏)到action指定的处理程序。POST发送的数据不可见。Action指定的处理程序可以获取到表单数据。 特点：可以提交海量信息，相对来说安全一些，提交的数据格式是多样的(Word、Excel、rar、img)。</p>
-<p>Enctype： 表单数据的编码方式(加密方式)，取值可以是：application/x-www-form-urlencoded、multipart/form-data。Enctype只能在POST方式下使用。</p>
-<p>Application/x-www-form-urlencoded：默认加密方式，除了上传文件之外的数据都可以<br>Multipart/form-data：上传附件时，必须使用这种编码方式。</p>
-<h3 id="css部分"><a href="#css部分" class="headerlink" title="css部分"></a>css部分</h3><p>html的单位只有一种，那就是像素px,所以单位是可以省略的，但是css不一样，css的单位是必须写的，因为它没有默认单位<br>绝对单位<br>1 in = 2.54 cm = 25.4 mm = 72pt = 6 pc<br>in 英寸 pt 点points 或者叫英镑 pc 皮卡<br>相对单位： px：像素<br>em：印刷单位相当于12个点<br> %：百分比，相对周围的文字的大小<br> 单行文本垂直居中<br> 行高 = 盒子搞 默认文字是居中显示的 在行元素内<br> 比如行高24px 字体大小14px 所以padding会计算出来是5px<br> font-family的设置<br> font-family: “Times New Roman”,”微软雅黑”,”宋体”;<br>英语字体放在最前面，所有的中文，就不能匹配英文字体，匹配后面的中文字体<br>行高可以用百分比，表示自豪的百分之多少 一般是大于100%的 因为行高一定大于字号<br>滤镜：让图片变成灰度图的效果<br><img src="3.jpg" style="filter:gray()"><br>常见背景属性有如下几种<br>background-color:#ff99ff;background-image:url(image/2.gif)<br>background-repeat:no-repeat 设置背景图片是否重复以及如何重复 <strong>默认平铺满</strong><br>no-repeat 不要平铺 repeat-x 横向平铺 repeat-y 纵向平铺<br>background-color属性的设置 red rgb(255,0,0) #ff0000<br>css和html结合的3种方式：行内样式表 内嵌样式表 外部样式表<br>外部引入 必须卸载<style>标签中 必须是第一句 @import url(a.css)<br>css 3种基本选择器：标签，类，ID，通用选择器<br>css几种扩展选择器：后代，交集，并集选择器<br>css样式优先级<br>html：超文本标记语言 从语义的角度描述页面<strong>结构</strong><br>css:层叠样式表 从审美的角度负责页面<strong>样式</strong><br>js:从交互的角度描述页面<strong>行为</strong><br>css的注释 /**/ 没有//这种注释</p>
-<p><link rel = 'stylesheet'> stylesheet：定义的样式表<br>alternate stylesheet：候选的样式表 表示可以切换 切换成第2种样式 或者第3种<br>标签选择器：针对一类标签 ID选择器：针对某一个特定的标签使用 类选择器：针对你所要的所有标签<br>通用选择器(通配符):针对所有标签都适用(不建议)<br>通配符<em> 匹配任何标签
-</em>{<br>    margin-left:0px;<br>    margin-top:0px;<br>}<br>1.后代选择器：定义的时候用空格隔开<br>E F这种格式 表示所有属于E元素的后代的F元素 <strong>选择的是后代 不一定是儿子</strong><br>.div1 p{<br>    color:red;<br>}<br>2.交集选择器<br>h3.special<br>表示必须是h3标签，然后必须是special标签<br>h3.special{<br>    color:red;<br>}</p>
-<p><h3 class = "special">标题</h3><br>3种基本选择器都可以放进去<br>3.并集选择器<br>p,h1,#myTitle,.one{<br>    color:red;<br>}<br>IE6的兼容问题(面试要问)<br>1.子代选择器<br>div &gt; p{<br>    color:red;<br>}<br>表示div的儿子P，和后代p完全不同<br>2.序选择器<br>ul找那个的第一个为红色<br>ul li:first-child{<br>    color:red;<br>}<br>3.下一个兄弟选择器<br>+表示选择下一个兄弟<br>h3+p{<br>    color:red;<br>}<br>伪类：同一个标签，根据其不同的状态，有不同的样式，这叫做伪类，伪类用冒号来表示<br>静态伪类：只能用于超链接<br>:link :visited<br>动态伪类:针对所有标签 :hover 悬停 :active 激活 鼠标点击标签，但是不松手时。<br> :focus  某个标签获得焦点 :visited 访问过的 :link 访问之前的<br>css的继承性<br>关于文字的样式，都有继承性，这些属性包括：color、 text-开头的、line-开头的、font-开头的。<br>关于盒子，定位，布局的属性，都不能继承。<br>css的层叠性<br>层叠性：就是处理css处理冲突的能力 所谓权重问题，没有任何兼容问题<br>当多个选择器，选择上了某个元素的时候，要按照如下顺序统计权重：<br>id &gt; 类 &gt; 标签<br>数权重(id的数量，类的数量，标签的数量)1个个比较下来<br>没有选择上，通过继承影响的，就近原则，谁描述的近听谁的。如果描述的一样近，比如选择器权重，如果权重再一样重，谁写在后面听谁的。<br><strong>重要 如果不能直接选中某个元素，而是通过继承性影响的话，那么权重为0</strong><br>将css属性设置为important 来给一个属性提高权重，这个属性的权重就是无限大<br> font-size:60px !important;<br> 只提升一个属性，而不是提升整个选择器的值<br> !important 不能提升权重为0的继承性的值<br> 盒子模型 英文即box model 无论是div span 还是a都是盒子<br>但是图片，表单元素一律看做是文本，它们不是盒子， ，一张图片里并不能放东西，它自己就是自己的内容。<br>盒子:width height内容的高度和宽度<br>padding:内边距 border边框 margin外边框<br>IE盒子模型的content部分包含了border和padding<br>body标签也有margin 整个网页最大的盒子是document 即浏览器 而body是document的儿子 。浏览器给<body>默认的margin大小是8个像素，<br>padding区域也是有颜色的 内边距 和内容区域颜色相同，background-color将填充所有border内部的区域<br>padding的顺序 上右下左 顺时针<br>写3个值 上 右 下 左和右一样<br>写2个值 上和下一样 左和右一样<br>ul自带有40px的padding-left, 使用<em>进行清除
-</em>{<br>    margin:0;<br>    padding:0;<br>}<br>body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{<br>    margin:0;<br>    padding:0;<br>}<br>border有3个要素，像素(粗细)，线型，颜色<br>border:10px ridge red;<br>border-witdh,border-style,border-color 一个border属性是由3个小属性组成的。<br>标准文档流<br>特性<br>(1)空白折叠现象 无论多少个空格，换行，tab都会被折叠为一个空格<br>行内元素和块级元素<br>行内元素：1.与其他行内元素并排2.不能设置宽高，默认的宽度，就是文字的宽度<br>块级元素：霸占一行，不能与其他任何元素并列，<br>能接受宽高，如果不设置宽度，宽度默认为父亲的100%<br>文本级:p span a b<br>容器级标签 div h<br>从css角度划分行内元素和块级元素<br>行内元素：除了p之外，所有的文本级标签<br>块级元素：所有的容器级标签都是块级元素 还有p标签<br>将块级元素转化为行内元素<br>display:inline<br>将行内元素转化为块级元素<br>display:block<br>css中一共有3种手段，使一个元素脱离标准文档流<br>(1)浮动(2)绝对定位(3)固定定位<br>float:left表示脱离了文档流<br>行内元素不能设置宽高，但是一旦变成浮动元素，就能设置宽高了<br>清除浮动<br>clear:both 同时清除左边和右边的浮动<br>浏览器hack hack就是黑客，就是使用浏览器提供的后门，针对某一种浏览器做兼容<br>IE6留了一个后面，只要给css属性之前，加上下划线，这个属性就是IE的专有属性<br>背景颜色加上下划线 _background-color:green 所以只有IE才能渲染。<br>margin塌陷/margin重叠<br>标准文档流中，竖直方向的margin不叠加。取较大的<strong>作为margin 水平方向margin是可以叠加的，即水平方向没有塌陷现象。<br>盒子居中的简写:<br>margin:0 auto;表示上下的margin都为0,左右margin尽可能大，于是就居中了。<br>标准流中才能用，脱离的不能用。必须要有width<br>css定位属性有3种，absolute(绝对定位) relative(相对定位) fixed(固定定位)<br>相对定位：让元素相对于自己原来的位置，进行位置调整<br>position:relative;top:50px;left:50px;<br>相对定位：不脱标，老家留坑，别人不会把它的位置挤走。<br>也就是说，</strong>真实位置还在老家，但是影子在到处飘<br>left:盒子右移 right:盒子左移 top:盒子下移 bottom:盒子上移<br>绝对定位：定义横纵坐标，原点在父容器的左上角或者左下角，横坐标用left表示，纵坐标用top或者bottom表示。<br>position:absolute;left:10px;top:20px;<br>绝对定位的盒子脱离了标准文档流。<br>标签就不区分所谓的行内元素、块级元素了，不需要display:block就可以设置宽、高了。<br>固定定位：就是相对于浏览器窗口进行定位。无论页面如何滚动，这个盒子显示的位置不变。<br>position:fixed;botton:100px;right:30px;width:60px;height:60px;<br>5.z-index属性，表示谁压着谁，数值大的压盖住数值小的<br>有如下特性：属性值大的位于上层，属性值小的位于下层。<br>超链接<a>的href跳转<br>一个空白的超链接如下<br><a href = ""></a><br>当点击超链接的时候，由于href属性值的不同，可能会产生多种情况<br>href = “” //刷新页面<br>href = “#” //跳转到当前页面的顶部，不会刷新页面<br>href = “javascript:void(0)”//什么都不做<br>href = “javascript:;”//什么都不做<br>sass:css的升级版，可以自定义变量，可以有if语句，还可以嵌套等等，很神奇吧！那下面我们就来介绍返个神奇的 Sass。<br>less/sass是语法，compass是框架，css是目标<br>sass与compass的好处：写出更加优秀的css,解决css编写过程中的痛点问题，<br>compass将sass编译成css<br>.sass 对空格敏感，不使用大括号和分号，所以每个属性通过换行来分割。<br>h1<br>   color:#000<br>   background:#fff<br>.scss的语法 是css语法的超级，可以使用大括号和分号<br>h1{<br>    color:#000;<br>    background:#fff;<br>}<br>sass通过$符号来声明变量<br>$font1:Arial;<br>@import “variables”;<br>.div1{<br>    font-family:$font1;<br>}<br>.div2{<br>    font-family:$font2;<br>}<br>mixin sass中可用mixin定义一些代码片段，且可以传参数，方便日后根据需求调用。从此处理css3的前缀兼容轻松便捷。<br>@mixin box-sizing($sizing){<br>    -webkit-box-sizing:$sizing;<br>    -moz-box-sizing:$sizing;<br>    box-sizing:$sizing;<br>}<br>.box-border{<br>    border:1px solid #ccc;<br>    @include box-sizing(border-box);<br>}</p>
-</style></p>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2057,7 +1996,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2068,7 +2007,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2079,7 +2018,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2107,7 +2046,7 @@
       
  
            <div>
-              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=22673497&auto=1&height=66"></iframe>
+              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=34532273&auto=1&height=66"></iframe>
            </div>
  
     </div>

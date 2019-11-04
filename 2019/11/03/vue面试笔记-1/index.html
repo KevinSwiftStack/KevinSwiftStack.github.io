@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试,vue,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="对vue的理解是一个渐进式(progress web app)js(根据业务需要而选择需要什么，最基本的UI操作，到vue-router,vuex状态管理)框架，可以把一个网页分割成许多的组件，当其他网页有类似的功能的时候，直接让封装的组件进行复用，是构建用户界面的声明式框架，不关心具体是如何实现的。 mvvm的理解是model-view-viewModel的缩写，model为数据模型，可以在mo">
+<meta name="keywords" content="面试,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue面试笔记(1)">
+<meta property="og:url" content="http://yoursite.com/2019/11/03/vue面试笔记-1/index.html">
+<meta property="og:site_name" content="KevinSwift">
+<meta property="og:description" content="对vue的理解是一个渐进式(progress web app)js(根据业务需要而选择需要什么，最基本的UI操作，到vue-router,vuex状态管理)框架，可以把一个网页分割成许多的组件，当其他网页有类似的功能的时候，直接让封装的组件进行复用，是构建用户界面的声明式框架，不关心具体是如何实现的。 mvvm的理解是model-view-viewModel的缩写，model为数据模型，可以在mo">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-03T14:38:15.771Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue面试笔记(1)">
+<meta name="twitter:description" content="对vue的理解是一个渐进式(progress web app)js(根据业务需要而选择需要什么，最基本的UI操作，到vue-router,vuex状态管理)框架，可以把一个网页分割成许多的组件，当其他网页有类似的功能的时候，直接让封装的组件进行复用，是构建用户界面的声明式框架，不关心具体是如何实现的。 mvvm的理解是model-view-viewModel的缩写，model为数据模型，可以在mo">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/03/vue面试笔记-1/">
+
+
+
+
+
+  <title>vue面试笔记(1) | KevinSwift</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KevinSwift</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-相册">
+          <a href="/photos/" rel="section">
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/vue面试笔记-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue面试笔记(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T21:50:34+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">vue笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="对vue的理解"><a href="#对vue的理解" class="headerlink" title="对vue的理解"></a>对vue的理解</h3><p>是一个渐进式(progress web app)js(根据业务需要而选择需要什么，最基本的UI操作，到vue-router,vuex状态管理)框架，可以把一个网页分割成许多的组件，当其他网页有类似的功能的时候，直接让封装的组件进行复用，<br>是构建用户界面的<strong>声明式</strong>框架，不关心具体是如何实现的。</p>
+<h3 id="mvvm的理解"><a href="#mvvm的理解" class="headerlink" title="mvvm的理解"></a>mvvm的理解</h3><p>是model-view-viewModel的缩写，model为数据模型，可以在model中定义数据修改和操作的业务逻辑。view代表UI组件，负责将数据模型转化为UI展现出来，<br>viewModel是一个同步view和Model的对象。<br>view和model通过viewModel之间相连。model和viewmodel之间的交互是双向的。因此view和model的数据变化会同步<br>viewModel通过双向的数据绑定把view和model层连接了起来。view和model之间的同步工作完全是自动的，无需人为干涉。开发者只需要关注业务逻辑。无需操作DOM,不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
+<h3 id="mvvm和mvc区别"><a href="#mvvm和mvc区别" class="headerlink" title="mvvm和mvc区别"></a>mvvm和mvc区别</h3><p>mvc中的controller转变成了mvvm中的viewModel，mvvm主要解决了mvc中大量的dom操作使页面渲染性能降低的原因，加载速度变慢，影响用户体验。和当 Model 频繁发生变化，开发者需要主动更新到 View 。</p>
+<h3 id="v-model-双向绑定的原理"><a href="#v-model-双向绑定的原理" class="headerlink" title="v-model(双向绑定的原理)"></a>v-model(双向绑定的原理)</h3><p>vue的双向数据绑定是通过<strong>数据劫持结合发布者订阅者</strong>模式实现的，数据劫持通过<strong>object.defineProperty()来劫持对象数据的setter对象和getter操作。<br>在数据变动时做你向做的事情。<br>原理：通过observer来监听自己model的变化，通过compile来解析编译模板的指令，利用watcher搭建起observer和compile之间的桥梁，<br>达到数据变化 -&gt; 视图更新 ，<br>在初始化vue的时候，遍历data的对象，给每一个键值对利用object.defineProperty对data中的所有数据加上get和set方法，利用事件监听dom的机制，让视图去改变数据。
+</strong>(angular js中实现的机制是脏检查)，react中是拉的机制**，<br>收集依赖和触发依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&#123;&#123;name&#125;&#125;&lt;/h1&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<p>把用到数据name的地方都收集起来，然后等属性发生变化的时候，把之前收集好的依赖循环触发一遍即可。<br><strong>在getter中收集依赖，在setter中触发依赖</strong></p>
+<h4 id="依赖放的地方"><a href="#依赖放的地方" class="headerlink" title="依赖放的地方"></a>依赖放的地方</h4><p>将依赖收集来的地方放在dep类的数组中，帮我们来管理依赖，使用这个类，我们可以收集依赖，删除依赖或者向依赖发送通知。</p>
+<h4 id="依赖是谁"><a href="#依赖是谁" class="headerlink" title="依赖是谁"></a>依赖是谁</h4><p>依赖的地方可能有很多，一个地方是模板，一个地方是watch，需要抽离出一个能几种处理这些情况的类。<br>然后，在收集阶段只收集这个封装好的类的实例即可。通知也通知他一个。随后它在负责通知其他地方。就叫watcher.<br>将watcher实例保存到dep中。<br>将object中所有属性转换为可侦测的。通过observer类将object所有属性转化为getter/setter<br>有以下几步：<br>第一步：需要 observe 的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter 和 getter 这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化</p>
+<p>第二步：compile 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图</p>
+<p>第三步：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁，主要做的事情是:</p>
+<ul>
+<li>在自身实例化时往属性订阅器(dep)里面添加自己</li>
+<li>自身必须有一个 update()方法</li>
+<li>待属性变动 dep.notice()通知时，能调用自身的 update() 方法，并触发 Compile 中绑定的回调，则功成身退。<br>第四步：MVVM 作为数据绑定的入口，整合 Observer、Compile 和 Watcher 三者，通过 Observer 来监听自己的 model 数据变化，通过 Compile 来解析编译模板指令，最终利用 Watcher 搭起 Observer 和 Compile 之间的通信桥梁，达到数据变化 -&gt; 视图更新；视图交互变化(input) -&gt; 数据 model 变更的双向绑定效果。</li>
+</ul>
+<h3 id="vue和react-angular的区别"><a href="#vue和react-angular的区别" class="headerlink" title="vue和react angular的区别"></a>vue和react angular的区别</h3><p>相同点：<br>react和vue都是用虚拟DOM Virtual DOM<br>中心思想相同：一切都是组件，组件实例之间可以嵌套<br>都有着合理的钩子函数<br>都不内置ajax、route等核心包，以插件的形式加载<br>都有配套的路由和负责处理全局状态管理的库；<br>不同点：<br>react采用jsx渲染页面，vue使用简单的模板<br>vue是双向数据流，react是单向数据流(需要了解)<br>vuejs在模板中提供了指令，过滤器，可以非常方便，快速操作DOM。<br>vue比react的运行速度更快。</p>
+<h3 id="react和angular的区别"><a href="#react和angular的区别" class="headerlink" title="react和angular的区别"></a>react和angular的区别</h3><p>相同点:都是单向数据流<br>不同点：react中没有指令，angular提供了丰富的指令。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/03/webpack笔记-1/" rel="next" title="webpack笔记(1)">
+                <i class="fa fa-chevron-left"></i> webpack笔记(1)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="KevinSwift">
+            
+              <p class="site-author-name" itemprop="name">KevinSwift</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#对vue的理解"><span class="nav-number">1.</span> <span class="nav-text">对vue的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvvm的理解"><span class="nav-number">2.</span> <span class="nav-text">mvvm的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mvvm和mvc区别"><span class="nav-number">3.</span> <span class="nav-text">mvvm和mvc区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#v-model-双向绑定的原理"><span class="nav-number">4.</span> <span class="nav-text">v-model(双向绑定的原理)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖放的地方"><span class="nav-number">4.1.</span> <span class="nav-text">依赖放的地方</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖是谁"><span class="nav-number">4.2.</span> <span class="nav-text">依赖是谁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue和react-angular的区别"><span class="nav-number">5.</span> <span class="nav-text">vue和react angular的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#react和angular的区别"><span class="nav-number">6.</span> <span class="nav-text">react和angular的区别</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+ 
+           <div>
+              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=34532273&auto=1&height=66"></iframe>
+           </div>
+ 
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KevinSwift</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

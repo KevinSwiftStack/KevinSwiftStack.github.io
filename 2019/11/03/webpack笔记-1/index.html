@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="webpack,打包相关,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="总体流程webpack在启动后会从entry里面配置的module开始，递归解析entry依赖的所有module.没找到一个Module，就会根据配置的loader去找对应的转换规则，对module进行转换后，再解析出当前Module所依赖的Module，这些模块会以entry作为分组，一个entry及其所依赖的所有module会被分配到一个组也就是一个chunk中，最后，webpack将这些ch">
+<meta name="keywords" content="webpack,打包相关">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack笔记(1)">
+<meta property="og:url" content="http://yoursite.com/2019/11/03/webpack笔记-1/index.html">
+<meta property="og:site_name" content="KevinSwift">
+<meta property="og:description" content="总体流程webpack在启动后会从entry里面配置的module开始，递归解析entry依赖的所有module.没找到一个Module，就会根据配置的loader去找对应的转换规则，对module进行转换后，再解析出当前Module所依赖的Module，这些模块会以entry作为分组，一个entry及其所依赖的所有module会被分配到一个组也就是一个chunk中，最后，webpack将这些ch">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-04T14:07:45.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack笔记(1)">
+<meta name="twitter:description" content="总体流程webpack在启动后会从entry里面配置的module开始，递归解析entry依赖的所有module.没找到一个Module，就会根据配置的loader去找对应的转换规则，对module进行转换后，再解析出当前Module所依赖的Module，这些模块会以entry作为分组，一个entry及其所依赖的所有module会被分配到一个组也就是一个chunk中，最后，webpack将这些ch">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/03/webpack笔记-1/">
+
+
+
+
+
+  <title>webpack笔记(1) | KevinSwift</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KevinSwift</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-相册">
+          <a href="/photos/" rel="section">
+            
+            相册
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/webpack笔记-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack笔记(1)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T16:42:52+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>webpack在启动后会从entry里面配置的module开始，递归解析entry依赖的所有module.没找到一个Module，就会根据配置的loader去找对应的转换规则，<br>对module进行转换后，再解析出当前Module所依赖的Module，这些模块会以entry作为分组，一个entry及其所依赖的所有module会被分配到一个组也就是一个chunk中，<br>最后，webpack将这些chunk转换为文件输出。整个流程中，webpack会广播出各种事件，插件能够在适当时机执行plugin里面的逻辑。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>entry:入口<br>module:webpack中一切皆模块，一个文件对应一个模块，webpack会从配置的entry开始递归解析依赖的module<br>chunk:代码块，一个chunk可以由多个模块组成，用于代码的分割和合并。bundle是webpack打包出来的文件。<br>loader:模块转换器，用于将模块的原内容按照需求转换成新内容<br>plugin:扩展插件，在webpack的构建流程中的特定时机注入扩展的逻辑，来改变构建结果或做我们想做的事情<br>output:输出：在webpack经过一系列流程后，将最终的代码进行输出。</p>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>代码转换：ts转换为js,scss编译成css等<br>文件优化：压缩js,css,html代码，压缩合并图片<br>代码分割：提取多个页面的公共代码，<strong>提取首屏不需要执行的代码并且让其异步加载</strong><br>模块合并：在采用模块化开发的项目中，构建功能将模块分类合并成一个文件<br>自动刷新：<strong>热跟新</strong>,监听本地代码的变化，自动构建，刷新浏览器<br>代码校验：在代码提交到仓库前，检查代码是否符合规范(eslint),以及单元测试是否通过<br>自动发布：更新完代码后，自动构建上线发布。</p>
+<h3 id="webpack和gulp-grunt有什么区别"><a href="#webpack和gulp-grunt有什么区别" class="headerlink" title="webpack和gulp,grunt有什么区别"></a>webpack和gulp,grunt有什么区别</h3><p>都是打包工具，grunt和gulp在早期更加流行，现在不大流行。<br>gulp和grunt都是基于任务或者流的思想，找到一个或者类似的文件，对其进行一系列的操作，更新流上的输出。<br>webpack是基于入口的，会自动递归的解析所需要加载的所有资源文件，用不同的loader进行处理，用plugin来扩展webpack功能。<br>gulp和grunt需要开发者将前端构建过程拆分成不同的任务，并且合理控制任务之间的流程，然而webpack只要开发者找到入口文件，并弄清楚各个文件用什么loader加载。</p>
+<h3 id="webpack简单实用"><a href="#webpack简单实用" class="headerlink" title="webpack简单实用"></a>webpack简单实用</h3><p>本项目安装webpack<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>配置webpack.config.js 配置webpack的6大概念<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry:&apos;./main.js&apos;, //入口文件</span><br><span class="line">    output:&#123;</span><br><span class="line">        filename:&apos;bundle.js&apos;, //所有依赖的模块合并并且输出到一个bundle,js文件</span><br><span class="line">        path:path.resolve(__dirname,&apos;./dist&apos;).//输出文件都放到dist目录下</span><br><span class="line">    &#125;,</span><br><span class="line">    module:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test:/\css$&apos;,</span><br><span class="line">                use:[&apos;style-loader&apos;,&apos;css-loader&apos;]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugin:[</span><br><span class="line">        new ExtractTextPlugin(&#123;</span><br><span class="line">            filename:`[name]_[contentlength&quot;8].css` //从js文件中提取出.css文件的名称 这样bundle.js下面就没有css代码了，生成新的css文件，再写入index.html中。</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>loader表示在遇到哪些文件时，用哪些loader去转换，从右到左的顺讯，首先实用css-loader,再使用style-loader转换器将css内容注入到js中。<br>plugin:是用来扩展webpack功能的，通过在构建流程中注入钩子函数实现，<br>常见的loader:<br>file-loader:把文件输出到一个文件夹当中，在代码中通过相对URL去引用输出的文件<br>image-loader:加载并且压缩图片文件<br>babel-loader:<br>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。eslint-loader：通过 ESLint 检查 JavaScript 代码<br>常见的plugin:<br>define-plugin:定义环境变量<br>cmomon-chunk-plugin:提取公共代码<br>uglifyjs-webpack-plugin：通过UglifyES压缩ES6代码<br>loader和plugin的不同：作用不同:webpack原生只能解析js文件，loader扩展其解析非js文件的能力,plugin让webpack更加的灵活，<br>在webpack运行的生命周期中会广播出很多的事件，plugin可以监听这些事件，在合适的时机通过webpack提供的api改变输出的结果。<br>不同的用法：loader在module.rules中配置，是为了模块的解析规则而存在，类型为数组，plugin在plugins中单独配置，类型为数组，<strong>参数都是通过构造函数的方式传入</strong></p>
+<h3 id="DevServer的使用"><a href="#DevServer的使用" class="headerlink" title="DevServer的使用"></a>DevServer的使用</h3><p>主要功能：<br>1.提供http服务而不是用本地文件预览<br>2.监听文件的变化并且自动刷新网页，做到实时预览<br>3.支持source map,方便调试<br>devServer会<strong>启动一个http服务器用于服务网页请求。同时帮助启动一个wbpack,并且接受webpack发出的文件变更信号，通过websocket协议自动刷新网页做到实时预览</strong>.<br>webpack在启动时会开启监听模式，之后webpack会监听本地文件系统的变化，在发生变化后重新构建出新的结果。默认是关闭的，开启 webpack –watch<br>注意：<strong>通过devServer开启的webpack自动开启监听模式</strong>.<br>当发生变化时会重新执行构建的程序，然后通知DevServer,devServer会让webpack在构建出的js代码中注入一个<strong>代理客户端</strong>用于控制网页，网页和devServer之间通过webSocket协议通信，<br>以方便devServer接收客户端发送的命令，devServer在收到来自webpack的文件变化通知后，通过注入的客户端控制网页刷新</p>
+<h3 id="模块热替换"><a href="#模块热替换" class="headerlink" title="模块热替换"></a>模块热替换</h3><p>除了重新刷新整个网页来实时预览，devServer还有一种被称为<strong>模块热替换</strong>的刷新技术，做到在不重新加载整个网页的情况下，<strong>通过将已跟新的模块替换老模块，再重新执行一次来实现实时预览。</strong>。<br>相对于默认的刷新机制能提供更快的响应速度和更好的开发体验。默认是关闭的，要开启热替换，只需要在devServer时带上–hot即可。</p>
+<h3 id="支持sourceMap"><a href="#支持sourceMap" class="headerlink" title="支持sourceMap"></a>支持sourceMap</h3><p>浏览器中的js代码都是编译器输出的代码，这些代码的可读性非常差，在这样的代码中debug是非常差的体验，调试工具可以通过sourceMap映射代码，让我们在<strong>源代码</strong>的基础上调试。<br>只需要在启动时加上–devtool source-map参数即可。这样打开chrome的开发者工具，就可在source中看到可调式的源代码了。</p>
+<h3 id="webpack-dev-server和http服务器例如nginx有什么区别"><a href="#webpack-dev-server和http服务器例如nginx有什么区别" class="headerlink" title="webpack-dev-server和http服务器例如nginx有什么区别"></a>webpack-dev-server和http服务器例如nginx有什么区别</h3><p>webpack-dev-server使用<strong>内存</strong>来存储webpack开发环境下的打包文件，并且可以使用模块热更新，相比于传统的http服务器更加的高效。</p>
+<h3 id="热跟新究竟是怎么做到的，具体说明原理"><a href="#热跟新究竟是怎么做到的，具体说明原理" class="headerlink" title="热跟新究竟是怎么做到的，具体说明原理"></a>热跟新究竟是怎么做到的，具体说明原理</h3><p>1.在webpack的watch模式下，文件系统中某一个文件发生了变化，webpack就监听到了文件变化，根据配置文件对模块进行重新打包编译，并且将打包后的代码通过js代码保存在内存中<br>2.webpack-dev-server(在服务端的)，webpack-dev-server和webpack之间的接口交互，主要是dev-server的中间件webpack-dev-middleware和webpack之间的交互，<br>webpack-dev-middleware<strong>调用webpack暴露的API对代码的变化进行监控，并且告诉webpack,将打包好的代码保存到内存中</strong>。<br>3.webpack-dev-server对文件变化的控制，<strong>不同于第一步</strong>，并不是监控代码变化重新打包，当我们在配置文件中配置了devServer.watchContentBase为true的时候，<br>Server 会监听这些配置文件夹中静态文件的变化，变化后会通知浏览器端对应用进行 live reload。注意，这儿是浏览器刷新，和 HMR 是两个概念。<br>4.webpack-dev-server的工作，通过sockjs(webpack-dev-server)的依赖在浏览器端和服务器端建立一个websocket链接。将webpack编译打包的各个阶段状态信息告诉浏览器端，<br>浏览器根据这些socket进行不同的操作。当然服务端传递的最主要信息还是新模块的 hash 值，后面的步骤根据这一 hash 值来进行模块热替换。<br>5.webpack-dev-server/client并不能请求更新的代码，也不执行更新的操作，又把这些工作交回给了webpack,webpack/hot/-devserver工作是根据前者传过来的信息决定刷新浏览器还是进行模块热更新。<br>6.HotModuleReplacement.runtime是客户端HMR的中枢，接收上一步传递给他的新模块的hash值，它通过 JsonpMainTemplate.runtime 向 server 端发送 Ajax 请求，服务端返回一个 json，该 json 包含了所有要更新的模块的 hash 值，获取到更新列表后，该模块再次通过 jsonp 请求，获取到最新的模块代码。<br>7.hotModulePlugin会对比新旧模块，决定是否使用热更新。<br>8.最后一步，当 HMR 失败后，回退到 live reload 操作，也就是进行浏览器刷新来获取最新打包代码。</p>
+<h3 id="利用webpack优化前端性能"><a href="#利用webpack优化前端性能" class="headerlink" title="利用webpack优化前端性能"></a>利用webpack优化前端性能</h3><p>1.压缩代码，删除冗余代码，利用webpack的uglifyJSPlugin和ParallelUglifyPlugin来压缩代码。利用cssnano来压缩css<br>2.利用CDN加速。将引用的静态资源路径改为CDN上的相对路径。。可以利用webpack对于output参数和各loader的publicPath参数来修改资源路径<br>3.<strong>删除死代码，tree-Shaking</strong>,将代码中永远不会走到的片段删除掉。–optimize-minimize来实现<br>4.提取公共代码</p>
+<h3 id="如何提高webpack的构建速度？"><a href="#如何提高webpack的构建速度？" class="headerlink" title="如何提高webpack的构建速度？"></a>如何提高webpack的构建速度？</h3><p>多入口情况下，使用CommonsChunkPlugin来提取公共代码通过externals配置来提取常用库利用DllPlugin和DllReferencePlugin预编译资源模块 通过DllPlugin来对那些我们引用但是绝对不会修改的npm包来进行预编译，再通过DllReferencePlugin将预编译的模块加载进来。使用Happypack 实现多线程加速编译使用webpack-uglify-parallel来提升uglifyPlugin的压缩速度。 原理上webpack-uglify-parallel采用了多核并行压缩来提升压缩速度使用Tree-shaking和Scope Hoisting来剔除多余代码</p>
+<h3 id="alias说明"><a href="#alias说明" class="headerlink" title="alias说明"></a>alias说明</h3><p>resolve配置webpack如何寻找模块所对应的的文件，webpack内置js模块化语法的解析功能，默认采用模块化标准里约定的规则去找，也可以根据自己的需要去修改默认的规则。<br>resolve.alias通过别名将原导入路径映射成一个新的导入路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resolve:&#123;</span><br><span class="line">    alias:&#123;</span><br><span class="line">        components:&apos;./src/components/&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以import Button from ‘components/button’导入时，被实际替换成了import Button from ‘./src/components/button’</p>
+<h3 id="配置单页和多页应用"><a href="#配置单页和多页应用" class="headerlink" title="配置单页和多页应用"></a>配置单页和多页应用</h3><p>单页应用是webpack的标准默哀是，直接在entry中指定单页应用的入口即可<br>多页应用：使用webpack的<strong>autoWebPlugin</strong>来完成简单自动化的攻坚，前提是项目的目录结构必须遵守他预设的规范。<br>多页应用的注意点：<br>1.每个页面的公共代码可以抽离出来，避免重复的加载。<br>业务的加载，页面的需求会不断的加载，所以一定要让<strong>入口的配置更加灵活</strong>，避免每次添加新页面的时候还需要修改构建配置。<br><a href="https://juejin.im/post/5d199ab15188255d6924028b" target="_blank" rel="noopener">webpack面试题1</a><br><a href="https://juejin.im/post/5c6cffde6fb9a049d975c8c1" target="_blank" rel="noopener">webpack面试题2</a></p>
+<h3 id="webpack配置单页和多页的应用程序"><a href="#webpack配置单页和多页的应用程序" class="headerlink" title="webpack配置单页和多页的应用程序"></a>webpack配置单页和多页的应用程序</h3><p>单个页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry:&apos;./path/to/my/entry/file.js&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多页面应用程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line"> entry:&#123;</span><br><span class="line">     pageOne:&apos;./src/pageOne/index.js&apos;,</span><br><span class="line">     pageTwo:&apos;./src/pageTwo/index.js&apos;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>npm打包时注意的规范<br>利用webpack来上传npm包<br>npm模块需要注意以下几个问题<br>1.要支持commonjs模块化规范，所以要求打包后的最后结果也遵守该规范<br>2.npm模块最后编写的结果应该是es5标准的<br>3.npm大小应该是尽量小<br>4.发布的模块不能将依赖的模块一起打包，应该让用户自行选择去安装，可以避免模块应用这儿再次打包时出现底层模块重复打包的情况。<br>5.UI组件类的模块应该将依赖的其他资源文件，例如.css文件也需要包含在发布的模块中。<br>基于以上需要注意的问题，我们可以对于webpack配置做以下扩展和优化：<br>1CommonJS模块化规范的解决方案： 设置output.libraryTarget=’commonjs2’使输出的代码符合CommonJS2 模块化规范，以供给其它模块导入<br>2.使用输出ES5代码的解决方案：使用babel-loader把 ES6 代码转换成 ES5 的代码。再通过开启devtool: ‘source-map’输出SourceMap以发布调试。<br>3.Npm包大小尽量小的解决方案：Babel 在把 ES6 代码转换成 ES5 代码时会注入一些辅助函数，最终导致每个输出的文件中都包含这段辅助函数的代码，造成了代码的冗余。解决方法是修改.babelrc文件，为其加入transform-runtime插件<br>4.不能将依赖模块打包到NPM模块中的解决方案：使用externals配置项来告诉webpack哪些模块不需要打包。<br>5.对于依赖的资源文件打包的解决方案：通过css-loader和extract-text-webpack-plugin来实现，配置如下：<br><code>`</code><br>const ExtractTextPlugin = require(‘extract-text-webpack-plugin’);</p>
+<p>module.exports = {<br>  module: {<br>    rules: [<br>      {<br>        // 增加对 CSS 文件的支持<br>        test: /.css/,<br>        // 提取出 Chunk 中的 CSS 代码到单独的文件中<br>        use: ExtractTextPlugin.extract({<br>          use: [‘css-loader’]<br>        }),<br>      },<br>    ]<br>  },<br>  plugins: [<br>    new ExtractTextPlugin({<br>      // 输出的 CSS 文件名称<br>      filename: ‘index.css’,<br>    }),<br>  ],<br>};<br><code>`</code>1`</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag"># webpack</a>
+          
+            <a href="/tags/打包相关/" rel="tag"># 打包相关</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/02/相册功能添加说明/" rel="next" title="相册功能添加说明">
+                <i class="fa fa-chevron-left"></i> 相册功能添加说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/03/vue面试笔记-1/" rel="prev" title="vue面试笔记(1)">
+                vue面试笔记(1) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/uploads/avatar.png" alt="KevinSwift">
+            
+              <p class="site-author-name" itemprop="name">KevinSwift</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#总体流程"><span class="nav-number">1.</span> <span class="nav-text">总体流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心概念"><span class="nav-number">2.</span> <span class="nav-text">核心概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本功能"><span class="nav-number">3.</span> <span class="nav-text">基本功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack和gulp-grunt有什么区别"><span class="nav-number">4.</span> <span class="nav-text">webpack和gulp,grunt有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack简单实用"><span class="nav-number">5.</span> <span class="nav-text">webpack简单实用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DevServer的使用"><span class="nav-number">6.</span> <span class="nav-text">DevServer的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块热替换"><span class="nav-number">7.</span> <span class="nav-text">模块热替换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支持sourceMap"><span class="nav-number">8.</span> <span class="nav-text">支持sourceMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack-dev-server和http服务器例如nginx有什么区别"><span class="nav-number">9.</span> <span class="nav-text">webpack-dev-server和http服务器例如nginx有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#热跟新究竟是怎么做到的，具体说明原理"><span class="nav-number">10.</span> <span class="nav-text">热跟新究竟是怎么做到的，具体说明原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用webpack优化前端性能"><span class="nav-number">11.</span> <span class="nav-text">利用webpack优化前端性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何提高webpack的构建速度？"><span class="nav-number">12.</span> <span class="nav-text">如何提高webpack的构建速度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#alias说明"><span class="nav-number">13.</span> <span class="nav-text">alias说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置单页和多页应用"><span class="nav-number">14.</span> <span class="nav-text">配置单页和多页应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#webpack配置单页和多页的应用程序"><span class="nav-number">15.</span> <span class="nav-text">webpack配置单页和多页的应用程序</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+ 
+           <div>
+              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=34532273&auto=1&height=66"></iframe>
+           </div>
+ 
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KevinSwift</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

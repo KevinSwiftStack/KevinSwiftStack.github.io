@@ -249,6 +249,326 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/vue面试笔记-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/03/vue面试笔记-1/" itemprop="url">vue面试笔记(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T21:50:34+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">vue笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="对vue的理解"><a href="#对vue的理解" class="headerlink" title="对vue的理解"></a>对vue的理解</h3><p>是一个渐进式(progress web app)js(根据业务需要而选择需要什么，最基本的UI操作，到vue-router,vuex状态管理)框架，可以把一个网页分割成许多的组件，当其他网页有类似的功能的时候，直接让封装的组件进行复用，<br>是构建用户界面的<strong>声明式</strong>框架，不关心具体是如何实现的。</p>
+<h3 id="mvvm的理解"><a href="#mvvm的理解" class="headerlink" title="mvvm的理解"></a>mvvm的理解</h3><p>是model-view-viewModel的缩写，model为数据模型，可以在model中定义数据修改和操作的业务逻辑。view代表UI组件，负责将数据模型转化为UI展现出来，<br>viewModel是一个同步view和Model的对象。<br>view和model通过viewModel之间相连。model和viewmodel之间的交互是双向的。因此view和model的数据变化会同步<br>viewModel通过双向的数据绑定把view和model层连接了起来。view和model之间的同步工作完全是自动的，无需人为干涉。开发者只需要关注业务逻辑。无需操作DOM,不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
+<h3 id="mvvm和mvc区别"><a href="#mvvm和mvc区别" class="headerlink" title="mvvm和mvc区别"></a>mvvm和mvc区别</h3><p>mvc中的controller转变成了mvvm中的viewModel，mvvm主要解决了mvc中大量的dom操作使页面渲染性能降低的原因，加载速度变慢，影响用户体验。和当 Model 频繁发生变化，开发者需要主动更新到 View 。</p>
+<h3 id="v-model-双向绑定的原理"><a href="#v-model-双向绑定的原理" class="headerlink" title="v-model(双向绑定的原理)"></a>v-model(双向绑定的原理)</h3><p>vue的双向数据绑定是通过<strong>数据劫持结合发布者订阅者</strong>模式实现的，数据劫持通过<strong>object.defineProperty()来劫持对象数据的setter对象和getter操作。<br>在数据变动时做你向做的事情。<br>原理：通过observer来监听自己model的变化，通过compile来解析编译模板的指令，利用watcher搭建起observer和compile之间的桥梁，<br>达到数据变化 -&gt; 视图更新 ，<br>在初始化vue的时候，遍历data的对象，给每一个键值对利用object.defineProperty对data中的所有数据加上get和set方法，利用事件监听dom的机制，让视图去改变数据。
+</strong>(angular js中实现的机制是脏检查)，react中是拉的机制**，<br>收集依赖和触发依赖<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">&lt;h1&#123;&#123;name&#125;&#125;&lt;/h1&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure></p>
+<p>把用到数据name的地方都收集起来，然后等属性发生变化的时候，把之前收集好的依赖循环触发一遍即可。<br><strong>在getter中收集依赖，在setter中触发依赖</strong></p>
+<h4 id="依赖放的地方"><a href="#依赖放的地方" class="headerlink" title="依赖放的地方"></a>依赖放的地方</h4><p>将依赖收集来的地方放在dep类的数组中，帮我们来管理依赖，使用这个类，我们可以收集依赖，删除依赖或者向依赖发送通知。</p>
+<h4 id="依赖是谁"><a href="#依赖是谁" class="headerlink" title="依赖是谁"></a>依赖是谁</h4><p>依赖的地方可能有很多，一个地方是模板，一个地方是watch，需要抽离出一个能几种处理这些情况的类。<br>然后，在收集阶段只收集这个封装好的类的实例即可。通知也通知他一个。随后它在负责通知其他地方。就叫watcher.<br>将watcher实例保存到dep中。<br>将object中所有属性转换为可侦测的。通过observer类将object所有属性转化为getter/setter<br>有以下几步：<br>第一步：需要 observe 的数据对象进行递归遍历，包括子属性对象的属性，都加上 setter 和 getter 这样的话，给这个对象的某个值赋值，就会触发 setter，那么就能监听到了数据变化</p>
+<p>第二步：compile 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图</p>
+<p>第三步：Watcher 订阅者是 Observer 和 Compile 之间通信的桥梁，主要做的事情是:</p>
+<ul>
+<li>在自身实例化时往属性订阅器(dep)里面添加自己</li>
+<li>自身必须有一个 update()方法</li>
+<li>待属性变动 dep.notice()通知时，能调用自身的 update() 方法，并触发 Compile 中绑定的回调，则功成身退。<br>第四步：MVVM 作为数据绑定的入口，整合 Observer、Compile 和 Watcher 三者，通过 Observer 来监听自己的 model 数据变化，通过 Compile 来解析编译模板指令，最终利用 Watcher 搭起 Observer 和 Compile 之间的通信桥梁，达到数据变化 -&gt; 视图更新；视图交互变化(input) -&gt; 数据 model 变更的双向绑定效果。</li>
+</ul>
+<h3 id="vue和react-angular的区别"><a href="#vue和react-angular的区别" class="headerlink" title="vue和react angular的区别"></a>vue和react angular的区别</h3><p>相同点：<br>react和vue都是用虚拟DOM Virtual DOM<br>中心思想相同：一切都是组件，组件实例之间可以嵌套<br>都有着合理的钩子函数<br>都不内置ajax、route等核心包，以插件的形式加载<br>都有配套的路由和负责处理全局状态管理的库；<br>不同点：<br>react采用jsx渲染页面，vue使用简单的模板<br>vue是双向数据流，react是单向数据流(需要了解)<br>vuejs在模板中提供了指令，过滤器，可以非常方便，快速操作DOM。<br>vue比react的运行速度更快。</p>
+<h3 id="react和angular的区别"><a href="#react和angular的区别" class="headerlink" title="react和angular的区别"></a>react和angular的区别</h3><p>相同点:都是单向数据流<br>不同点：react中没有指令，angular提供了丰富的指令。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/03/webpack笔记-1/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/03/webpack笔记-1/" itemprop="url">webpack笔记(1)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-03T16:42:52+08:00">
+                2019-11-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="总体流程"><a href="#总体流程" class="headerlink" title="总体流程"></a>总体流程</h3><p>webpack在启动后会从entry里面配置的module开始，递归解析entry依赖的所有module.没找到一个Module，就会根据配置的loader去找对应的转换规则，<br>对module进行转换后，再解析出当前Module所依赖的Module，这些模块会以entry作为分组，一个entry及其所依赖的所有module会被分配到一个组也就是一个chunk中，<br>最后，webpack将这些chunk转换为文件输出。整个流程中，webpack会广播出各种事件，插件能够在适当时机执行plugin里面的逻辑。</p>
+<h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>entry:入口<br>module:webpack中一切皆模块，一个文件对应一个模块，webpack会从配置的entry开始递归解析依赖的module<br>chunk:代码块，一个chunk可以由多个模块组成，用于代码的分割和合并。bundle是webpack打包出来的文件。<br>loader:模块转换器，用于将模块的原内容按照需求转换成新内容<br>plugin:扩展插件，在webpack的构建流程中的特定时机注入扩展的逻辑，来改变构建结果或做我们想做的事情<br>output:输出：在webpack经过一系列流程后，将最终的代码进行输出。</p>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><p>代码转换：ts转换为js,scss编译成css等<br>文件优化：压缩js,css,html代码，压缩合并图片<br>代码分割：提取多个页面的公共代码，<strong>提取首屏不需要执行的代码并且让其异步加载</strong><br>模块合并：在采用模块化开发的项目中，构建功能将模块分类合并成一个文件<br>自动刷新：<strong>热跟新</strong>,监听本地代码的变化，自动构建，刷新浏览器<br>代码校验：在代码提交到仓库前，检查代码是否符合规范(eslint),以及单元测试是否通过<br>自动发布：更新完代码后，自动构建上线发布。</p>
+<h3 id="webpack和gulp-grunt有什么区别"><a href="#webpack和gulp-grunt有什么区别" class="headerlink" title="webpack和gulp,grunt有什么区别"></a>webpack和gulp,grunt有什么区别</h3><p>都是打包工具，grunt和gulp在早期更加流行，现在不大流行。<br>gulp和grunt都是基于任务或者流的思想，找到一个或者类似的文件，对其进行一系列的操作，更新流上的输出。<br>webpack是基于入口的，会自动递归的解析所需要加载的所有资源文件，用不同的loader进行处理，用plugin来扩展webpack功能。<br>gulp和grunt需要开发者将前端构建过程拆分成不同的任务，并且合理控制任务之间的流程，然而webpack只要开发者找到入口文件，并弄清楚各个文件用什么loader加载。</p>
+<h3 id="webpack简单实用"><a href="#webpack简单实用" class="headerlink" title="webpack简单实用"></a>webpack简单实用</h3><p>本项目安装webpack<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack --save-dev</span><br></pre></td></tr></table></figure></p>
+<p>配置webpack.config.js 配置webpack的6大概念<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">const path = require(&apos;path&apos;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry:&apos;./main.js&apos;, //入口文件</span><br><span class="line">    output:&#123;</span><br><span class="line">        filename:&apos;bundle.js&apos;, //所有依赖的模块合并并且输出到一个bundle,js文件</span><br><span class="line">        path:path.resolve(__dirname,&apos;./dist&apos;).//输出文件都放到dist目录下</span><br><span class="line">    &#125;,</span><br><span class="line">    module:&#123;</span><br><span class="line">        rules:[</span><br><span class="line">            &#123;</span><br><span class="line">                test:/\css$&apos;,</span><br><span class="line">                use:[&apos;style-loader&apos;,&apos;css-loader&apos;]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line">    plugin:[</span><br><span class="line">        new ExtractTextPlugin(&#123;</span><br><span class="line">            filename:`[name]_[contentlength&quot;8].css` //从js文件中提取出.css文件的名称 这样bundle.js下面就没有css代码了，生成新的css文件，再写入index.html中。</span><br><span class="line">        &#125;)</span><br><span class="line">    ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>loader表示在遇到哪些文件时，用哪些loader去转换，从右到左的顺讯，首先实用css-loader,再使用style-loader转换器将css内容注入到js中。<br>plugin:是用来扩展webpack功能的，通过在构建流程中注入钩子函数实现，<br>常见的loader:<br>file-loader:把文件输出到一个文件夹当中，在代码中通过相对URL去引用输出的文件<br>image-loader:加载并且压缩图片文件<br>babel-loader:<br>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。eslint-loader：通过 ESLint 检查 JavaScript 代码<br>常见的plugin:<br>define-plugin:定义环境变量<br>cmomon-chunk-plugin:提取公共代码<br>uglifyjs-webpack-plugin：通过UglifyES压缩ES6代码<br>loader和plugin的不同：作用不同:webpack原生只能解析js文件，loader扩展其解析非js文件的能力,plugin让webpack更加的灵活，<br>在webpack运行的生命周期中会广播出很多的事件，plugin可以监听这些事件，在合适的时机通过webpack提供的api改变输出的结果。<br>不同的用法：loader在module.rules中配置，是为了模块的解析规则而存在，类型为数组，plugin在plugins中单独配置，类型为数组，<strong>参数都是通过构造函数的方式传入</strong></p>
+<h3 id="DevServer的使用"><a href="#DevServer的使用" class="headerlink" title="DevServer的使用"></a>DevServer的使用</h3><p>主要功能：<br>1.提供http服务而不是用本地文件预览<br>2.监听文件的变化并且自动刷新网页，做到实时预览<br>3.支持source map,方便调试<br>devServer会<strong>启动一个http服务器用于服务网页请求。同时帮助启动一个wbpack,并且接受webpack发出的文件变更信号，通过websocket协议自动刷新网页做到实时预览</strong>.<br>webpack在启动时会开启监听模式，之后webpack会监听本地文件系统的变化，在发生变化后重新构建出新的结果。默认是关闭的，开启 webpack –watch<br>注意：<strong>通过devServer开启的webpack自动开启监听模式</strong>.<br>当发生变化时会重新执行构建的程序，然后通知DevServer,devServer会让webpack在构建出的js代码中注入一个<strong>代理客户端</strong>用于控制网页，网页和devServer之间通过webSocket协议通信，<br>以方便devServer接收客户端发送的命令，devServer在收到来自webpack的文件变化通知后，通过注入的客户端控制网页刷新</p>
+<h3 id="模块热替换"><a href="#模块热替换" class="headerlink" title="模块热替换"></a>模块热替换</h3><p>除了重新刷新整个网页来实时预览，devServer还有一种被称为<strong>模块热替换</strong>的刷新技术，做到在不重新加载整个网页的情况下，<strong>通过将已跟新的模块替换老模块，再重新执行一次来实现实时预览。</strong>。<br>相对于默认的刷新机制能提供更快的响应速度和更好的开发体验。默认是关闭的，要开启热替换，只需要在devServer时带上–hot即可。</p>
+<h3 id="支持sourceMap"><a href="#支持sourceMap" class="headerlink" title="支持sourceMap"></a>支持sourceMap</h3><p>浏览器中的js代码都是编译器输出的代码，这些代码的可读性非常差，在这样的代码中debug是非常差的体验，调试工具可以通过sourceMap映射代码，让我们在<strong>源代码</strong>的基础上调试。<br>只需要在启动时加上–devtool source-map参数即可。这样打开chrome的开发者工具，就可在source中看到可调式的源代码了。</p>
+<h3 id="webpack-dev-server和http服务器例如nginx有什么区别"><a href="#webpack-dev-server和http服务器例如nginx有什么区别" class="headerlink" title="webpack-dev-server和http服务器例如nginx有什么区别"></a>webpack-dev-server和http服务器例如nginx有什么区别</h3><p>webpack-dev-server使用<strong>内存</strong>来存储webpack开发环境下的打包文件，并且可以使用模块热更新，相比于传统的http服务器更加的高效。</p>
+<h3 id="热跟新究竟是怎么做到的，具体说明原理"><a href="#热跟新究竟是怎么做到的，具体说明原理" class="headerlink" title="热跟新究竟是怎么做到的，具体说明原理"></a>热跟新究竟是怎么做到的，具体说明原理</h3><p>1.在webpack的watch模式下，文件系统中某一个文件发生了变化，webpack就监听到了文件变化，根据配置文件对模块进行重新打包编译，并且将打包后的代码通过js代码保存在内存中<br>2.webpack-dev-server(在服务端的)，webpack-dev-server和webpack之间的接口交互，主要是dev-server的中间件webpack-dev-middleware和webpack之间的交互，<br>webpack-dev-middleware<strong>调用webpack暴露的API对代码的变化进行监控，并且告诉webpack,将打包好的代码保存到内存中</strong>。<br>3.webpack-dev-server对文件变化的控制，<strong>不同于第一步</strong>，并不是监控代码变化重新打包，当我们在配置文件中配置了devServer.watchContentBase为true的时候，<br>Server 会监听这些配置文件夹中静态文件的变化，变化后会通知浏览器端对应用进行 live reload。注意，这儿是浏览器刷新，和 HMR 是两个概念。<br>4.webpack-dev-server的工作，通过sockjs(webpack-dev-server)的依赖在浏览器端和服务器端建立一个websocket链接。将webpack编译打包的各个阶段状态信息告诉浏览器端，<br>浏览器根据这些socket进行不同的操作。当然服务端传递的最主要信息还是新模块的 hash 值，后面的步骤根据这一 hash 值来进行模块热替换。<br>5.webpack-dev-server/client并不能请求更新的代码，也不执行更新的操作，又把这些工作交回给了webpack,webpack/hot/-devserver工作是根据前者传过来的信息决定刷新浏览器还是进行模块热更新。<br>6.HotModuleReplacement.runtime是客户端HMR的中枢，接收上一步传递给他的新模块的hash值，它通过 JsonpMainTemplate.runtime 向 server 端发送 Ajax 请求，服务端返回一个 json，该 json 包含了所有要更新的模块的 hash 值，获取到更新列表后，该模块再次通过 jsonp 请求，获取到最新的模块代码。<br>7.hotModulePlugin会对比新旧模块，决定是否使用热更新。<br>8.最后一步，当 HMR 失败后，回退到 live reload 操作，也就是进行浏览器刷新来获取最新打包代码。</p>
+<h3 id="利用webpack优化前端性能"><a href="#利用webpack优化前端性能" class="headerlink" title="利用webpack优化前端性能"></a>利用webpack优化前端性能</h3><p>1.压缩代码，删除冗余代码，利用webpack的uglifyJSPlugin和ParallelUglifyPlugin来压缩代码。利用cssnano来压缩css<br>2.利用CDN加速。将引用的静态资源路径改为CDN上的相对路径。。可以利用webpack对于output参数和各loader的publicPath参数来修改资源路径<br>3.<strong>删除死代码，tree-Shaking</strong>,将代码中永远不会走到的片段删除掉。–optimize-minimize来实现<br>4.提取公共代码</p>
+<h3 id="如何提高webpack的构建速度？"><a href="#如何提高webpack的构建速度？" class="headerlink" title="如何提高webpack的构建速度？"></a>如何提高webpack的构建速度？</h3><p>多入口情况下，使用CommonsChunkPlugin来提取公共代码通过externals配置来提取常用库利用DllPlugin和DllReferencePlugin预编译资源模块 通过DllPlugin来对那些我们引用但是绝对不会修改的npm包来进行预编译，再通过DllReferencePlugin将预编译的模块加载进来。使用Happypack 实现多线程加速编译使用webpack-uglify-parallel来提升uglifyPlugin的压缩速度。 原理上webpack-uglify-parallel采用了多核并行压缩来提升压缩速度使用Tree-shaking和Scope Hoisting来剔除多余代码</p>
+<h3 id="alias说明"><a href="#alias说明" class="headerlink" title="alias说明"></a>alias说明</h3><p>resolve配置webpack如何寻找模块所对应的的文件，webpack内置js模块化语法的解析功能，默认采用模块化标准里约定的规则去找，也可以根据自己的需要去修改默认的规则。<br>resolve.alias通过别名将原导入路径映射成一个新的导入路径。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resolve:&#123;</span><br><span class="line">    alias:&#123;</span><br><span class="line">        components:&apos;./src/components/&apos;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以import Button from ‘components/button’导入时，被实际替换成了import Button from ‘./src/components/button’</p>
+<h3 id="配置单页和多页应用"><a href="#配置单页和多页应用" class="headerlink" title="配置单页和多页应用"></a>配置单页和多页应用</h3><p>单页应用是webpack的标准默哀是，直接在entry中指定单页应用的入口即可<br>多页应用：使用webpack的<strong>autoWebPlugin</strong>来完成简单自动化的攻坚，前提是项目的目录结构必须遵守他预设的规范。<br>多页应用的注意点：<br>1.每个页面的公共代码可以抽离出来，避免重复的加载。<br>业务的加载，页面的需求会不断的加载，所以一定要让<strong>入口的配置更加灵活</strong>，避免每次添加新页面的时候还需要修改构建配置。<br><a href="https://juejin.im/post/5d199ab15188255d6924028b" target="_blank" rel="noopener">webpack面试题1</a><br><a href="https://juejin.im/post/5c6cffde6fb9a049d975c8c1" target="_blank" rel="noopener">webpack面试题2</a></p>
+<h3 id="webpack配置单页和多页的应用程序"><a href="#webpack配置单页和多页的应用程序" class="headerlink" title="webpack配置单页和多页的应用程序"></a>webpack配置单页和多页的应用程序</h3><p>单个页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">    entry:&apos;./path/to/my/entry/file.js&apos;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>多页面应用程序<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line"> entry:&#123;</span><br><span class="line">     pageOne:&apos;./src/pageOne/index.js&apos;,</span><br><span class="line">     pageTwo:&apos;./src/pageTwo/index.js&apos;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>npm打包时注意的规范<br>利用webpack来上传npm包<br>npm模块需要注意以下几个问题<br>1.要支持commonjs模块化规范，所以要求打包后的最后结果也遵守该规范<br>2.npm模块最后编写的结果应该是es5标准的<br>3.npm大小应该是尽量小<br>4.发布的模块不能将依赖的模块一起打包，应该让用户自行选择去安装，可以避免模块应用这儿再次打包时出现底层模块重复打包的情况。<br>5.UI组件类的模块应该将依赖的其他资源文件，例如.css文件也需要包含在发布的模块中。<br>基于以上需要注意的问题，我们可以对于webpack配置做以下扩展和优化：<br>1CommonJS模块化规范的解决方案： 设置output.libraryTarget=’commonjs2’使输出的代码符合CommonJS2 模块化规范，以供给其它模块导入<br>2.使用输出ES5代码的解决方案：使用babel-loader把 ES6 代码转换成 ES5 的代码。再通过开启devtool: ‘source-map’输出SourceMap以发布调试。<br>3.Npm包大小尽量小的解决方案：Babel 在把 ES6 代码转换成 ES5 代码时会注入一些辅助函数，最终导致每个输出的文件中都包含这段辅助函数的代码，造成了代码的冗余。解决方法是修改.babelrc文件，为其加入transform-runtime插件<br>4.不能将依赖模块打包到NPM模块中的解决方案：使用externals配置项来告诉webpack哪些模块不需要打包。<br>5.对于依赖的资源文件打包的解决方案：通过css-loader和extract-text-webpack-plugin来实现，配置如下：<br><code>`</code><br>const ExtractTextPlugin = require(‘extract-text-webpack-plugin’);</p>
+<p>module.exports = {<br>  module: {<br>    rules: [<br>      {<br>        // 增加对 CSS 文件的支持<br>        test: /.css/,<br>        // 提取出 Chunk 中的 CSS 代码到单独的文件中<br>        use: ExtractTextPlugin.extract({<br>          use: [‘css-loader’]<br>        }),<br>      },<br>    ]<br>  },<br>  plugins: [<br>    new ExtractTextPlugin({<br>      // 输出的 CSS 文件名称<br>      filename: ‘index.css’,<br>    }),<br>  ],<br>};<br><code>`</code>1`</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/02/相册功能添加说明/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1416,293 +1736,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/21/页面性能优化/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/21/页面性能优化/" itemprop="url">页面性能优化与常见的攻击</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-21T15:57:58+08:00">
-                2019-07-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>互联网有一项著名的<strong>8秒规则，用户在访问web页面的时候，如果时间超过了8秒就会感觉到不耐烦，如果加载需要太长的时间，他们就会放弃访问。向网页开发者表明了加载时间的重要性</strong><br>1.资源合并和压缩：主要包括有html压缩，css压缩，js的压缩和混乱文件的合并<br>从文件中去除多余的字符，例如回车，空格等。<br>css代码的压缩：是无效代码删除和css语义合并<br>js的压缩和混乱：1.无效字符的删除 2.删除注释 3代码语义的缩减和优化 4.代码的保护<br><strong>css和js的压缩是非常有必要的,压缩合并css和js可以减少网站http请求的次数，但合并文件可能会带来问题：首屏渲染和缓存失效问题</strong><br>2.非核心代码进行异步加载。<br>异步加载的3种方式-async和defer。动态脚本的创建<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src = &quot;text/javascript&quot; src = &quot;xxx.js&quot; async = &quot;async&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>defer是在html解析完之后才会执行，如果是多个，则会按照加载的顺序依次执行，</strong><br><strong>async是在加载完之后立即执行，如果是多个，执行顺序和加载顺序无关</strong><br>3.利用浏览器缓存<br>3.1利用前缓存 不会向服务器发送请求 直接从缓存中读取资源<br>3.2利用协商缓存 向服务器发送请求，服务器会根据request header中的一些参数来判断是否命中协商缓存<br>强缓存优先于协商缓存,若强制缓存生效则直接使用缓存。若不生效则使用协商缓存。<br><strong>用户行为对浏览器缓存的影响</strong><br>1.地址栏访问，链接跳转是正常用户行为，将会触发浏览器的缓存机制<br>2.F5刷新，浏览器会设置max-age = 0,跳过强缓存判断，会进行协商缓存判断。<br>3.ctrl + F5,跳过强缓存和协商缓存，直接从服务器获取数据<br>4.使用CDN<br><strong>浏览器的缓存只是为了提高二次访问的速度</strong>需要从网络层面进行优化，最常见的是CDN(内容分发网络),通过将静态资源(js,css,html图片)等缓存到离用户很近的相同网络运营商的CDN节点上，不但提高用户的访问速度，还能节省服务器的带宽消耗，降低负载。<br>CDN服务商在全国各个省份部署计算节点，当到达计算节点时，首先判断缓存是否有效，若有效，则立即响应缓存给用户，否则，就去内容服务器上请求数据，反馈给用户，并将内容缓存下来以便响应给后续访问的用户。<br><strong>一个地区内只要有一个用户预先加载资源，在CDN中建立了缓存，该地区中的其余用户便会因此而受益</strong><br>5.<br><strong>预解析DNS 使用该技术预先告知浏览器某些资源可能会在将来被使用，</strong><br>通过DNS预解析告诉浏览器我们未来可能从某个特定的URL获取资源，当浏览器真正使用的时候，就可以尽快完成DNS的解析。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel = &quot;dns-prefetch&quot; href = &quot;//example.com&quot;&gt;</span><br></pre></td></tr></table></figure></p>
-<p><strong>懒加载也叫延迟加载，指的是在长网页中延迟加载图像，是一种很好用的性能优化方式</strong>,，<br>用户滚动到它们之前，<strong>可视区域外的图像不会加载</strong>,<br><strong>使用延迟加载使得网页加载更快</strong><br>为什么使用懒加载：1.能提升用户体验。2.减少无效资源的加载 3.防止并发加载的资源过多会阻塞js的加载。<br>预加载：另一个性能优化技术，告知浏览器某些资源可能会在未来使用到，<br>预加载把所有资源提前加载到本地，这样后面要使用的话就直接从缓存中读取。</p>
-<p>懒加载和预加载的对比，<br>两者主要区别是一个是提前加载，一个是迟缓甚至不加载，懒加载对服务器端有一定的缓解压力作用，预加载则会增加服务器端压力。<br>函数防抖和节流<br>函数节流(throttle)：<strong>一个函数执行一次后，只有大于设定的执行周期后才会执行第二次。</strong><br>有个需要频繁触发的函数，出于性能优化，在规定时间内，只让函数触发一次。<br>判断当前时间戳和上次执行的时间戳是否已经达到规定时间段。<br>函数节流：<br>1.DOM元素的拖拽功能，计算鼠标移动，射击游戏的mousedown/keydown.<br>函数防抖(debounce)：<br>防抖函数：<strong>一个需要频繁触发的函数，在规定时间内，只让最后一次生效即可，前面的不生效</strong></p>
-<h2 id="常见的攻击和防御方法"><a href="#常见的攻击和防御方法" class="headerlink" title="常见的攻击和防御方法"></a>常见的攻击和防御方法</h2><p>xss(跨站脚本攻击)，通过存在安全漏洞的web网站注册用户的浏览器内运行非法的html标签或者js进行攻击<br>1.利用虚假输入表单获取信息<br>2.利用脚本窃取用户的cookie值。被害者在不知情的情况下，帮助攻击者发送恶意请求。<br>3.显示伪造的文章或者图片<br>防御XSS攻击：<br>CSP建立白名单，开发者明确告诉浏览器哪些外部资源可以加载<br>通过设置http header<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content-security-policy:defalut-src &apos;self&apos;</span><br></pre></td></tr></table></figure></p>
-<p>通过使用转移字符<br>3.httpOnly cookie<br>预防xss攻击的最有效手段 设置httpOnly,避免网页的cookie被客户端恶意js获取，保护用户的cookie信息<br>2.csrf攻击：<br>在登录a的情况下已经设置好cookie,所以在登录恶意网站时，将a网站上的cookie信息获取。<br>防范：get请求不对数据进行修改，不让第三方网站访问到用户的cookie.阻止第三方网站请求接口，请求时必须携带验证信息，例如cookie<br>3.点击劫持：视觉欺骗的攻击手段，攻击者将需要攻击的网站通过iframe嵌套到自己的网页中，并将iframe设置为透明，在页面中透出一个按钮诱导用户点击，特点：隐蔽性较高，UI-覆盖点击，利用iframe或者其他标签的属性。<br>4.URL跳转漏洞：借助未验证的URL进行跳转，将应用程序引导到不安全的第三方区域，从而导致安全问题。<br>5.SQL注入，一种典型的web安全漏洞，攻击者利用这个漏洞，可以访问或者修改数据，或者利用潜在的数据库漏洞进行攻击。<br>6.OS命令注入攻击：和SQL注入差不多，SQL注入是针对数据库的，而OS注入是针对操作系统的。OS命令注入攻击指的是通过Web应用，执行非法的操作系统命令而达到攻击的目的，只要在能调用shell函数的地方就能存在被攻击的风险。防御：进行规则限制，<br>在调用系统命令前将所有传入参数进行命令行参数转义过滤。不要直接拼接命令语句，借助一些工具作拼接。，例如 Node.js 的 shell-escape npm包</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/20/http相关知识/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/07/20/http相关知识/" itemprop="url">http相关知识,tcp知识,web实时推送</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-20T11:30:44+08:00">
-                2019-07-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>http状态码：<br>1xx 指示信息-表示请求已经接受，继续处理 表示客户端需要提交下一步请求<br>2xx 成功 表示请求已被成功接受<br>304未修改，客户端的缓存是最新的<br>3xx 重定向 要完成请求需要进一步操作 302(重定向), 307 和 304(拿缓存)<br>4xx 客户端错误 请求有语法错误等<br>5xx 服务器端错误 服务器未能实现合法的请求</p>
-<p>403 //对被请求的页面访问禁止 404 请求资源不存在 比如输入了错误的URL<br>post 向URL指定的资源提交数据<br>put 提交数据 put指定了在服务器上的位置 而post没有<br>head 只请求页面的首部<br>delete 方法：删除服务器上的某资源<br>options 方法：它用于获取当前 URL支持的方法，如果请求成功，会有一个 Allow 的头包含类似“GET,POST”这样的信息</p>
-<p>持久连接：只要任意一端没有提出明确断开连接，则保持TCP的连接状态</p>
-<p>https的工作原理：！！！<br>https在HTTP上建立了SSL加密层，对传输数据进行了加密，是http的安全版<br>主要作用：<br>1.对数据进行加密，并建立一个信息安全通道，来保证传输数据的过程中的数据安全<br>2.对网站服务器进行真实身份认证<br>http使用的是明文进行发送。<br>完成了数据隐私性传输，完整性的校验，身份认证<br>http先和SSL通信，再由SSL和tcp通信。<br>对称加密：加密和解密用同一个秘钥，将秘钥也需要发送给对方。<br>非对称加密：私有秘钥不能让任何人知道，公开秘钥可以随意发布<br>使用公开秘钥加密的方式：发送密文的一方使用对方的公开秘钥进行加密，<br>对方收到后，利用私钥进行解密。<br>非对称加密特点是信息一传输多，服务端只需要维护一个<strong>私钥就能和多个客户端进行通信</strong></p>
-<p>http使用的方式：在交换秘钥环节使用非对称加密方式，之后的建立通信交换报文阶段采用对称加密方式</p>
-<p><strong>发送密文的一方使用对方的公开秘钥加密处理对称的秘钥，然后对方利用自己的私钥进行解密拿到对称的秘钥，这样可以确保秘钥在安全的情况下，使用对称秘钥进行加密</strong></p>
-<p>解决报文是否可能遭到篡改 – 数字签名<br>确定消息是由发送方签名并且发过来的，因为别人假冒不了<br>数字签名保证消息的完整性，证明数据没有被篡改<br>文本用hash生成消息摘要 再由私钥生成数字签名，发送给接受者<br>接受者只有用发送者的公钥才能进行解密，然后用hash函数产生摘要信息。</p>
-<p>解决通信双方身份可能被伪装的问题：数字证书<br>数字认证机构处于客户端和服务器双方都可信赖的第三方机构的立场上</p>
-<p>https通信过程<br>1.client发送https请求 server的连接端口为443<br>2.server把事先配置好的公钥证书返回给客户端<br>3.client验证公钥证书<br>4.clent使用<strong>伪随机数产生对称秘钥，然后用证书的公钥加密,发送给server</strong><br>5.server利用自己私钥进行解密，client和server拥有了相同的私钥<br>6.server使用对称秘钥加密明文内容，发送给client<br>7.client使用对称秘钥解密密文，得到明文内容<br>8.client再次发送http,使用对称秘钥加密请求B,然后server使用对称秘钥解密</p>
-<p>tcp3次握手过程<br>client -&gt; server发送<br>server 接收后 回复ack<br>client收到ack后回复ack</p>
-<p>问：为什么建立连接需要3次<br>答：防止失效的连接请求报文段被服务端接收，从而产生报错 A是client,B是server<br>发送的失效报文到达时，A和B已经断开了，但是B又建立了连接，向A发送数据，所以造成资源浪费<br>tcp 4次挥手<br>客户端打算关闭连接<br>tcp停止释放报文，fin = 1<br>服务器接收到后确认，确认号是ack + 1<br><strong>客户端到服务器这个连接已经释放，但是服务器到客户端还未释放，client不能发送，server不能接受，但是server可以发送，client可以接受</strong><br>因为tcp是全双工的，两端可以同时发送和接收数据</p>
-<p>服务器到客户端发送fin<br>客户端接收到后，必须发出请求，ack = 1<br>运输层中有传输控制协议tcp和用户数据协议udp<br>dns查看 浏览器缓存 -&gt; 系统缓存 -&gt; 路由器缓存</p>
-<p>http/2相比于http/1，可以说大幅度提高了网页的性能，只需要升级到该协议就能减少很多之前需要做的性能优化工作，<br>当然兼容问题以及如何优雅降级应该是国内还不普遍使用的原因之一。<br>http/3相对于http/2又是一个提升<br>http协议：<br>处于计算机网络中的应用层，http是建立在tcp协议之上，<strong>所以http协议的瓶颈及其优化技巧都是基于tcp本身的特性</strong>,<br>例如tcp建立的3次握手和断开连接的4次挥手以及每次建立连接带来的RTT延迟时间</p>
-<p>http/1.x缺陷<br>连接无法复用 每次都会导致3次握手和慢启动，慢启动对大量小文件请求影响较大。<br>head-of-line blocking(holb) 导致宽度无法被充分利用，以及后续请求被阻塞<br>http/1.x在传输数据时，所有传输内容都是明文，客户端和服务端都无法验证对方身份，这在一定程度上无法保证数据的安全性</p>
-<p>http/2方法/状态码/语义都与http/1.x一样，http/2基于SPDY3协议，专注于<strong>性能</strong>,最大的目标是在用户和网站之间只用一个连接。</p>
-<p>http/2采用二进制格式传输数据，而非http1.x的文本格式。<br>http/2采用了多路复用技术。<br>解决了同一个域名下的请求数量的问题。<br>同时也更容易实现全速传输。<br>http/2<br>同域名下所有通行都在单个连接上完成。<br>单个连接可以承载任意数量的双向数据流。<br>数据流以消息的形式发送，而消息又由一个或多个帧组成，多个帧之间可以乱序发送，因为根据帧首部的流标识可以重新组装。<br>同个域名只需要占用一个 TCP 连接，使用一个连接并行发送多个请求和响应,消除了因多个 TCP 连接而带来的延时和内存消耗。<br>并行交错地发送多个请求，请求之间互不影响。<br>并行交错地发送多个响应，响应之间互不干扰。<br>在HTTP/2中，每个请求都可以带一个31bit的优先值，0表示最高优先级， 数值越大优先级越低。有了这个优先值，客户端和服务器就可以在处理不同的流时采取不同的策略，以最优的方式发送流、消息和帧。<br>http/2只采用一个tcp协议，<br>http/2压缩了header<br>server-push也叫cache push<br>某些资源客户端一定会请求，可以采用服务端push方式，提前给客户端必要的资源。<br>http3协议是基于QUIC协议，QUIC协议是基于UDP协议。<br>QUIC新功能：<br>0-RTT 通过使用类似TCP快速打开的技术，缓存当前会话的上下文，在下次恢复会话的时候，只需要将之前的缓存传递给服务端验证通过就可以进行传输了。0-RTT建立连接可以说是QUIC相比HTTP2最大的性能优势。<br>https建立一次完全握手需要3个RTT，而QUIC建立在UDP基础上，同时又实现了0RTT的安全握手，所以在大部分情况下，只需要0个RTT就能实现数据传送。<br>同一条QUIC连接上可以创建多个stream,来发送多个http请求。<br>QUIC有向前纠错机制，每个数据包除了它本身的内容之外，还包括了部分其他数据包的数据，因此少量的丢包可以通过其他包的冗余数据直接组装而无需重传。<br>http/1.x有连接无法复用，队头阻塞，协议开销大和安全因素等多个缺陷。<br>http/2通过多路复用，二进制流，Header等压缩技术，极大的提高了性能。但是还是存在性能问题。<br>quic基于udp协议来实现，是http/3中的底层支撑协议，该协议基于UDP，又吸取了TCP中的精华，实现了既块又可靠的协议传输。</p>
-<p>web实时推送机制 将后台发生的变化主动的，实时的传送到浏览器端。而不需要用户端主动刷新页面<br><strong>轮询</strong>是客户端和服务器之间会一直进行连接，每隔一段时间就询问一次，缺点：连接数会非常多，一个接受，一个发送，<br><strong>而且每次发送请求都会有http的header，会很耗流量，也会消耗cpu的利用率。
-</strong>长轮询<strong>客户端发送http给服务器后，看有没有新消息，如果没有新消息，就一直等待，当有新消息的时候，才会返回给客户端。在某种程度上减小了网络带宽和CPU利用率等问题。由于http数据包的头部数据量往往很大（通常有400多个字节),但是真正被服务器用到的数据却很少，<br>这样的数据在网络上周期性的传输，</strong>难免对网络带宽是一种浪费<strong>
-</strong>iframe<strong>流方式是在页面中插入一个隐藏的iframe,利用其src属性在服务器和客户端之间建立一条长连接，服务器想iframe传输数据，来实时更新页面。<br>优点：消息能够实时到达；浏览器兼容好<br>缺点：服务器维护一个长连接会增加开销；IE、chrome、Firefox会显示加载没有完成，图标会不停旋转。
-</strong>web socket<strong>机制，web服务器和客户端之间建立连接后，之后所有的通信都依靠这个专用协议进行。任意一方可直接向对方发送报文。<br>http是半双工协议，web socket是全双工协议。<br>tcp和udp的比较<br>tcp/ip是互联网相关的各类协议族的总称，例如tcp,udp,ip,ftp,http,icmp,smtp等<br>是互联网的基础，一系列网络协议的总称，<br>这些协议可以划分为四层，分别为链路层、网络层、传输层和应用层。<br>tcp/ip的4层模型<br>链路层 -&gt; 网络层 -&gt; 传输层 -&gt; 应用层<br>udp协议全称是用户数据报协议，在网络中它与 TCP 协议一样用于处理数据包，是一种</strong>无连接的协议<strong>。<br>面向无连接，不需要和tcp一样在发送数据前建立3次握手。<br>有单播，多播，广播的功能。<br>支持一对一，一对多，多对多，多对一的方式。<br>udp是面向报文的，是不可靠的。<br>头部开销小，传播数据报文是很高效的<br>两台计算机通信时，需要畅通并且可靠。<br>当你想查看网页或查看电子邮件时，希望完整且按顺序查看网页，而不丢失任何内容。当你下载文件时，希望获得的是完整的文件，而不仅仅是文件的一部分，因为如果数据丢失或乱序，都不是你希望得到的结果，于是就用到了 TCP。
-</strong>tcp协议全称是传输控制协议，是一种面向连接的，可靠的，基于字节流的传输层通信协议<strong>.<br>3次握手和4次挥手<br>tcp仅支持单播传输<br>ajax是一种</strong>异步请求数据的web开发技术**,在不需要重新刷新页面的情况下，ajax通过异步请求加载后台数据，并在前端显示。<br>ajax目的是提高用户体验，减少网络数据传输量<br>基于浏览器提供的xmlhttprequest对象，使得浏览器可以发出http请求和接收到http响应。<br>浏览器接着干自己的事情</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1755,7 +1788,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1766,7 +1799,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1777,7 +1810,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">62</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1805,7 +1838,7 @@
       
  
            <div>
-              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=22673497&auto=1&height=66"></iframe>
+              <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="50" height="60" src="//music.163.com/outchain/player?type=2&id=34532273&auto=1&height=66"></iframe>
            </div>
  
     </div>
