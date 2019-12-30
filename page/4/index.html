@@ -249,6 +249,615 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/12/es6学习-3/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/12/es6学习-3/" itemprop="url">es6学习-3</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-12T19:52:54+08:00">
+                2019-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>es6箭头函数<br>1.如果只有一个参数,()可以省略<br>2.如果只有一个return {}可以省略<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let show = a =&gt; a * 2;</span><br></pre></td></tr></table></figure></p>
+<p>剩余参数 args是剩余参数<br>参数扩展：收集剩余参数 …args 这个必须是最后一个。<br>不仅用于收集参数，也可以用于展开数组。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function(a,b,...args)&#123;</span><br><span class="line">    console.log(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>展开运算符<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let arr = [1,2,3];</span><br><span class="line">show(a,b,c) =&gt; &#123;</span><br><span class="line">console.log(a);</span><br><span class="line">console.log(b);</span><br><span class="line">console.log(c);</span><br><span class="line">&#125;</span><br><span class="line">//调用的时候</span><br><span class="line">show(...arr);</span><br></pre></td></tr></table></figure></p>
+<p>既可以展开，调用。<br>解构赋值<br>1.左右两边结构必须相同<br>2.右边必须是一个东西<br>3.声明和赋值是不能分开的，不能let[a,b] 随后再[a,b] = 这种事不合法的<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let [a,b,c] = [12,13,14];</span><br><span class="line">let &#123;a,b,c&#125; = &#123;a:12,b:13,c:14&#125;; //对象对应的值必须是相同的。a 对应字典里的a,b对应字典里的b，c对应字典里的c.</span><br></pre></td></tr></table></figure></p>
+<p>字符串的模板语法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var p = 12;</span><br><span class="line">let str2 = `&lt;div&gt;</span><br><span class="line">$&#123;p&#125;</span><br><span class="line">&lt;/div&gt;`;</span><br><span class="line">console.log(str2);</span><br></pre></td></tr></table></figure></p>
+<p>用<code></code>来套进去，可以用$符号将外部的值传入嵌进去。可以多次换行。</p>
+<p>类的使用 class关键字，专门的构造器 constructor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class User&#123;</span><br><span class="line">    constructor(name,pass)&#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">        this.pass = pass; //属性的定义</span><br><span class="line">    &#125;</span><br><span class="line">    //函数的定义</span><br><span class="line">    showName()&#123;</span><br><span class="line">        alert(this.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>类中继承的作用<br>原先的继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function VipUser(name,pass,level)&#123;</span><br><span class="line">    User.call(this,name,pass);</span><br><span class="line">    this.level = level;</span><br><span class="line">&#125;</span><br><span class="line">VipUser.prototype = new User();</span><br><span class="line">VipUser.prototype.constructor = VipUser;</span><br><span class="line">VipUser.prototype.showLevel = function() &#123;</span><br><span class="line">    alert(this.level);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过prototype的方法进行改变等。指定原型，随后指定自己的等。<br>es6中的方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class VipUser extends User&#123;</span><br><span class="line">    constructor(name,pass,level)&#123;</span><br><span class="line">       super(name,pass); //父级的 超类</span><br><span class="line">       this.level = level;</span><br><span class="line">    &#125;</span><br><span class="line">    //方法</span><br><span class="line">    showLevel()&#123;</span><br><span class="line">        alert(this.level);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>json拼接到url字符串<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let json = &#123;a:12,b:5&#125;;</span><br><span class="line">let str = &quot;www.baidu.com&quot; +</span><br></pre></td></tr></table></figure></p>
+<p>json的标准写法<br>json中的key必须用”“包起来，若是没有包起来就是js对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;a:12,b:5&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这是js对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;a&quot;:12,&quot;b&quot;:5&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这才是json对象。 而且不能用单引号。<br>json的简写：<strong>注意 以下说的都是对象的简写。而不是json</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let a = 12;</span><br><span class="line">let b = 5;</span><br><span class="line">let json = &#123;a,b,c:55&#125;;</span><br><span class="line">console.log(json);</span><br></pre></td></tr></table></figure></p>
+<p>函数的简写 function可以去掉，直接加括号<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    show()&#123;</span><br><span class="line">        console.log(223);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>promise的使用 all必须全部成功<br>promise中的all方法，当全部promise执行完毕，并且成功返回的时候，才执行then方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">promise.all([</span><br><span class="line">    p1,p2</span><br><span class="line">]).then(function(object)&#123;</span><br><span class="line">let [res1,res2] = object; //解析构值</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>promise中的race主要其中有一个返回就可以，不用管其中所有成功。<br>yield 可以让函数暂时停止在某个地方 等到next再进行下面的调用。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//generator函数</span><br><span class="line">function *show()&#123;</span><br><span class="line">//代码1</span><br><span class="line">yield ajax(xxx)； //中间能够停</span><br><span class="line">//代码2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同generator函数生成了许多小函数。 next进行下一步。yield是停止暂停。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let obj = show();</span><br><span class="line">obj.next();</span><br><span class="line">obj.next();</span><br></pre></td></tr></table></figure></p>
+<p>generator可以向内部传参数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function *show() &#123;</span><br><span class="line">    alert(&quot;a&quot;);</span><br><span class="line">  let a =  yield ; //yield还能返回东西</span><br><span class="line">    alert(a);</span><br><span class="line">    return a;</span><br><span class="line">&#125;;</span><br><span class="line">let gen = show();</span><br><span class="line">gen.next(12); //对于传参来说是费的 这里的next执行的是从show到第一个yield之间的代码</span><br><span class="line">gen.next(5);</span><br></pre></td></tr></table></figure></p>
+<p>如上所示 gen.next(12)这个可以说是无用的，因为第一步的参数是要用过show()方法的直接调用传入的。<br>后续gen.next(5)表示向yield的第二个代码块传入了参数5 所以可以通过let a = yield 获取到5 并进行接下来的操作</p>
+<p>generator也可返回值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> function *show() &#123;</span><br><span class="line">      alert(&quot;a&quot;);</span><br><span class="line">      //半路返回</span><br><span class="line">      yield 12;</span><br><span class="line">      alert(&quot;b&quot;);</span><br><span class="line">      //最后一道靠return完成</span><br><span class="line">      return 16;</span><br><span class="line">  &#125;</span><br><span class="line">  let gen = show();</span><br><span class="line">  let res1 = gen.next(); //返回的是一个json对象&#123;value:12,done:false&#125; 表示没有做完</span><br><span class="line">  let res2 = gen.next(); //返回的是undefined done是true</span><br><span class="line">console.log(res2);</span><br></pre></td></tr></table></figure></p>
+<p>yield 12 表示从函数开始到第一个代码块返回的是12，通过打印res1可以知道，还没有做完，当前取得的值时12<br>第二个res2拿到的是undefined,done为true,表示已经完成。最后的返回只能通过return返回，此时表示已经完成。<br>promise涉及到逻辑操作的时候，与普通回调的嵌套并没有什么差别。<br>所以用generator更适合。当第一个完成后，再执行逻辑，执行第二个。<br>js由ecmscript,dom,和bom组成。<br>string,number,undefined,boolean,null.<br>基本数据类型放在栈区，复杂数据类型放在堆区。堆区存储量大。<br>es6汇总<br>1.变量<br> var 重复声明，函数级别。<br> let 不能重复声明。块级变量。<br> const 不能重复声明，块级常量。<br>2.箭头函数<br> 1.方便 如果只有一个参数，()可以省略。<br> 2.如果只有一个return,{}也可以省。<br> 3.修正this问题。<br>   this相对正常点。<br>3.参数扩展<br>…<br>收集或者扩展。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">默认参数function(a,b = 5)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4.数组方法<br>map映射,reduce汇总 一堆,filter 过滤(删选)forEach循环.<br>5.字符串<br>startWith/endWith<br>字符串模板 换行。$(a)xxx$(b)<br>6.promise方法<br>对数据分钟<br>promise.all<br>7.generator执行到一半可以暂停。<br>8.json对象。stringfy,parse.<br>9.解构赋值<br>左右结构一样<br>右边是个合法东西<br>声明和赋值一次性完成。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let [a,b,c] = [12,5,8];</span><br></pre></td></tr></table></figure></p>
+<p>10.面向对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">class Text&#123;</span><br><span class="line">    constructor()&#123;</span><br><span class="line">        this.xxx = </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">class class2 exnteds Text</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/window对象高度取值问题/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/04/11/window对象高度取值问题/" itemprop="url">window对象高度取值问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T15:34:08+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/面试相关/" itemprop="url" rel="index">
+                    <span itemprop="name">面试相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>浏览器窗口的尺寸，就是内容部分，是可以看见的大小，但不包括工具栏和滚动条。<br>对于IE,CHROME,FIREFOX,OPERA和Safari<br>window.innerHeight 浏览器窗口的可见宽度。<br>window.innerWidth 浏览器的可见宽度</p>
+<p>IE 8 7 6 5<br>document.documentElement.clientHeight<br>document.documentElement.clientWidth<br>或者<br>document.body.clientHeight和document.body.clientWidth<br>兼容所有浏览器的代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var w = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/26/js事件运行机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/26/js事件运行机制/" itemprop="url">js事件运行机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-26T18:40:16+08:00">
+                2019-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js是单线程的"><a href="#js是单线程的" class="headerlink" title="js是单线程的"></a>js是单线程的</h3><p>js是单线程的，也就是说，同一个时间只能做一件事情。<br>原因：作为浏览器的脚本语言，js的主要用途是与用户进行交互，以及操作dom,所以如果有多线程的话，一个线程在某个节点上操作dom,另外一个节点在删除dom,就不知道以哪个线程为准。<br>单线程意味着<strong>所有任务都需要排队</strong>,前一个任务结束，才会执行后一个任务。如果前一个任务耗时很长，后一个任务就不得不一直等着。例如ajax请求，需要等到网络有响应了才返回数据(IO操作)。<br>JavaScript语言的设计者意识到，这时主线程完全可以不管IO设备，挂起处于等待中的任务，先运行排在后面<br>的任务。等到IO设备返回了结果，再回过头，把挂起的任务继续执行下去。<br>同步任务进入主线程，而异步任务进入<strong>任务队列</strong>,不进入主线程，只有任务队列通知了主线程，某个异步任务执行完成了，该任务才会进入主线程。<br>执行流程如下：<br>1.所有同步任务都在主线程上执行，形成一个<strong>执行栈</strong>,<br>2.主线程之外，还存在一个<strong>任务队列</strong>，只要异步任务有了结果，就在任务队列中放置一个事件。<br>3一旦执行栈中所有同步任务都执行完毕后，系统就会读取”任务队列“，看看里面有些什么事件，那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。<br>4.主线程不断重复上面的第三步。<br>只要主线程空了，就会去读取”任务队列”，这就是JavaScript的运行机制。这个过程会不断重复。</p>
+<h3 id="事件和回调函数"><a href="#事件和回调函数" class="headerlink" title="事件和回调函数"></a>事件和回调函数</h3><p>任务队列是一个事件的队列，IO设备(用户产生事件，例如鼠标点击等)，只要指定了回调函数，这些事件发生时就会进入”任务队列”，等待主线程读取。<br>回调函数的含义：(被主线程挂起来的代码),异步任务必须指定回调函数，当主线程执行异步任务，就会执行对应的回调函数。<br>“任务队列”是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，”任务队列”上第一位的事件就自动进入主线程。但是，由于存在后文提到的”定时器”功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。</p>
+<h3 id="event-loop"><a href="#event-loop" class="headerlink" title="event loop"></a>event loop</h3><p>主线程运行的时候，产生堆和栈。栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。<br>setTimeOut的含义：指定某个任务在主线程得到的最早空闲时间执行，也就是说，尽可能早的执行，任务队列的尾部添加一个事件，因此等到同步任务和任务队列所有事件处理完，才会得到执行。<br>node的后续再说<br>(参考链接)[<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html]" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2014/10/event-loop.html]</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/25/js事件冒泡和委托机制/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/03/25/js事件冒泡和委托机制/" itemprop="url">js事件冒泡和委托机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-25T09:58:10+08:00">
+                2019-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="js事件冒泡"><a href="#js事件冒泡" class="headerlink" title="js事件冒泡"></a>js事件冒泡</h3><p>js所谓的事件冒泡就是子级元素的某个事件被触发，他的上级元素的该事件也会被递归的执行。<br>有如下html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;script src=&quot;https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;ul data-type=&quot;cityPick&quot;&gt;</span><br><span class="line">&lt;li data-id = &quot;0&quot;&gt;全部&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;1&quot;&gt;纽约&lt;/li&gt;</span><br><span class="line">    &lt;li data-id = &quot;2&quot;&gt;洛杉矶&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line">&lt;script src = &quot;event.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>js代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,function () &#123;</span><br><span class="line">  alert(&quot;父元素被点击&quot;);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function () &#123;</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>当点击子元素时，父元素的alert事件也会被触发。<br>而在某些时候，我们不希望他冒泡，<br>可以用stopPropagation()方法阻止对父元素的冒泡传递。<br>某些事件的默认事件不能被触发，例如点击a的href 链接跳转时，不进行跳转<br>可以用e.preventDefault()事件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;ul[data-type = &apos;cityPick&apos;]&quot;).on(&apos;click&apos;,&apos;li&apos;,function (e) &#123;</span><br><span class="line">    e.stopPropagation();//阻止事件冒泡</span><br><span class="line">    alert(&quot;子元素被点击&quot;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h3 id="js事件委托"><a href="#js事件委托" class="headerlink" title="js事件委托"></a>js事件委托</h3><p>事件委托实际上利用了冒泡的原理，从点击的元素开始，递归方式的向父元素传播事件，好处是不用为每一个子元素设置click事件，而只需为父元素上绑定一次即可。<br>如下代码html<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id = &quot;btnGroup&quot;&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮1&lt;/div&gt;</span><br><span class="line">    &lt;div class = &quot;btn&quot;&gt;按钮2&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>js代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;#btnGroup&quot;).on(&apos;click&apos;,&apos;.btn&apos;,function () &#123;</span><br><span class="line">    alert($(this).html());</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><strong>由于事件委托是通过事件冒泡实现的，所以如果子级的元素阻止了事件冒泡，那么事件委托也将失效！</strong><br>(参考链接)[<a href="https://www.cnblogs.com/alsy/p/4915912.html]" target="_blank" rel="noopener">https://www.cnblogs.com/alsy/p/4915912.html]</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/21/js数据结构实现/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1325,612 +1934,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/02/RNN基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/03/02/RNN基础/" itemprop="url">RNN基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T10:56:12+08:00">
-                2019-03-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="RNN与LSTM"><a href="#RNN与LSTM" class="headerlink" title="RNN与LSTM"></a>RNN与LSTM</h3><p>中文分词，词性标注，命名实体识别，机器翻译等都是属于序列挖掘的范畴，序列挖掘的特点是某一步的输出<strong>不仅依赖于这一步的输入，还依赖于其他步的输入或输出，序列挖掘领域的机器算法有HMM(隐马尔科夫模型),和CRF(条件随机场)模型，近年来又开始流行RNN</strong><br>RNN的网络结构：<br><img src="/nlp/RNN.jpg" width="50%" height="50%"><br>比如一个句子有5个词，要给5个词做词性标注，那相应的RNN就是5层的神经网络，每一层的输入时一个词，输出就是这个词的词性，<br>xt是第t层的输入，它可以是一个词的one-hot向量，也可以是分布表示(distributed repressentation)向量。<br>st是第t层的隐藏状态，负责整个神经网络的记忆功能，st是由上一层的隐藏状态和这一层的输入来共同决定的。<br>st = f(Uxt + Wst-1) f通常是个非线性的激活函数，比如tanh或者relu<br>由于每层的st都会向后一直传递，所以理论上st能够捕获到前面每一层发生的事情。<br>ot是第t层的输出，比如我们预测下一个词是什么的时候，ot就是一个长度为V的向量，V是所有词的总数，ot[i]表示下一个词是wi的概率，我们用softmax函数对这些概率进行归一化，ot = softmax(Vst)<br>每一层的U,W,V是共享的，这样极大的缩小了参数空间。<br>值得注意的是**每一层并不一定都有输入和输出，隐藏单元是RNN的必备武器，比如句子进行情感分析的时候，只需要最后一层给一个输出即可。<br>LSTM结构：<br><img src="/nlp/LSTM.png" width="50%" height="50%"> </p>
-<ol>
-<li>忘记阶段。这个阶段主要是对上一个节点传进来的输入进行选择性忘记。简单来说就是会 “忘记不重要的，记住重要的”。</li>
-</ol>
-<p>具体来说是通过计算得到的 z^f （f表示forget）来作为忘记门控，来控制上一个状态的 c^{t-1} 哪些需要留哪些需要忘。</p>
-<ol start="2">
-<li>选择记忆阶段，这个阶段将这个阶段的输入有选择性地进行’记忆’,主要是会对输入xt进行选择性的记忆，哪些重要的就记录下来，哪些不重要的，就不要记录下来，当前的输入内容由前面计算得到的z表示。而选择的门控信号则是由 z^i （i代表information）来进行控制。</li>
-<li>输出阶段。这个阶段将决定哪些将会被当成当前状态的输出。主要是通过  z^o 来进行控制的。并且还对上一阶段得到的 c^o 进行了放缩（通过一个tanh激活函数进行变化）。</li>
-</ol>
-<p>与普通RNN类似，输出 y^t 往往最终也是通过 h^t 变化得到。<br>主要就是忘记阶段，将前面的哪些部分进行遗忘，记忆阶段，将现阶段的哪些部分进行记录，输出部分，这个阶段决定哪些将会被当成当前状态进行输出。<br><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">知乎上链接为</a><a href="https://zhuanlan.zhihu.com/p/32085405" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/32085405</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/CNN基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/CNN基础/" itemprop="url">CNN基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T14:03:25+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>CNN由输入和输出层以及多个隐藏层组成，隐藏层可分为卷积，池化，relu层和全连接层。<br>输入层：<br>CNN的输入一般是二维向量，可以有高度，比如RGB图像。<br>卷积层：<br>卷积层是CNN的核心，层的参数由一组可学习的滤波器（filter）或内核（kernels）组成，<br>每个滤波器对输入进行卷积，计算滤波器和输入之间的点积，并产生该滤波器的二维激活图（输入一般二维向量，但可能有高度（即RGB））。 简单来说，卷积层是用来对输入层进行卷积，提取更高层次的特征。<br>池化层：<br>又称为采样层，它的作用是减小数据处理量同时保留有用信息，<br>通常池化层是每邻域四个像素中的最大值变为一个像素（这就是下一讲要降的max_pooling），为什么可以这么做呢？这是因为卷积已经提取出特征，相邻区域的特征是类似，近乎不变，这时池化只是选出最能表征特征的像素，缩减了数据量，同时保留了特征，何乐而不为呢？池化层的作用可以描述为模糊图像，丢掉了一些不是那么重要的特征.<br><img src="/deeplearning/deeplearning3.jpg" width="50%" height="50%"><br>RELU层<br>这个RELU我们之前讲过，全名将修正线性单元，是神经元的激活函数，对输入值x的作用是max(0,x)，当然RELU只是一种选择，还有选Leak-Relu等等，一般都是用Relu！<br>全连接层<br>这个层就是一个常规的神经网络，它的作用是对经过多次卷积层和多次池化层所得出来的高级特征进行全连接（全连接就是常规神经网络的性质），算出最后的预测值。<br>2.6 输出层<br>输出层就不用介绍了，就是对结果的预测值，一般会加一个softmax层。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/深度学习学习-1/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/28/深度学习学习-1/" itemprop="url">深度学习-基本概念(1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-28T11:22:51+08:00">
-                2019-02-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习相关/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="过拟合与欠拟合"><a href="#过拟合与欠拟合" class="headerlink" title="过拟合与欠拟合"></a>过拟合与欠拟合</h3><p>欠拟合指的是模型不能在训练集上获得足够低的训练误差。<br>过拟合指的是训练误差和测试误差(泛化误差)的差距比较大。<br>在评价指标上，就是模型在训练集上表现比较好，但是在测试集或者新数据上则表现比较差。</p>
-<p>减少测试误差(泛化误差，过拟合)的方法统称为正则化，这些方法以增大训练误差为代价。<br>降低模型复杂度：<br>1.神经网络：减少网络层，神经元个数<br>决策树：降低树的深度，剪枝。<br>权重约束：<br>L1,L2正则化。<br>集成学习：<br>神经网络：Dropout<br>决策树：随机森林，GBDT。</p>
-<h3 id="反向传播算法"><a href="#反向传播算法" class="headerlink" title="反向传播算法"></a>反向传播算法</h3><p>概述：梯度下降法需要利用损失函数对所有参数的梯度来寻找局部最小值。<br>反向传播算法就是用于计算该梯度的具体方法，其本质是利用链式法则对每个参数求偏导。</p>
-<h3 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h3><p>使用激活函数的目的是为了向网络中加入非线性因素，加强网络的表示能力，解决线性模型无法解决的问题。<br>整流线性单元 ReLU<br>RELU 通常是激活函数较好的默认选择<br><img src="/deeplearning/deeplearning1.jpg" width="50%" height="50%"><br>sigmoid与tanh激活函数<br><img src="/deeplearning/deeplearning2.jpg" width="50%" height="50%"><br>relu的优势<br>1.避免梯度消失 2.减缓过拟合 3.加速计算</p>
-<h3 id="正则化-Batch-Normalization-批标准化"><a href="#正则化-Batch-Normalization-批标准化" class="headerlink" title="正则化(Batch Normalization 批标准化)"></a>正则化(Batch Normalization 批标准化)</h3><p>BN是一种正则化方法(减少泛化误差)，<br>加速网络的训练，防止过拟合，降低了参数初始化的要求。<br>动机<br>训练的本质是学习数据分布，如果训练数据和测试数据的分布不同会降低模型的泛化能力，因此，在开始训练前要对所有输入数据做归一化处理，其实质是让他们分布在同一个区间上，例如(-1,1)内<br>基本原理：<br>BN 方法会针对每一批数据，在网络的每一层输入之前增加归一化处理，使输入的均值为 0，标准差为 1。目的是将数据限制在统一的分布下。</p>
-<p><strong>BN也可以看做在各层之间加入了一个新的计算层，对数据分布进行额外的约束，从而增强模型的泛化能力。</strong><br>L1/L2范数正则化<br>作用：限制模型的学习能力-通过限制参数的规模，使模型偏好于<strong>权重</strong>比较小的目标函数，防止<strong>过拟合</strong><br>不同点</p>
-<p>L1 正则化可以产生更稀疏的权值矩阵，可以用于特征选择，同时一定程度上防止过拟合；L2 正则化主要用于防止模型过拟合<br>L1 正则化适用于特征之间有关联的情况；L2 正则化适用于特征之间没有关联的情况。<br>L1/L2正则化优点<br>L1 &amp; L2 正则化会使模型偏好于更小的权值。<br>更小的权值意味着更低的模型复杂度；添加 L1 &amp; L2 正则化相当于为模型添加了某种先验，限制了参数的分布，从而降低了模型的复杂度。<br>模型的复杂度降低，意味着模型对于噪声与异常点的抗干扰性的能力增强，从而提高模型的泛化能力。——直观来说，就是对训练数据的拟合刚刚好，不会过分拟合训练数据（比如异常点，噪声）——奥卡姆剃刀原理</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/27/nlp基础描述/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/02/27/nlp基础描述/" itemprop="url">nlp基础描述</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-27T10:43:35+08:00">
-                2019-02-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/nlp相关/" itemprop="url" rel="index">
-                    <span itemprop="name">nlp相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="解决nlp问题的一般思路"><a href="#解决nlp问题的一般思路" class="headerlink" title="解决nlp问题的一般思路"></a>解决nlp问题的一般思路</h3><p>这个问题人类可以做好吗？</p>
-<ul>
-<li>可以 -&gt; 记录自己的思路 -&gt; 设计流程让机器完成你的思路</li>
-<li>很难 -&gt; 尝试从计算机的角度来思考问题<h3 id="nlp的历史进程"><a href="#nlp的历史进程" class="headerlink" title="nlp的历史进程"></a>nlp的历史进程</h3>1.正则表达式/自动机<br>2.规则是固定的<br>搜索引擎<br>xx 用英语怎么说？ -&gt; translate(XX,english);<br>我饿死了 -&gt; recommend(饭店，地址);</li>
-</ul>
-<p>可以用概率系统<br>一般的工作方式<br><strong>预处理 -&gt; 特征工程 -&gt; 分类器(机器学习的算法) -&gt; 预测</strong><br><strong>最重要的部分:数据收集，预处理和特征工程</strong><br>任务：<br>“豆瓣酱用英语怎么说” =&gt; translate(豆瓣酱，Eng)</p>
-<p>流程设计（序列标注）：<br>子任务1： 找出目标语言 “豆瓣酱用 <strong>英语</strong> 怎么说”<br>子任务2： 找出翻译目标 “ <strong>豆瓣酱</strong> 用英语怎么说”</p>
-<p>收集训练数据：<br>（子任务1）<br>“豆瓣酱用英语怎么说”<br>“茄子用英语怎么说”<br>“黄瓜怎么翻译成英语”</p>
-<p>预处理：<br>分词：“豆瓣酱 用 英语 怎么说”</p>
-<p>抽取特征：<br>（前后各一个词）<br>0 茄子：    &lt; _ 用<br>0 用：      豆瓣酱 _ 英语<br>1 英语：    用 _ 怎么说<br>0 怎么说：  英语 _ &gt;</p>
-<p>分类器：<br>SVM/CRF/HMM/RNN</p>
-<p>预测：<br>0.1 茄子：    &lt; _ 用<br>0.1 用：      豆瓣酱 _ 英语<br>0.7 英语：    用 _ 怎么说<br>0.1 怎么说：  英语 _ &gt;</p>
-<p>评价：<br>准确率<br>大部分自然语言问题都可以使用seq2seq模型来解决<br><img src="/nlp/nlp1.png" width="50%" height="50%"><br>seq2seq的模型将在后面进行介绍</p>
-<h3 id="评价机制"><a href="#评价机制" class="headerlink" title="评价机制"></a>评价机制</h3><p>在信息论中，perplexity用于度量一个概率分布或概率模型预测样本的好坏程度<br>各种数学公式 在这里不做展开<br>机器翻译的评价指标-BLEU</p>
-<p>语言模型<br>如果能使用某个方法对XX打分(Score),那么就可以把这个方法称之为XX模型。<br>例如篮球明星模型:Score(库里),Score(詹姆斯)<br>话题模型-对一段话是否在谈论某一个话题打分<br>Score(NLP | “什么是语言模型？”) –&gt; 0.8<br>Score(ACM | “什么是语言模型？”) –&gt; 0.05</p>
-<p>可用的概率语言模型<br>统计语言模型实际上是一个概率模型，所以常见的概率模型通常用于求这些参数<br>常见的概率模型有：N-gram模型，决策时，最大熵模型，隐马尔科夫模型，条件随机场，神经网络<br>目前常用于语言模型的是 N-gram 模型和神经语言模型（下面介绍）</p>
-<h3 id="专题-句嵌入"><a href="#专题-句嵌入" class="headerlink" title="专题-句嵌入"></a>专题-句嵌入</h3><p>基于统计的词袋模型(Bow)<br>单个词的One-Hot表示<br>基于频数的词袋模型<br>基于TF-IDF的词袋模型</p>
-<h3 id="词向量"><a href="#词向量" class="headerlink" title="词向量"></a>词向量</h3><p>词向量：是一个固定长度的实值向量<br>词向量是神经语言模型的副产品<br>词向量是针对”词”提出的，事实上，也可以针对更细或者更广的粗度来进行推广——比如字向量、句向量、文档向量等<br>nlp任务中，机器无法直接理解自然语言问题，所以首先要做的就是将语言数学化，词向量就是一种将自然语言数学化的方法。<strong>**将词转化成稠密向量</strong>，并且对于相似的词，其对应的词向量也相对接近。<br>word2vec提供了2套模型 CBOW和skip-gram模型<br>CBOW:在已知context(w)的情况下，预测w<br>SKIP_GRAM模型：在已知w的情况下预测context(w)</p>
-<h3 id="词的表示"><a href="#词的表示" class="headerlink" title="词的表示"></a>词的表示</h3><p>词的表示通常有2种表示方法 one-hot representation和distribution representation。<br>1.1离散表示(one-hot representation)<br>传统的基于规则或基于统计的自然语义处理方法将单词看作一个原子符号<br>one-hot representation把每个词表示成一个长向量，这个向量的维度是词表的大小，向量中只有一个维度为1，其余的维度为0，这个维度就代表了当前的词。<br>例如：苹果：苹果 [0，0，0，1，0，0，0，0，0，……]<br>one-hot representation相当于给每个词分配一个id，这就导致这种表示方式不能展示词与词之间的关系。另外，one-hot representation将会导致特征空间非常大，但也带来一个好处，就是在高维空间中，很多应用任务线性可分。<br>1.2 分布式表示(distribution representation)<br>词转化成一种分布式表示，又称词向量。分布式表示将词表示成一个定长的连续的稠密向量。<br>分布式表示优点:<br>(1)词之间存在相似关系：<br>是词之间存在“距离”概念，这对很多自然语言处理的任务非常有帮助。<br>(2)包含更多信息：<br>词向量能够包含更多信息，并且每一维都有特定的含义。在采用one-hot特征时，可以对特征向量进行删减，词向量则不能。<br>生成词向量：任何一个词的含义都可以用它的周边词来进行表示。方式有基于统计的方法和基于语言模型的方法。<br>CBOW模型是预测上下文已知的情况下，当前词出现的概率。上下文的选取采用窗口方式，即只将当前词窗口范围内的词作为上下文。中心词概率公式如下：<br>P(wt|wt-k,wt-(k-1)…,wt-1,wt+1,wt+2…,wt+k)= P(wt|context)<br>CBOW采用了一种层次化softmax技术，利用哈夫曼树对词表进行分类，用一连串的二分类来表示多分类。<br>参考链接<br><a href="https://blog.csdn.net/mawenqi0729/article/details/80698350" target="_blank" rel="noopener">词向量使用</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1978,7 +1986,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

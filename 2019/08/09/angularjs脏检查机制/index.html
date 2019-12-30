@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="面试,angularjs脏检查,">
+  <meta name="keywords" content="面试,angularjs脏检查 基本概念,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="参考博客angularjs常用函数：$apply,$watch和$digest$digest是一个内部函数，正常的代码都是无法应用到的，想要主动触发他，就要调用scope.$apply函数，是触发angularjs”脏检查机制”的常用公开接口，$digest循环包括2个while循环，分别是，处理$evalAsync的异步运算队列，处理$watch的watchers队列，当该循环触发后，会遍历当前">
-<meta name="keywords" content="面试,angularjs脏检查">
+<meta name="description" content="简介angular js是一个MVVM框架，通过ng-app指令定义一个angular js的应用程序，AngularJS 模块（Module） 定义了 AngularJS 应用。AngularJS 控制器（Controller） 用于控制 AngularJS 应用。ng-app指令指明了应用, ng-controller 指明了控制器。ng-model来进行双向绑定表达式可以写在双大括号内1&amp;#">
+<meta name="keywords" content="面试,angularjs脏检查 基本概念">
 <meta property="og:type" content="article">
-<meta property="og:title" content="angularjs脏检查机制">
+<meta property="og:title" content="angular学习(1)">
 <meta property="og:url" content="http://yoursite.com/2019/08/09/angularjs脏检查机制/index.html">
 <meta property="og:site_name" content="KevinSwift">
-<meta property="og:description" content="参考博客angularjs常用函数：$apply,$watch和$digest$digest是一个内部函数，正常的代码都是无法应用到的，想要主动触发他，就要调用scope.$apply函数，是触发angularjs”脏检查机制”的常用公开接口，$digest循环包括2个while循环，分别是，处理$evalAsync的异步运算队列，处理$watch的watchers队列，当该循环触发后，会遍历当前">
+<meta property="og:description" content="简介angular js是一个MVVM框架，通过ng-app指令定义一个angular js的应用程序，AngularJS 模块（Module） 定义了 AngularJS 应用。AngularJS 控制器（Controller） 用于控制 AngularJS 应用。ng-app指令指明了应用, ng-controller 指明了控制器。ng-model来进行双向绑定表达式可以写在双大括号内1&amp;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-14T03:33:55.575Z">
+<meta property="og:updated_time" content="2019-11-08T03:26:24.083Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="angularjs脏检查机制">
-<meta name="twitter:description" content="参考博客angularjs常用函数：$apply,$watch和$digest$digest是一个内部函数，正常的代码都是无法应用到的，想要主动触发他，就要调用scope.$apply函数，是触发angularjs”脏检查机制”的常用公开接口，$digest循环包括2个while循环，分别是，处理$evalAsync的异步运算队列，处理$watch的watchers队列，当该循环触发后，会遍历当前">
+<meta name="twitter:title" content="angular学习(1)">
+<meta name="twitter:description" content="简介angular js是一个MVVM框架，通过ng-app指令定义一个angular js的应用程序，AngularJS 模块（Module） 定义了 AngularJS 应用。AngularJS 控制器（Controller） 用于控制 AngularJS 应用。ng-app指令指明了应用, ng-controller 指明了控制器。ng-model来进行双向绑定表达式可以写在双大括号内1&amp;#">
 
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>angularjs脏检查机制 | KevinSwift</title>
+  <title>angular学习(1) | KevinSwift</title>
   
 
 
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">angularjs脏检查机制</h1>
+          <h1 class="post-title" itemprop="name headline">angular学习(1)</h1>
         
 
         <div class="post-meta">
@@ -342,7 +342,21 @@
       
 
       
-        <p><a href="https://blog.csdn.net/u013451157/article/details/61414988" target="_blank" rel="noopener">参考博客</a><br>angularjs常用函数：$apply,$watch和$digest<br>$digest是一个内部函数，正常的代码都是无法应用到的，想要主动触发他，就要调用scope.$apply函数，是触发angularjs”脏检查机制”的常用公开接口，$digest循环包括2个while循环，分别是，处理$evalAsync的异步运算队列，处理$watch的watchers队列，当该循环触发后，会遍历当前$scope及其所有的子$scope上已经注册的所有watcher函数，遍历一遍所有的watcher被称为一轮脏检查，执行完一轮脏检查后，如果任何一个watcher所监听的值改变了，就会重新再进行一轮脏检查，直到所有的函数都报告其所监听的值都不再改变了。当循环结束后，才把模型的变化结果更新到DOM上去，这样做是为了防止频繁的更新。<br>表达式，angularjs不仅会渲染该数据，还会为这个值创建创建一个观察序列，之后，只要程序发生了任何事情，angularjs就会检查该观察过程中的值是否发生了修改，如果有，重新呈现表达式，运行这些观察者的过程称为脏检查。</p>
+        <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>angular js是一个MVVM框架，通过ng-app指令定义一个angular js的应用程序，<br>AngularJS 模块（Module） 定义了 AngularJS 应用。<br>AngularJS 控制器（Controller） 用于控制 AngularJS 应用。<br>ng-app指令指明了应用, ng-controller 指明了控制器。<br>ng-model来进行双向绑定<br>表达式可以写在双大括号内<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;&#125;&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;body ng-app=&quot;LoginModel&quot; ng-controller=&quot;LoginCtrl&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var app = angular.module(&apos;LoginModel&apos;, []); //可以通过依赖注入来注入服务</span><br><span class="line">app.controller(&apos;LoginCtrl&apos;, function($scope,httpService) &#123;</span><br><span class="line">    $scope.firstName= &quot;John&quot;;</span><br><span class="line">    $scope.lastName= &quot;Doe&quot;;</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">//定义http公共服务</span><br><span class="line">//定义公有的http服务</span><br><span class="line">LoginModel.factory(&quot;httpService&quot;,</span><br><span class="line">    function ($http, $q) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            post: function (suburl, params) &#123;</span><br><span class="line">                var defer = $q.defer();</span><br><span class="line">                $http(&#123;</span><br><span class="line">                    method: &apos;POST&apos;,</span><br><span class="line">                    params: params,</span><br><span class="line">                    url: &quot;http://dodo.hznu.edu.cn/&quot; + suburl,</span><br><span class="line">                &#125;).success(function (data) &#123;</span><br><span class="line">                    if (data.retcode == 0) &#123;</span><br><span class="line">                        defer.resolve(data.items);</span><br><span class="line">                    &#125;</span><br><span class="line">                    else</span><br><span class="line">                        defer.reject(data.message);</span><br><span class="line">                &#125;).error(function (data) &#123;</span><br><span class="line">                    defer.reject(data);</span><br><span class="line">                &#125;);</span><br><span class="line">                return defer.promise;</span><br><span class="line">            &#125;,</span><br></pre></td></tr></table></figure>
+<p>$scope是当前的控制域，在当前控制域当中可以获得双向绑定的一些值和定义函数ng-click,ng-model等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$scope.user = &#123;&#125;;</span><br><span class="line">$scope.submit = function() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="angular-js脏检查机制"><a href="#angular-js脏检查机制" class="headerlink" title="angular js脏检查机制"></a>angular js脏检查机制</h3><p>监控对象的属性<br>$watch和$digest是相辅相成的，两者构成了angular作用域的核心，数据变化的响应</p>
+<h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><p>angular在scope模型上设置了一个一个监听队列，用来监听数据变化并且更新view,每次绑定一个东西<br>到view上的时候，angular 就会往$watch队列中插入一个$watch,用来检测他监控的model里面是否有变化的东西，<br>当浏览器接收到可以被angular context处理的事件时，$digest循环就会触发，遍历所有的$watch,最后更新dom.</p>
+<p>$watch绑定要检查的值<br>当一个作用域创建的时候，angular会去解析模板中当前作用域下的模板结构，并且自动将插值，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;text&#125;&#125;</span><br><span class="line">ng-click = &quot;update&quot;</span><br></pre></td></tr></table></figure></p>
+<p>找出来，利用$watch建立绑定，并且push到当前作用域上的$$watcher队列<br>当使用$wacth绑定了要检查的属性之后，当这个属性值发生变化了，触发$digest循环，angular会去遍历这个数组，并且用$dirty去记录$$watcher里面记录的哪些$scope的属性值发生变化，当有变化的时候，dirty设置为true,一轮脏检查执行完，会再检查dirty,如果dirty为true的话，会再次调用自己，知道dirty为true.但是为了防止死循环，一般设置当递归发生了10次或者以上，直接抛出一个错误，并且跳出循环。<br>当递归流程执行完，$digest还将变化后的$scope重新渲染到界面，$apply函数</p>
+<h3 id="脏检查的实现："><a href="#脏检查的实现：" class="headerlink" title="脏检查的实现："></a>脏检查的实现：</h3><p>bind(),apply(),$scope构造函数以及构造函数的原型方法$watch(),$digest()<br>实现的四步骤<br>1.实现数据的单向绑定<br>2.实现$watch()监听数据变化<br>3.实现$digest()循环遍历每一个watch对象<br>4.实例化$scope</p>
+<h3 id="触发脏检查时间"><a href="#触发脏检查时间" class="headerlink" title="触发脏检查时间"></a>触发脏检查时间</h3><p>只有当UI事件，ajax请求或者timeout延迟事件，才会触发脏检查<br>angular 每一个绑定到UI的数据，都有一个$watch对象，</p>
+<h3 id="双向数据绑定"><a href="#双向数据绑定" class="headerlink" title="双向数据绑定"></a>双向数据绑定</h3><p>界面到数据的修改，是由ajax,UI事件，或者timeout等回调事件来做。<br>数据到界面的呈现是由脏检查机制来做的。</p>
+<p><a href="https://blog.csdn.net/u013451157/article/details/61414988" target="_blank" rel="noopener">参考博客</a><br><a href="https://juejin.im/post/5b193353f265da6e0d7a2dcd" target="_blank" rel="noopener">掘金链接</a><br>angularjs常用函数：$apply,$watch和$digest<br>$digest是一个内部函数，正常的代码都是无法应用到的，想要主动触发他，就要调用scope.$apply函数，是触发angularjs”脏检查机制”的常用公开接口，$digest循环包括2个while循环，分别是，处理$evalAsync的异步运算队列，处理$watch的watchers队列，当该循环触发后，会遍历当前$scope及其所有的子$scope上已经注册的所有watcher函数，遍历一遍所有的watcher被称为一轮脏检查，执行完一轮脏检查后，如果任何一个watcher所监听的值改变了，就会重新再进行一轮脏检查，直到所有的函数都报告其所监听的值都不再改变了。当循环结束后，才把模型的变化结果更新到DOM上去，这样做是为了防止频繁的更新。<br>表达式，angularjs不仅会渲染该数据，还会为这个值创建创建一个观察序列，之后，只要程序发生了任何事情，angularjs就会检查该观察过程中的值是否发生了修改，如果有，重新呈现表达式，运行这些观察者的过程称为脏检查。</p>
+<h3 id="angular2-双向绑定机制"><a href="#angular2-双向绑定机制" class="headerlink" title="angular2 双向绑定机制"></a>angular2 双向绑定机制</h3><p>angularjs是由$scope.apply()和$scope.digest触发，angular2接入了Zonejs,监听所有的异步事件，<strong>zonejs</strong>重写了所有的异步API,<br>监听异步api,当异步api发生变化，通知angular以组件树的形式进行检查。<br>zonejs会通知angularjs可能有数据发生变化，需要检测更新。<br>脏检查就是存储变量所有的值，每当可能的值发生变化的时候，将所有变量的旧值和新值进行比较，不相等就更新视图。</p>
+<p>angular js采用脏检查。而<strong>angular</strong>的核心是组件化，组件的嵌套会形成一棵树。angular的变化检测可以按组件进行，每个组件有相应的变化检测器changeDetector,可想而知，这些变化检测器也会构成一棵树。<br>angular数据流是自顶向下的，从父组件到子组件单向流动。单向数据流向保证了高效、可预测的变化检测，尽管检查了负组件之后，自组件可能会改变父组件的数据使得父组件需要再次被检查，这是不被推荐的数据处理方式。在开发模式下，Angular会进行二次检查，如果出现上述情况，二次检查就会报错：ExpressionChangedAfterItHasBeenCheckedError（关于这个问题的答案，可以在参考资料中找到）。而在生产环境中，脏检查只会执行一次。</p>
+<h3 id="vue-js与angular-js区别"><a href="#vue-js与angular-js区别" class="headerlink" title="vue js与angular js区别"></a>vue js与angular js区别</h3><p>vue js更加灵活，比起angular更少专制，能够按照自己想要的方式构建应用，而非凡事都得按照vue的方法。它只不过是一层界面而已，因此你可以拿它作为页面中一个轻量的功能来使用，而不是一个完整的 SPA。<br>vue 仅仅是一个view层，只是一个如jquery搬的工具库，而angular是一个mvvm框架。<br>vue 使用数据劫持，object.defineProperty来实现，angular使用自己实现的一套模板编译规则。”脏检查机制”,来实现。相对来说vue性能更高。<br>vue 需要提供一个el对象并且进行实例化，后续所有作用范围都在el对象之下，而angular是整个html页面，一个页面，可以有多个vue实例，而angular不是这样的。</p>
+<h3 id="angular常见面试题"><a href="#angular常见面试题" class="headerlink" title="angular常见面试题"></a>angular常见面试题</h3><p><a href="https://blog.csdn.net/qq_34543438/article/details/72793622" target="_blank" rel="noopener">链接1</a><br><a href="https://juejin.im/entry/5878551b570c3500620e5181" target="_blank" rel="noopener">链接2</a></p>
 
       
     </div>
@@ -362,7 +376,7 @@
           
             <a href="/tags/面试/" rel="tag"># 面试</a>
           
-            <a href="/tags/angularjs脏检查/" rel="tag"># angularjs脏检查</a>
+            <a href="/tags/angularjs脏检查-基本概念/" rel="tag"># angularjs脏检查 基本概念</a>
           
         </div>
       
@@ -439,8 +453,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -457,7 +480,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -502,6 +525,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#angular-js脏检查机制"><span class="nav-number">2.</span> <span class="nav-text">angular js脏检查机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理："><span class="nav-number">3.</span> <span class="nav-text">原理：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脏检查的实现："><span class="nav-number">4.</span> <span class="nav-text">脏检查的实现：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#触发脏检查时间"><span class="nav-number">5.</span> <span class="nav-text">触发脏检查时间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双向数据绑定"><span class="nav-number">6.</span> <span class="nav-text">双向数据绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#angular2-双向绑定机制"><span class="nav-number">7.</span> <span class="nav-text">angular2 双向绑定机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-js与angular-js区别"><span class="nav-number">8.</span> <span class="nav-text">vue js与angular js区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#angular常见面试题"><span class="nav-number">9.</span> <span class="nav-text">angular常见面试题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
