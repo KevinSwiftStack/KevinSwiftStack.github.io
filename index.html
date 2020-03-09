@@ -249,6 +249,328 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/08/setState原理解析/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/03/08/setState原理解析/" itemprop="url">setState原理解析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-08T22:51:22+08:00">
+                2020-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>setState是一个合成事件，react为了解决跨平台，兼容性问题，自己封装了一套事件机制，代理了原生的事件，像在jsx中常见的onClick、onChange这些都是合成事件。<br>在一个事件handler中，不管setState会调用多少次，他们也会在函数执行后执行，<strong>被归结为一次渲染</strong><br>可以优化性能, 这个等到最后一起执行的行为被称为batching。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">//假设现在this.state.value = 0;</span><br><span class="line"> </span><br><span class="line">function eventHandler()&#123;</span><br><span class="line">    this.setState(&#123;value:this.state.value + 1&#125;);</span><br><span class="line">    this.setState(&#123;value:this.state.value + 1&#125;);</span><br><span class="line">    this.setState(&#123;value:this.state.value + 1&#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//最后this.state.value仍然会是1，不是3;</span><br></pre></td></tr></table></figure></p>
+<p>所以这时候要更新的话，应该传入一个函数给setState,这个函数有2个参数，第一个是previousState,第二个为props.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 假设 this.state = &#123; value: 0 &#125;;</span><br><span class="line"> </span><br><span class="line">function eventHandler()&#123;</span><br><span class="line">    this.setState((state) =&gt; (&#123; value: state.value + 1&#125;));</span><br><span class="line">    this.setState((state) =&gt; (&#123; value: state.value + 1&#125;));</span><br><span class="line">    this.setState((state) =&gt; (&#123; value: state.value + 1&#125;));</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">//现在this.state.value === 3;</span><br></pre></td></tr></table></figure></p>
+<p>当setState不在事件handler中，而在一个回调中，这样的batching异步就不会发生<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">promise.then(() =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  // 不在事件函数中，所以setState立刻执行</span><br><span class="line">  this.setState(&#123;a: true&#125;); // 重新渲染 &#123;a: true, b: false &#125;</span><br><span class="line">  this.setState(&#123;b: true&#125;); // 重新渲染 &#123;a: true, b: true &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>####batchUpdate<br>batchUpdate的本质是一个批量更新</p>
+<p>Batch Update 即「批量更新」。在 MV* 框架中，Batch Update 可以理解为将一段时间内对 model 的修改批量更新到 view 的机制。以 React 为例，我们在 componentDidMount 生命周期连续调用 setState ：<br>React中的batch update是通过一个事务机制来实现的。<br>Transaction对一个函数进行包装，让react有机会在一个函数运行前后执行特定的逻辑。从而完成整个 Batch Update 流程的控制。<br>在事务初始化状态，一个update Queue被创建，调用setState方法的时候，不会马上跟新。而是被推入update Queue当中。当执行结束后会执行queue的flush操作，进行setState赋值。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/css浮动/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/08/css浮动/" itemprop="url">css浮动</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-08T19:52:54+08:00">
+                2020-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>(图文详细)最通俗易懂的CSS 浮动float属性详解<br>声明：本文属于搬砖大神的文章到自己的博客上，原文地址为：<a href="https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html" target="_blank" rel="noopener">https://www.cnblogs.com/iyangyuan/archive/2013/03/27/2983813.html</a></p>
+<p><strong>教程开始：</strong></p>
+<p>首先要知道，div是块级元素，在页面中独占一行，自上而下排列，也就是传说中的流。如下图：</p>
+<p><img src="https://img-blog.csdn.net/20180818160643457?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>可以看出，即使div1的宽度很小，页面中一行可以容下div1和div2，div2也不会排在div1后边，因为div元素是独占一行的。</p>
+<p>注意，以上这些理论，是指标准流中的div。<br>小菜认为，无论多么复杂的布局，其基本出发点均是：<strong>“如何在一行显示多个div元素”。</strong><br>显然标准流已经无法满足需求，这就要用到浮动。</p>
+<p><strong>浮动可以理解为让某个div元素脱离标准流，漂浮在标准流之上，和标准流不是一个层次。</strong></p>
+<p>例如，假设上图中的div2浮动，那么它将脱离标准流，但div1、div3、div4仍然在标准流当中，所以div3会自动向上移动，占据div2的位置，重新组成一个流。如图：</p>
+<p><img src="https://img-blog.csdn.net/20180818160910520?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>从图中可以看出，由于对div2设置浮动，因此它不再属于标准流，div3自动上移顶替div2的位置，div1、div3、div4依次排列，成为一个新的流。又因为浮动是漂浮在标准流之上的，因此div2挡住了一部分div3，div3看起来变“矮”了。</p>
+<p>这里div2用的是左浮动(float:left;)，可以理解为漂浮起来后靠左排列，右浮动(float:right;)当然就是靠右排列。这里的靠左、靠右是说页面的左、右边缘。</p>
+<p>如果我们把div2采用右浮动，会是如下效果：</p>
+<p><img src="https://img-blog.csdn.net/20180818161012369?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>此时div2靠页面右边缘排列，不再遮挡div3，读者可以清晰的看到上面所讲的div1、div3、div4组成的流。</p>
+<p>目前为止我们只浮动了一个div元素，多个呢？</p>
+<p>下面我们把div2和div3都加上左浮动，效果如图：</p>
+<p><img src="https://img-blog.csdn.net/20180818161114199?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>同理，由于div2、div3浮动，它们不再属于标准流，因此div4会自动上移，与div1组成一个“新”标准流，而浮动是漂浮在标准流之上，因此div2又挡住了div4。</p>
+<p>咳咳，到重点了，当同时对div2、div3设置浮动之后，div3会跟随在div2之后，不知道读者有没有发现，一直到现在，div2在每个例子中都是浮动的，但并没有跟随到div1之后。因此，我们可以得出一个重要结论：</p>
+<p><strong>假如某个div元素A是浮动的，如果A元素上一个元素也是浮动的，那么A元素会跟随在上一个元素的后边(如果一行放不下这两个元素，那么A元素会被挤到下一行)；如果A元素上一个元素是标准流中的元素，那么A的相对垂直位置不会改变，也就是说A的顶部总是和上一个元素的底部对齐。</strong></p>
+<p>div的顺序是HTML代码中div的顺序决定的。<br>靠近页面边缘的一端是前，远离页面边缘的一端是后。</p>
+<p>为了帮助读者理解，再举几个例子。</p>
+<p>假如我们把div2、div3、div4都设置成<strong>左</strong>浮动，效果如下：</p>
+<p><img src="https://img-blog.csdn.net/20180818161638539?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>根据上边的结论，跟着小菜理解一遍：先从div4开始分析，它发现上边的元素div3是浮动的，所以div4会跟随在div3之后；div3发现上边的元素div2也是浮动的，所以div3会跟随在div2之后；而div2发现上边的元素div1是标准流中的元素，因此div2的相对垂直位置不变，顶部仍然和div1元素的底部对齐。</p>
+<p>由于是左浮动，左边靠近页面边缘，所以左边是前，因此div2在最左边。</p>
+<p>假如把div2、div3、div4都设置成<strong>右</strong>浮动，效果如下：</p>
+<p><img src="https://img-blog.csdn.net/20180818161745402?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>道理和左浮动基本一样，只不过需要注意一下前后对应关系。由于是右浮动，因此右边靠近页面边缘，所以右边是前，因此div2在最右边。</p>
+<p>假如我们把div2、div4左浮动，效果图如下：</p>
+<p><img src="https://img-blog.csdn.net/20180818161848884?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>依然是根据结论，div2、div4浮动，脱离了标准流，因此div3将会自动上移，与div1组成标准流。div2发现上一个元素div1是标准流中的元素，因此div2相对垂直位置不变，与div1底部对齐。div4发现上一个元素div3是标准流中的元素，因此div4的顶部和div3的底部对齐，并且总是成立的，因为从图中可以看出，div3上移后，div4也跟着上移，<strong>div4总是保证自己的顶部和上一个元素div3(标准流中的元素)的底部对齐。</strong></p>
+<p>至此，恭喜读者已经掌握了添加浮动，但还有清除浮动，有上边的基础清除浮动非常容易理解。</p>
+<p>经过上边的学习，可以看出：元素浮动之前，也就是在标准流中，是竖向排列的，而浮动之后可以理解为横向排列。</p>
+<p><strong>清除浮动可以理解为打破横向排列。</strong></p>
+<p>定义非常容易理解，但是读者实际使用时可能会发现不是这么回事。<br>定义没有错，只不过它描述的太模糊，让我们不知所措。</p>
+<p>根据上边的基础，假如页面中只有两个元素div1、div2，它们都是左浮动，场景如下：</p>
+<p><img src="https://img-blog.csdn.net/20180818162123503?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>此时div1、div2都浮动，根据规则，div2会跟随在div1后边，但我们仍然希望div2能排列在div1下边，就像div1没有浮动，div2左浮动那样。</p>
+<p>这时候就要用到清除浮动（clear），如果单纯根据官方定义，读者可能会尝试这样写：在div1的CSS样式中添加clear:right;，理解为不允许div1的右边有浮动元素，由于div2是浮动元素，因此会自动下移一行来满足规则。</p>
+<p>其实这种理解是不正确的，这样做没有任何效果。看小菜定论：<br>对于CSS的清除浮动(clear)，一定要牢记：这个规则只能影响使用清除的元素本身，不能影响其他元素。</p>
+<p>怎么理解呢？就拿上边的例子来说，我们是想让div2移动，但我们却是在div1元素的CSS样式中使用了清除浮动，试图通过清除div1右边的浮动元素(clear:right;)来强迫div2下移，这是不可行的，因为这个清除浮动是在div1中调用的，它只能影响div1，不能影响div2。</p>
+<p>根据小菜定论，要想让div2下移，就必须在div2的CSS样式中使用浮动。本例中div2的左边有浮动元素div1，因此只要在div2的CSS样式中使用clear:left;来指定div2元素左边不允许出现浮动元素，这样div2就被迫下移一行。</p>
+<p><img src="https://img-blog.csdn.net/20180818162420566?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>那么假如页面中只有两个元素div1、div2，它们都是右浮动呢？读者此时应该已经能自己推测场景，如下：</p>
+<p><img src="https://img-blog.csdn.net/20180818162434164?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>此时如果要让div2下移到div1下边，要如何做呢？</p>
+<p>同样根据小菜定论，我们希望移动的是div2，就必须在div2的CSS样式中调用浮动，因为浮动只能影响调用它的元素。</p>
+<p>可以看出div2的右边有一个浮动元素div1，那么我们可以在div2的CSS样式中使用<code>clear:right;</code>来指定div2的右边不允许出现浮动元素，这样div2就被迫下移一行，排到div1下边。</p>
+<p><img src="https://img-blog.csdn.net/20180818162604851?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NTk1MDEz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"></p>
+<p>至此，读者已经掌握了CSS+DIV浮动定位基本原理，足以应付常见的布局。</p>
+<p>其实，万变不离其宗，只要读者用心体会，再复杂的布局都可以通过小菜总结的规律搞定。</p>
+<p><strong>写在后面的话：</strong></p>
+<p>必须严正声明，CSS这块极其混乱，尤其是浏览器的兼容性问题，小菜水平有限，本文很可能有不当之处，望读者见谅。</p>
+<p>其实真不想写这么长的文章，可为了读者能够理解，总是不由自主的想多举些例子。</p>
+<p>为了减轻读者心理压力，本文没有任何CSS、HTML代码，因为现在很多教程上来就是一大堆CSS代码，看到就烦，别说细读了。</p>
+<p>最后预祝读者阅读愉快，开心掌握知识。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/13/nodejs中的垃圾回收机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1470,298 +1792,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/06/offset-scroll-client了解/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/06/offset-scroll-client了解/" itemprop="url">offset,scroll,client了解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-06T09:41:50+08:00">
-                2019-09-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.offset<br>offset指偏移，包括这个元素在文档中占用的<strong>所有显示宽度，包括滚动条，padding,border,不包括overflow隐藏的部分。</strong><br>obj.offsetWidth，指obj控件自身的绝对宽度。不包括overflow未显示的部分<br>obj.offsetHeight,只obj控件自身的绝对高度。不包括overflow未显示的部分<br>obj.offsetTop,指obj相对于版面或由offsetParent属性指定的父坐标的计算上的侧位置<br>obj.offsetLeft 指 obj 相对于版面或由 offsetParent 属性指定的父坐标的计算左侧位置，整型，单位：像素。<br>2.scroll<br>scroll指滚动，包括<strong>整个元素没显示出来的实际宽度，包括padding,不包括滚动条，border</strong><br>scrollHeight 获取对象的滚动高度，对象的实际高度。<br>scrollLeft 设置或者获取位于对象左边界和窗口中目前可见内容的最左端之间的距离<br>scrollTop 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离<br>scrollWidth 获取对象的滚动宽度<br>3.client<br>client指元素本身的<strong>可视内容</strong>,不包括overflow被折叠起来的部分，不包括滚动条，border<br>clientHeight 对象可见的高度<br>clientTop、clientLeft 这两个返回的是元素周围边框的厚度，一般它的值就是0。因为滚动条不会出现在顶部或者左侧</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/13/js中的this/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/08/13/js中的this/" itemprop="url">js中的this</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-13T19:46:16+08:00">
-                2019-08-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="https://juejin.im/post/5d51feaef265da039005219e" target="_blank" rel="noopener">参考博客</a><br>js中的this,表示函数的当前执行上下文，js中函数调用主要有以下几种方式，<br>函数调用 alert(‘hello world’);<br>方法调用 console.log(‘hello world’);<br>构造函数 new RegExp(‘\d’)<br>隐式调用 alert.call(undefined,’hello world’)<br>理解this的关键是要清楚知道函数的调用以及如何影响上下文<br>函数表达式 表示定义函数并且在其中使用<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function hello(name)&#123;</span><br><span class="line">    return &apos;hello&apos; + name;</span><br><span class="line">&#125;</span><br><span class="line">hello(&quot;ckq&quot;);</span><br></pre></td></tr></table></figure></p>
-<p>1.在函数调用中的this<br><strong>this在函数调用中是一个全局对象</strong><br>对象是由执行环境来决定的，在浏览器中，this是window对象<br>严格模式下的this<br>this在严格模式的函数调用中为undefined<br>严格模式是在ecs5中引入的，提供了更好的安全性和更强的类型检查。<br>2.方法调用<br>当一个表达式以属性访问的形式来执行时，执行的是方法调用，<br>例如myObject.helloFunction(),[1,2].join(‘,’);<br>在方法调用中，this是拥有这个方法的对象<br>object.create也是创建一个对象，调用的上下文仍然是对象本身<br>在es6的语法中，方法调用的上下文也是实例本身</p>
-<p>陷阱：将方法与其对象分离<br>方法可以从对象中提取到一个单独的变量中，<br>const alone = myObj.method;<br>当方法调用的时候，与原始对象alone分离，如果方法在没有对象的情况下调用，那么函数调用就会发生，此时this指向全局对象window,严格模式下是undefined.<br>3.构造函数调用，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function country(name,travel)&#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.travel = travel;</span><br><span class="line">&#125;</span><br><span class="line">country.travel = function() &#123;</span><br><span class="line">    this.travel = true;</span><br><span class="line">&#125;</span><br><span class="line">const frace = new country(&apos;france&apos;;false);</span><br></pre></td></tr></table></figure></p>
-<p>new City(‘paris’,false);是构造函数的调用，这个对象的初始化由这个类中一个特殊的方法constructor来处理，this指向新创建的对象<br>构造函数创建了一个新的空的对象，它从构造函数的原型继承了属性。构造函数的作用就是去初始化这个对象。 可能你已经知道了，在这种类型的调用中，上下文指向新创建的实例。<br>myobject.fun()时会执行构造函数的调用而不是方法调用<br>在构造函数调用中this指向新创建的对象<br>当忘记new的时候，在函数调用中,this是window对象，因此 Vehicle（’Car’，4）在window对象上设置属性。 显然这是错误，它并没有创建新对象<br>5 隐式调用<br>使用myFun.call()或者myFun.apply()方法调用函数的时候，执行的是隐式调用<br>对象的类型是function,.call()和.apply调用具有可配置的上下文的函数</p>
-<p>方法 .call(thisArg[, arg1[, arg2[, …]]])将接受的第一个参数thisArg作为调用时的上下文，arg1, arg2, …这些则作为参数传入被调用的函数。<br>方法.apply(thisArg, [args])将接受的第一个参数thisArg作为调用时的上下文，并且接受另一个类似数组的对象[arg1, arg2, …]作为被调用函数的参数传入。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function increment(number)&#123;</span><br><span class="line">    return ++number;</span><br><span class="line">&#125;</span><br><span class="line">increment.call(undefined,10); //11</span><br><span class="line">increment.apply(undefined,[10]); //11</span><br></pre></td></tr></table></figure></p>
-<p>隐式调用非常有用。例如为了解决方法调用时，this总是window或严格模式下的undefined的上下文问题。隐式调用可以模拟在一个对象上调用另外某个方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">    function Runner(str) &#123;</span><br><span class="line">       return str +  this.name;</span><br><span class="line">    &#125;</span><br><span class="line">    var rabbit = &#123;name:&apos;white &apos;&#125;;</span><br><span class="line">console.log(Runner.call(rabbit,&quot;ccc&quot;));</span><br></pre></td></tr></table></figure></p>
-<p>.bind()创建一个永久的上下文连接，并且始终保持它，一个函数不能通过.call或者.apply来改变它的上下文，甚至是再次绑定也没什么作用<br>6.箭头函数<br>箭头函数用以更短的形式声明函数，并在词法上绑定上下文，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const hello = (name) =&gt; &#123;</span><br><span class="line">    return &apos;hello&apos; + name;</span><br><span class="line">&#125;</span><br><span class="line">hello(&apos;world&apos;);</span><br></pre></td></tr></table></figure></p>
-<p>箭头函数是匿名的，这意味着name属性是一个空字符串’’;跟常规函数也相反，也不提供arguments对象。但是,在es6中通过剩余参数修复了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const sumArguments = (...args) =&gt; &#123;</span><br><span class="line">    return args.reduce((result,item) =&gt; &#123;</span><br><span class="line">        result + item;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>**注意，箭头函数不会创建自己的上下文，而是从定义他的外部来获取上下文，换句话说，箭头函数在词汇上获取上下文。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">this;</span><br><span class="line">var myFunc = () =&gt; &#123;</span><br><span class="line">    this;</span><br><span class="line">&#125;</span><br><span class="line">myFunc();</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1814,7 +1844,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1877,7 +1907,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
