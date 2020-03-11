@@ -461,6 +461,177 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/笔试笔记/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KevinSwift">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KevinSwift">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/16/笔试笔记/" itemprop="url">笔试笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T20:13:27+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/" itemprop="url" rel="index">
+                    <span itemprop="name">js相关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/css相关/" itemprop="url" rel="index">
+                    <span itemprop="name">css相关</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/js相关/css相关/html相关/" itemprop="url" rel="index">
+                    <span itemprop="name">html相关</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.实现如下布局<br><img src="/writenExp/1.png" width="50%" height="50%"><br>注意header,footer,content的划分和命名规范，flex布局，和当容器设置为父容器的百分号时，注意设置body和html的 body html{margin:0;height:100%}<br>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body&#123;</span><br><span class="line">    height: 100%;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-direction: column;</span><br><span class="line">&#125;</span><br><span class="line">html &#123;</span><br><span class="line"></span><br><span class="line">    margin:0 auto;</span><br><span class="line"></span><br><span class="line">    padding:0;</span><br><span class="line"></span><br><span class="line">    height: 100%;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.header&#123;</span><br><span class="line"></span><br><span class="line">    border: solid 1px green;</span><br><span class="line">    height:100px;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: space-between;</span><br><span class="line">&#125;</span><br><span class="line">.leftLogo&#123;</span><br><span class="line">    margin: 10px 0px 10px 10px;</span><br><span class="line">    width: 80px;</span><br><span class="line">    border: solid 1px red;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.rightUserName&#123;</span><br><span class="line">    border: solid 1px black;</span><br><span class="line">    text-align: right;</span><br><span class="line">    width: 100px;</span><br><span class="line">    margin: 60px 10px 0px 0px;</span><br><span class="line">    height: 20px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.content&#123;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">    display: flex;</span><br><span class="line">    flex-grow: 1;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.leftContent&#123;</span><br><span class="line">    flex-grow:1 ;</span><br><span class="line">    border: solid 1px red;</span><br><span class="line">    margin-right: 10px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.aside&#123;</span><br><span class="line">    width:200px;</span><br><span class="line">    height: 20px;</span><br><span class="line">    border: solid 1px red;</span><br><span class="line">    text-align: left;</span><br><span class="line">&#125;</span><br><span class="line">.footer&#123;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">    border:solid 1px black;</span><br><span class="line">    text-align: center;</span><br><span class="line">    height: 20px;</span><br><span class="line">&#125;</span><br><span class="line">.triangle-down&#123;</span><br><span class="line">    width:0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-left: 5px solid transparent;</span><br><span class="line">    border-right: 5px solid transparent;</span><br><span class="line">    border-bottom: 5px solid black;</span><br><span class="line">&#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;triangle-down&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>参考网站<br><a href="https://blog.csdn.net/carrybest/article/details/54286137" target="_blank" rel="noopener">html body设置宽高</a><br><a href="https://www.cnblogs.com/dreamperson/p/9367008.html" target="_blank" rel="noopener">flex布局</a><br>2.实现如下函数：<br>uniqueryfy([1,0,0]) 返回[1,0]<br>uniquerfy([{id:1,name:1},{id:1,name:2}],a =&gt; a.id)返回[{id:1,name:1}]<br>后面是过滤的规则 或者为 a =&gt; a.sex + a.name<br>方法：使用set的方法来做<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function uniquery(arr,rules) &#123;</span><br><span class="line">     if(rules == null)&#123; //判断rule为空的情况下</span><br><span class="line">         var set = new Set();</span><br><span class="line">         arr.forEach(function (item,index,arr) &#123;</span><br><span class="line">             if(!set.has(item))</span><br><span class="line">                 set.add(item);</span><br><span class="line">         &#125;)</span><br><span class="line">         return Array.from(set);//伪数组的转变 将set转化为数组</span><br><span class="line">     &#125;else&#123;</span><br><span class="line">         //保存key 新的数组来保存所有的key和value</span><br><span class="line">         var set = new Set();</span><br><span class="line">         var newArr = [];</span><br><span class="line">         arr.forEach(function (item,index,arr) &#123;</span><br><span class="line">             var key = rules(item);</span><br><span class="line">             if(!set.has(key))&#123;</span><br><span class="line">                 set.add(key);</span><br><span class="line">                 newArr.push(item);</span><br><span class="line">             &#125;</span><br><span class="line"></span><br><span class="line">         &#125;)</span><br><span class="line">         return newArr;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.<br><img src="/writenExp/03.jpeg" width="50%" height="50%"><br>三角形的绘制可以通过border来 transparent设置两边为透明即可了。<br><a href="https://www.jianshu.com/p/9a463d50e441" target="_blank" rel="noopener">三角形绘制参考网站</a><br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head lang=&quot;en&quot;&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">.total&#123;</span><br><span class="line">    width:100px;</span><br><span class="line">&#125;</span><br><span class="line">.top&#123;</span><br><span class="line">    background: black;</span><br><span class="line">    color: white;</span><br><span class="line">    width: 100px;</span><br><span class="line">    display: flex;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">.trangle-down&#123;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-top: 5px solid white;</span><br><span class="line">    border-left: 5px solid transparent;</span><br><span class="line">    border-right: 5px solid transparent;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.content-top&#123;</span><br><span class="line">    background: white;</span><br><span class="line">    color: red;</span><br><span class="line">    display: flex;</span><br><span class="line">    width: 100px;</span><br><span class="line">&#125;</span><br><span class="line">.trangle-up&#123;</span><br><span class="line">    width: 0;</span><br><span class="line">    height: 0;</span><br><span class="line">    border-bottom: 5px solid red;</span><br><span class="line">    border-left: 5px solid transparent;</span><br><span class="line">    border-right: 5px solid transparent;</span><br><span class="line">    margin-top: 10px;</span><br><span class="line">&#125;</span><br><span class="line">.content&#123;</span><br><span class="line">    display: none;</span><br><span class="line">&#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;total&quot; onmouseleave=&quot;closeMenu()&quot;&gt;</span><br><span class="line">&lt;div class=&quot;top&quot; onmouseenter=&quot;opemMenu()&quot;&gt;</span><br><span class="line">    客户服务</span><br><span class="line">    &lt;div class=&quot;trangle-down&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;content&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content-top&quot;&gt;</span><br><span class="line">        客户服务</span><br><span class="line">        &lt;div class=&quot;trangle-up&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">        &lt;div&gt;联系客户&lt;/div&gt;</span><br><span class="line">        &lt;div&gt;帮助中心&lt;/div&gt;</span><br><span class="line">        &lt;div&gt;联系客户&lt;/div&gt;</span><br><span class="line">        &lt;div&gt;联系客户&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function opemMenu() &#123;</span><br><span class="line">        (document.getElementsByClassName(&quot;content&quot;)[0]).style.display = &quot;block&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    function closeMenu() &#123;</span><br><span class="line">        (document.getElementsByClassName(&quot;content&quot;)[0]).style.display = &quot;none&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>4.实现如下函数，今天是小明生日，他希望知道余下还剩下多少时间，<br><span id="clock"></span><br>要求：<br>1.使用原生js<br>2.时间格式 时：分：秒<br>3.自动补全2位，06:06:06<br>4.过了凌晨12点，时钟自动停止<br>代码如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;span id = &quot;clock&quot;&gt;&lt;/span&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">    function PrefixInteger(num, n) &#123;</span><br><span class="line">        return (Array(n).join(0) + num).slice(-n);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   var interval =  setInterval(function () &#123;</span><br><span class="line">        var curDate = new Date(); //获取当前时间</span><br><span class="line">        var nextDate = new Date(curDate.getTime() + 24 * 60 * 60 * 1000);  //获取下一天</span><br><span class="line">        var next = new Date(nextDate.getFullYear(),nextDate.getMonth(),nextDate.getDate());//获取下一天的0时刻</span><br><span class="line">        var time = next - curDate; //求得时间差</span><br><span class="line">        var hours =(parseInt((time %(1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));</span><br><span class="line">        var minutes = parseInt((time % (1000 * 60 * 60)) / (1000 * 60));</span><br><span class="line">        var seconds = parseInt((time % (1000 * 60)) / 1000);</span><br><span class="line">       if(hours == 0 &amp;&amp; minutes == 0 &amp;&amp; seconds == 0) //如果都为0了 说明到头了 就清除</span><br><span class="line">         clearInterval(interval);</span><br><span class="line">       var str = &quot;&quot;;</span><br><span class="line">            str += PrefixInteger(hours, 2) + &quot;:&quot;; //补全</span><br><span class="line">            str += PrefixInteger(minutes, 2) + &quot;:&quot;;</span><br><span class="line">            str += PrefixInteger(seconds, 2);</span><br><span class="line"></span><br><span class="line">        document.getElementById(&quot;clock&quot;).innerText = str;</span><br><span class="line">    &#125;,1000);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure></p>
+<p>5.实现如下页面布局<br>已知header,footer高度为48px,宽度为100%,aside宽度均为320px,实现该布局<br><img src="/writenExp/04.jpg" width="50%" height="50%"><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">    html &#123;</span><br><span class="line"></span><br><span class="line">        margin:0;</span><br><span class="line"></span><br><span class="line">        padding:0;</span><br><span class="line"></span><br><span class="line">        height: 100%;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    body&#123;</span><br><span class="line">        height: 100%;</span><br><span class="line">        display: flex;</span><br><span class="line">        flex-direction: column;</span><br><span class="line">    &#125;</span><br><span class="line">    .header&#123;</span><br><span class="line">        background-color: blue;</span><br><span class="line"></span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        height: 48px;</span><br><span class="line">        flex-grow: 0;</span><br><span class="line">    &#125;</span><br><span class="line">    .footer&#123;</span><br><span class="line">        background-color: blue;</span><br><span class="line"></span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        height: 48px;</span><br><span class="line">        flex-grow: 0;</span><br><span class="line">    &#125;</span><br><span class="line">    .main&#123;</span><br><span class="line"></span><br><span class="line">        display: flex;</span><br><span class="line">        flex-grow: 1;</span><br><span class="line">    &#125;</span><br><span class="line">    .aside&#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        background-color: blue;</span><br><span class="line">        flex-grow: 0;</span><br><span class="line">        width: 320px;</span><br><span class="line">    &#125;</span><br><span class="line">    .content&#123;</span><br><span class="line">        flex-grow: 1;</span><br><span class="line">        display: flex;</span><br><span class="line">        justify-content: center;</span><br><span class="line">        align-items: center;</span><br><span class="line">        background-color: rebeccapurple;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div class=&quot;header&quot;&gt;</span><br><span class="line">    header</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;main&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;aside&quot;&gt;</span><br><span class="line">        aside</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        content</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;aside&quot;&gt;</span><br><span class="line">        aside</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;footer&quot;&gt;</span><br><span class="line">    footer</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>6.将函数fn的执行上下文改为obj,返回fn执行后的结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function HelloWorld(fn,obj) &#123;</span><br><span class="line">    return fn.call(obj);</span><br><span class="line">&#125;</span><br><span class="line">HelloWorld(</span><br><span class="line">    function() &#123;</span><br><span class="line">        return this.firstname + &apos;&apos; + this.lastname + &apos;|&apos;;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;firstname:&quot;hello&quot;,lastname:&quot;world&quot;&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>7.实现如下布局<br><img src="/writenExp/05.jpeg" width="50%" height="50%"><br><a href="https://www.cnblogs.com/daxiong/articles/3158630.html" target="_blank" rel="noopener">关键是三角形冒泡的实现</a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">    .tag&#123; width:500px; position:relative;border-radius: 5px&#125;</span><br><span class="line">    .tag em&#123;display:block; border-width:20px; position:absolute; bottom:150px; left:500px;border-style:solid  ; border-color: transparent  transparent transparent white;font-size:0; line-height:0;&#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body style=&quot;background-color: #666666&quot;&gt;</span><br><span class="line">&lt;div style=&quot;display: flex&quot;&gt;</span><br><span class="line">&lt;div class=&quot;tag&quot; style=&quot;width: 500px;background-color: white&quot;&gt;&lt;h1&gt;《倩女幽魂2.0》来看看我的&lt;br&gt;最新梦岛动态!&lt;/h1&gt;</span><br><span class="line">    &lt;em&gt;&lt;/em&gt;</span><br><span class="line">&lt;div style=&quot;display: flex&quot;&gt;</span><br><span class="line">&lt;p style=&quot;font-size: 25px;color: #999999&quot;&gt;上大神，发梦岛，不进游戏也能&lt;br&gt;撩！&lt;/p&gt;</span><br><span class="line">&lt;img src=&quot;https://nos.netease.com/hi-163-qn/upload/201909/04/ff2e1e80cef611e9a213af01a189a04b.png&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;img style=&quot;width: 150px;height: 150px;margin-left: 30px&quot; src=&quot;https://nos.netease.com/hi-163-qn/upload/201909/04/ff2e1e80cef611e9a213af01a189a04b.png&quot;&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>8.实现如下函数<br><img src="/writenExp/06.jpeg" width="50%" height="50%"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/浏览器缓存机制/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1838,160 +2009,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/01/jquery源码解析/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KevinSwift">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KevinSwift">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/06/01/jquery源码解析/" itemprop="url">jquery源码解析</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-01T09:47:32+08:00">
-                2019-06-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/jquery相关/" itemprop="url" rel="index">
-                    <span itemprop="name">jquery相关</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/jquery相关/js相关/" itemprop="url" rel="index">
-                    <span itemprop="name">js相关</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>jquery2.0以及后续版本将不再支持IE 6/7/8浏览器<br>jquery采用一个匿名构造函数立即执行的方法<br>整个模块化便是如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(function(global, factory)&#123;</span><br><span class="line">    if ( typeof module === &quot;object&quot; &amp;&amp; typeof module.exports === &quot;object&quot; ) &#123;</span><br><span class="line">    //模块化环境</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">        factory( global );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)(typeof window !== &quot;undefined&quot; ? window: this, function(window, noGlobal) &#123;</span><br><span class="line">    //回调函数</span><br><span class="line"></span><br><span class="line">    if ( typeof noGlobal === strundefined ) &#123;</span><br><span class="line">        window.jQuery = window.$ = jQuery;</span><br><span class="line">    &#125;</span><br><span class="line">    return jQuery;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>接收2个参数，global(当前执行作用域链的对象),factory(回调)<br>匿名函数：本身做了一个初始化的判断，判断当前js是否使用了模块化开发，。如果是再做一些相应的逻辑处理<br>回调函数：factory所有的jquery方法属性都是在这个回调函数里面实现的最后一行代码，就是向外暴露接口。<br>整体架构如下:<br><img src="/images/jquery1.jpg" width="50%" height="50%"><br>如今jQuery库，一共13个模块，模块不是单一的<br>jquery采用AMD进行模块化开发<br>可以分为五大模块，选择器，DOM操作，事件，ajax与动画，<br>jquery可以抽出共同的特性并且使之模块化。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2044,7 +2061,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">56</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2066,7 +2083,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">62</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
